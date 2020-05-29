@@ -1,25 +1,19 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-
+import Counter from './Route/Counter'
+import Label from './Components/Label';
+import Header from './Components/Header'
+import LabeledInput from './Components/LabeledInput'
+import AddPartnerModel from './Modals/AddPartnerModal'
+// import 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    // <Counter/>
+    //  <Button type={"disabled"}/>
+    //  <Label data={"hello sid"}/>
+    <AddPartnerModel/>
+    // <h1>app</h1>
   );
 }
 
