@@ -42,7 +42,7 @@ interface Props {
 
 }
 
-class AddPartnerModel extends React.Component {
+class EditPartnerModel extends React.Component {
 
     state = {
         partnerId: '',
@@ -177,7 +177,7 @@ class AddPartnerModel extends React.Component {
     render() {
         return (
             <StyledAddPartner>
-                <h1>Add Partner</h1>
+                <h1>Edit Partner</h1>
 
                 <Label data={"Partner Id: "} />
                 <Input
@@ -254,20 +254,7 @@ class AddPartnerModel extends React.Component {
                     Please enter valid mobile number
                  </ErrorMessage>
 
-                <Label data={"Short Code: "} />
-                <Input
-                    onChange={e => this.handleShortCodeChange(e.target.value)}
-                    onFocus={() =>
-                        this.setState({
-                            shortCodeError: false
-                        })}
-                    onBlur={() => { this.validateShortCodeChange() }}
-                    value={this.state.shortCode}
-                    type={this.state.shortCodeError}
-                />
-                 <ErrorMessage show={this.state.shortCodeError} className="error-message">
-                    Please enter valid short Code
-                 </ErrorMessage>
+               
 
                 <Button
                     type={''}
@@ -283,4 +270,4 @@ class AddPartnerModel extends React.Component {
     }
 };
 
-export default AddPartnerModel
+export default EditPartnerModel
