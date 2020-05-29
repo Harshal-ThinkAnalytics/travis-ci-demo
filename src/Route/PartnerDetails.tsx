@@ -1,6 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 import Table from "../Components/Table";
+import sendRequest from "../utils/sendRequest";
 
 
 const DetailsWrapper = styled.div`
@@ -27,6 +28,24 @@ button{
     font-size:18px;
 }}
 `
+
+const getData = async() =>{
+    try {
+        var response  = await sendRequest('/FetchB2BPartnerDetails', {},'GET')
+        console.log(response)
+        if (response.data.success){
+            return response.data.data
+        }
+        else{
+            console.log("Error in fetch partner details")
+            return []
+        }
+      } catch (error) {
+        console.log(error)
+        return []
+      }
+}
+
 export default class PartnerDetails extends React.Component {
     state = {
         addPartnerModal: false,
@@ -72,25 +91,20 @@ export default class PartnerDetails extends React.Component {
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
+        },
+        {
+            title: 'Active', field: 'active',
+            cellStyle: {
+                border: 'solid #f2f3f6 3px',
+            },
         }
 
     ]
-    data=[
-        {
-            PartnerId: '1', address: 'india', contactPerson: 'modi',
-            EmailId: 'ModiR@india', MobileNo: '999', ShortCode: 'dev'
-        },
-        {
-            PartnerId: '2', address: 'maha', contactPerson: 'thakare',
-            EmailId: 'thakare@india', MobileNo: '000', ShortCode: 'cm'
-        },
-        {
-            PartnerId: '3', address: 'maha', contactPerson: 'thakare',
-            EmailId: 'thakare@india', MobileNo: '000', ShortCode: 'cm'
-        },
-    ]
+    data=getData()
+    
 
     render() {
+        console.log("his is data",this.data);
         return (
             <DetailsWrapper>
                  <div className="topDiv">
@@ -102,7 +116,7 @@ export default class PartnerDetails extends React.Component {
                    }}>+ Add New Partner</button>
             </div>
             <div className="table">
-                <Table data={this.data}, columns={this.columns}, title="users"/>
+                <Table data={this.data} columns={this.columns} title={"users"}/>
             </div>
             </DetailsWrapper>
 

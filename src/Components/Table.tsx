@@ -19,8 +19,8 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 
 
 interface Props {
-    data: [];
-    columns:[];
+    data: any;
+    columns:any;
     title:string;
 }
 
