@@ -19,9 +19,9 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 
 
 interface Props {
-    data: [];
-    columns:[];
-    title:string;
+    data: any;
+    columns: any;
+    title: string;
 }
 
 const tableIcons = {

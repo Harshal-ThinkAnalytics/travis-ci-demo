@@ -102,7 +102,7 @@ export default class PartnerDetails extends React.Component {
                    }}>+ Add New Partner</button>
             </div>
             <div className="table">
-                <Table data={this.data}, columns={this.columns}, title="users"/>
+                <Table data={this.data} columns={this.columns} title={"users"}/>
             </div>
             </DetailsWrapper>
 
