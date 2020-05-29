@@ -39,9 +39,11 @@ button{
 `
 
 
+interface Props{
+    onAuthorize:any,
+}
 
-
-class AddPartnerModel extends React.Component {
+class AddPartnerModel extends React.Component<Props> {
 
     state = {
         partnerId: '',
@@ -271,7 +273,7 @@ class AddPartnerModel extends React.Component {
                 <Button
                     type={''}
                     // disabled={false}
-                    onClick={() => console.log("hello")}
+                    onClick={() => this.props.onAuthorize()}
                 >
                     Save
                 </Button>

@@ -15,7 +15,7 @@ const StyledLabel = styled.label`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0rem;
 `
 
 

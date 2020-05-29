@@ -52,7 +52,13 @@ export default class PartnerDetails extends React.Component {
                  onClose={''}
                 open={this.state.addPartnerModal}
                 >
-                   <AddPartnerModel/>
+                   <AddPartnerModel
+                   onAuthorize={()=>
+                       this.setState({
+                           addPartnerModal: false,
+                       })
+                   }
+                   />
                 </Modal>
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}
@@ -159,6 +165,7 @@ export default class PartnerDetails extends React.Component {
                             border: 'solid #f2f3f6 3px',
                             fontSize: '15px',
                             fontWeight: 'bold',
+                            position:'inherit',
                         },
                         rowStyle: {
                             backgroundColor: '#fff',
