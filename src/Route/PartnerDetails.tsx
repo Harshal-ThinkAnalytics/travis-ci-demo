@@ -59,9 +59,9 @@ export default class PartnerDetails extends React.Component {
                 <MaterialTable
                 
                     style={{
-                         display: "inline-block",
+                        //  display: "inline-block",
                         // zIndex:"0",
-                        //  position: "inherit",
+                         position: "inherit",
                         fontSize:"13px"
                         // fontFamily: '"Georgia", "Times New Roman", "Times", serif'
                     }}
