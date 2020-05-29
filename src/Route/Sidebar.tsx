@@ -56,7 +56,7 @@ export default class Sidebar extends React.Component {
                         <a href="#MapCharges">Map Charges To Scheme</a>
                     </div>
                 </SidebarWrapper>
-                    <PartnerDetails/>
+            <PartnerDetails />
             </div>
         )
     }

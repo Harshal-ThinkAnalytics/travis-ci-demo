@@ -4,6 +4,7 @@ import Label from "../Components/Label";
 import Input from "../Components/Input";
 import Button from '../Components/Button'
 import ErrorMessage from '../Components/ErrorMessage'
+
 const StyledAddPartner = styled.div`
   display: flex;
   flex-direction: column;
@@ -38,9 +39,7 @@ button{
 `
 
 
-interface Props {
 
-}
 
 class AddPartnerModel extends React.Component {
 
@@ -272,7 +271,7 @@ class AddPartnerModel extends React.Component {
                 <Button
                     type={''}
                     // disabled={false}
-                    onClick={() => { console.log("cliked") }}
+                    onClick={() => console.log("hello")}
                 >
                     Save
                 </Button>

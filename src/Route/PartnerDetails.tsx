@@ -6,7 +6,8 @@ import Edit from '@material-ui/icons/Edit';
 import { forwardRef } from 'react';
 import DeleteOutline from '@material-ui/icons/DeleteOutline';
 import Clear from '@material-ui/icons/Clear';
-
+import Modal from '../Components/Modal'
+import AddPartnerModel from '../Modals/AddPartnerModal'
 const DetailsWrapper = styled.div`
 margin-left:23rem;
 margin-right:4rem;
@@ -47,6 +48,12 @@ export default class PartnerDetails extends React.Component {
     render() {
         return (
             <DetailsWrapper>
+                <Modal
+                 onClose={''}
+                open={this.state.addPartnerModal}
+                >
+                   <AddPartnerModel/>
+                </Modal>
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}
                 <button onClick={() => {
