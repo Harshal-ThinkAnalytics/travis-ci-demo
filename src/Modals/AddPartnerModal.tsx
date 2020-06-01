@@ -83,6 +83,7 @@ class AddPartnerModel extends React.Component<Props> {
           } catch (error) {
             console.log(error)
           }
+          this.props.onAuthorize()
     }
 
 

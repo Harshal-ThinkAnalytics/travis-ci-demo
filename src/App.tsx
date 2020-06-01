@@ -9,6 +9,7 @@ import AddPartnerModel from './Modals/AddPartnerModal'
 import EditPartnerModel from './Modals/EditPartnerModal'
 import Sidebar from './Route/Sidebar'
 import PartnerDetails from './Route/PartnerDetails'
+import ProductDetails from './Route/ProductDetails'
 // import Header from './Components/Header'
 // import 
 function App() {
@@ -19,6 +20,7 @@ function App() {
     // <AddPartnerModel/>
     // <EditPartnerModel/>
     <div>
+      <ProductDetails/>
     <Header/>
     <Sidebar/>
     </div>
