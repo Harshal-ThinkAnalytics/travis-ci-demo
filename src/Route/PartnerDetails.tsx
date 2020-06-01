@@ -29,22 +29,6 @@ button{
 }}
 `
 
-const getData = async() =>{
-    try {
-        var response  = await sendRequest('/FetchB2BPartnerDetails', {},'GET')
-        console.log(response)
-        if (response.data.success){
-            return response.data.data
-        }
-        else{
-            console.log("Error in fetch partner details")
-            return []
-        }
-      } catch (error) {
-        console.log(error)
-        return []
-      }
-}
 
 export default class PartnerDetails extends React.Component {
     state = {
@@ -52,10 +36,11 @@ export default class PartnerDetails extends React.Component {
         editPartnerModal: false,
         icon: null,
         index: "0",
+        data:[]
     }
     columns=[
         {
-            title: 'Partner Id', field: 'PartnerId',
+            title: 'Partner Id', field: 'partner_id',
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
@@ -68,26 +53,26 @@ export default class PartnerDetails extends React.Component {
             },
         },
         {
-            title: 'Contact Person', field: 'contactPerson',
+            title: 'Contact Person', field: 'contact_person_name',
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
             // type: 'numeric'
         },
         {
-            title: 'Email Id', field: 'EmailId',
+            title: 'Email Id', field: 'email_id',
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
         },
         {
-            title: 'Mobile No', field: 'MobileNo',
+            title: 'Mobile No', field: 'mobile_number',
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
         },
         {
-            title: 'Short Code', field: 'ShortCode',
+            title: 'Short Code', field: 'short_code',
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
@@ -100,11 +85,24 @@ export default class PartnerDetails extends React.Component {
         }
 
     ]
-    data=getData()
-    
+    getData = async() =>{
+        try {
+            var response  = await sendRequest('/FetchB2BPartnerDetails', {},'GET')
+            console.log(response)
+            if (response.data.success){
+                this.setState({data:response.data.data})
+            }
+            else{
+                console.log("Error in fetching data.")
+            }
+          } catch (error) {
+            console.log(error)
+          }
+    }
 
     render() {
-        console.log("his is data",this.data);
+        console.log("This is data",this.state.data);
+        this.getData()
         return (
             <DetailsWrapper>
                  <div className="topDiv">
@@ -116,7 +114,7 @@ export default class PartnerDetails extends React.Component {
                    }}>+ Add New Partner</button>
             </div>
             <div className="table">
-                <Table data={this.data} columns={this.columns} title={"users"}/>
+                <Table data={this.state.data} columns={this.columns} title={"users"}/>
             </div>
             </DetailsWrapper>
 
