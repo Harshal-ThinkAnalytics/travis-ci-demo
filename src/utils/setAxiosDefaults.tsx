@@ -6,6 +6,7 @@ const setAxiosDefaults = () => {
   axios.defaults.baseURL = BASE_URL
   axios.defaults.withCredentials = true
 
+
   // axios.interceptors.request.use(config => {
   //   if (VendorService.token) {
   //     config.headers['Auth'] = VendorService.token

@@ -4,6 +4,7 @@ import Label from "../Components/Label";
 import Input from "../Components/Input";
 import Button from '../Components/Button'
 import ErrorMessage from '../Components/ErrorMessage'
+import sendRequest from "../utils/sendRequest";
 
 const StyledAddPartner = styled.div`
   display: flex;
@@ -59,6 +60,29 @@ class AddPartnerModel extends React.Component<Props> {
         shortCode: '',
         shortCodeError: false,
 
+    }
+    saveData = async() =>{
+        try {
+
+            var response  = await sendRequest('/SaveB2BPartnerDetails', {
+                contact_person_name:this.state.contactPerson,
+                active:true,
+                address:this.state.address,
+                email_id:this.state.emailId,
+                mobile_number:this.state.mobileNo,
+                short_code:this.state.shortCode,
+                operation:'save'
+            },'POST')
+            console.log(response)
+            if (response.data.success){
+                this.setState({data:response.data.data})
+            }
+            else{
+                console.log("Error in saving data.")
+            }
+          } catch (error) {
+            console.log(error)
+          }
     }
 
 
@@ -273,7 +297,7 @@ class AddPartnerModel extends React.Component<Props> {
                 <Button
                     type={''}
                     // disabled={false}
-                    onClick={() => this.props.onAuthorize()}
+                    onClick={() => this.saveData()}
                 >
                     Save
                 </Button>
