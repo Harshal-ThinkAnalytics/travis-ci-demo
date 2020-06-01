@@ -20,8 +20,8 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 
 interface Props {
     data: any;
-    columns: any;
-    title: string;
+    columns:any;
+    title:string;
 }
 
 const tableIcons = {
@@ -55,10 +55,23 @@ export default class Table extends React.Component<Props>{
           style={{
             display: "inline-block",
            // zIndex:"0",
-            //  position: "inherit",
+           //  position: "inherit",
            fontSize:"13px"
            // fontFamily: '"Georgia", "Times New Roman", "Times", serif'
        }}
+       actions={[
+        {
+            icon: () => <Edit />,
+            tooltip: 'Edit User',
+            onClick: (event, rowData) => alert("You want to Edit " + rowData)
+        },
+        {
+          icon: () => <DeleteOutline />,
+          tooltip: 'Delete User',
+          onClick: (event, rowData) => alert("You want to delete " + rowData)
+        }
+        
+      ]}
        options={{
         search: true,
         actionsColumnIndex: -1,
