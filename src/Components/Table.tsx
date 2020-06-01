@@ -59,6 +59,19 @@ export default class Table extends React.Component<Props>{
            fontSize:"13px"
            // fontFamily: '"Georgia", "Times New Roman", "Times", serif'
        }}
+       actions={[
+        {
+            icon: () => <Edit />,
+            tooltip: 'Edit User',
+            onClick: (event, rowData) => alert("You want to Edit " + rowData)
+        },
+        {
+          icon: () => <DeleteOutline />,
+          tooltip: 'Delete User',
+          onClick: (event, rowData) => alert("You want to delete " + rowData)
+        }
+        
+      ]}
        options={{
         search: true,
         actionsColumnIndex: -1,
