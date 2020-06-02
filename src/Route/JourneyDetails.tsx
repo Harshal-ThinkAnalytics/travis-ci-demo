@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Redirect } from "react-router-dom";
 import styled from "styled-components";
-
+import DialogShow from '../Components/DialogShow'
 
 import Table from '../Components/Table'
 
@@ -38,7 +38,9 @@ export default class JourneyDetails extends React.Component {
         redirect:false,
         icon: null,
         index: "0",
-        data:[]
+        data:[],
+        dialog:false,
+        deleteJourneyId:''
     }
     columns=[
         {
@@ -93,6 +95,38 @@ export default class JourneyDetails extends React.Component {
         }
 
     ]
+
+    setDialog=(rowData:any)=>{
+        this.setState({
+            dialog:true,
+            deleteJourneyId:rowData.journey_id
+        })
+    }
+    hideDialog=()=>{
+        this.setState({
+            dialog:false,
+            deleteJourneyId:''
+        })
+    }
+    deleteRow = async() =>{
+        try {
+            var response  = await sendRequest('/DeleteB2BJourneyDetails', {
+                journey_id:Number(this.state.deleteJourneyId)
+            },'POST')
+            console.log(response)
+            if (response.data.success){
+                console.log("Row deleted Successfully")
+            }
+            else{
+                console.log("Error in deleting data.")
+            }
+          } catch (error) {
+            console.log(error)
+          }
+        this.setState({deleteJourneyId:''})
+        this.hideDialog()
+    }  
+
     getData = async() =>{
         try {
             var response  = await sendRequest('/FetchB2BJourneyDetails', {},'GET')
@@ -121,7 +155,7 @@ export default class JourneyDetails extends React.Component {
         return (
             <DetailsWrapper>
 
-
+                <DialogShow openFlag={this.state.dialog} onButtonClick={this.deleteRow} onHide={this.hideDialog} />
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}
                 <button onClick={() => {
@@ -131,7 +165,7 @@ export default class JourneyDetails extends React.Component {
                    }}>+ Add New Journey</button>
             </div>
             <div className="table">
-                <Table data={this.state.data} columns={this.columns} title={"Journey"}/>
+                <Table data={this.state.data} columns={this.columns} title={"Journey"} setDialog={this.setDialog}/>
             </div>
             </DetailsWrapper>
 

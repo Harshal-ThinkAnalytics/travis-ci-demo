@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Redirect } from "react-router-dom";
 import Modal from '../Components/Modal'
 import Table from '../Components/Table'
+import DialogShow from '../Components/DialogShow'
 
 import sendRequest from "../utils/sendRequest";
 
@@ -38,7 +39,9 @@ export default class ProductDetails extends React.Component {
         icon: null,
         index: "0",
         data:[],
-        redirect:false
+        redirect:false,
+        dialog:false,
+        deleteProductId:''
     }
     columns=[
         {
@@ -87,6 +90,38 @@ export default class ProductDetails extends React.Component {
         }
 
     ]
+
+    setDialog=(rowData:any)=>{
+        this.setState({
+            dialog:true,
+            deleteProductId:rowData.product_id
+        })
+    }
+    hideDialog=()=>{
+        this.setState({
+            dialog:false,
+            deleteProductId:''
+        })
+    }
+    deleteRow = async() =>{
+        try {
+            var response  = await sendRequest('/DeleteB2BProductDetails', {
+                product_id:Number(this.state.deleteProductId)
+            },'POST')
+            console.log(response)
+            if (response.data.success){
+                console.log("Row deleted Successfully")
+            }
+            else{
+                console.log("Error in deleting data.")
+            }
+          } catch (error) {
+            console.log(error)
+          }
+        this.setState({deleteProductId:''})
+        this.hideDialog()
+    } 
+
     getData = async() =>{
         try {
             var response  = await sendRequest('/FetchB2BProductDetails', {},'GET')
@@ -114,7 +149,7 @@ export default class ProductDetails extends React.Component {
 
         return (
             <DetailsWrapper>
-
+                <DialogShow openFlag={this.state.dialog} onButtonClick={this.deleteRow} onHide={this.hideDialog} />
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}
                 <button onClick={() => {
@@ -125,7 +160,7 @@ export default class ProductDetails extends React.Component {
                    }}>+ Add New Product</button>
             </div>
             <div className="table">
-                <Table data={this.state.data} columns={this.columns} title={"Product"}/>
+                <Table data={this.state.data} columns={this.columns} title={"Product"} setDialog={this.setDialog}/>
             </div>
             </DetailsWrapper>
 

@@ -24,6 +24,7 @@ interface Props {
     data: any;
     columns:any;
     title:string;
+    setDialog:any;
 }
 
 
@@ -79,7 +80,7 @@ const Table:React.FunctionComponent<Props>=(props)=>{
         {
           icon: () => <DeleteOutline />,
           tooltip: 'Delete User',
-          onClick: (event, rowData) => alert("delete")
+          onClick: (event, rowData) => props.setDialog(rowData)
         }
         
       ]}

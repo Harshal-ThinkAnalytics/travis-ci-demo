@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Modal from '../Components/Modal'
 import { Redirect } from "react-router-dom";
 import Table from '../Components/Table'
+import DialogShow from '../Components/DialogShow'
 
 import sendRequest from "../utils/sendRequest";
 
@@ -38,7 +39,9 @@ export default class PartnerDetails extends React.Component {
         redirect:false,
         icon: null,
         index: "0",
-        data:[]
+        data:[],
+        dialog:false,
+        deletePartnerId:''
     }
     columns=[
         {
@@ -87,6 +90,37 @@ export default class PartnerDetails extends React.Component {
         }
 
     ]
+    
+    setDialog=(rowData:any)=>{
+        this.setState({
+            dialog:true,
+            deletePartnerId:rowData.partner_id
+        })
+    }
+    hideDialog=()=>{
+        this.setState({
+            dialog:false
+        })
+    }
+    deleteRow = async() =>{
+        try {
+            var response  = await sendRequest('/DeleteB2BPartnerDetails', {
+                partner_id:Number(this.state.deletePartnerId)
+            },'POST')
+            console.log(response)
+            if (response.data.success){
+                console.log("Row deleted Successfully")
+            }
+            else{
+                console.log("Error in deleting data.")
+            }
+          } catch (error) {
+            console.log(error)
+          }
+        this.setState({deletePartnerId:''})
+        this.hideDialog()
+    }  
+    
     getData = async() =>{
         try {
             var response  = await sendRequest('/FetchB2BPartnerDetails', {},'GET')
@@ -114,6 +148,7 @@ export default class PartnerDetails extends React.Component {
 
         return (
             <DetailsWrapper>
+                <DialogShow openFlag={this.state.dialog} onButtonClick={this.deleteRow} onHide={this.hideDialog} />
 
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}
@@ -124,7 +159,7 @@ export default class PartnerDetails extends React.Component {
                    }}>+ Add New Partner</button>
             </div>
             <div className="table">
-                <Table data={this.state.data} columns={this.columns} title={"Partner"}/>
+                <Table data={this.state.data} columns={this.columns} title={"Partner"} setDialog={this.setDialog}/>
             </div>
             </DetailsWrapper>
 

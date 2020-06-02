@@ -3,7 +3,8 @@ import Popup from "reactjs-popup"; // okay, this is for exact tooltip
 
 interface Props{
     openFlag:boolean,
-    // onButtonClick:any
+    onButtonClick:any,
+    onHide:any
 }
 
 const DialogShow:React.FunctionComponent<Props>=(props) => {
@@ -31,7 +32,7 @@ const DialogShow:React.FunctionComponent<Props>=(props) => {
             borderRadius: "0px 6px 0px 4px",
             cursor: "pointer"
           }}
-        //   onClick={print}
+          onClick={props.onHide}
         >
           <span style={{ fontSize: 20 }}> ✕ </span>
         </div>
@@ -39,16 +40,16 @@ const DialogShow:React.FunctionComponent<Props>=(props) => {
           <div style={{ fontSize: 18, fontWeight: "bold" }}>{'Alert'}</div>
           <div
             style={{
-              color: "#6c7174"
+              color: "#6c7174",
             }}
           >
-            Are you sure?
+            Are you sure you want to delete?
           </div>
           <div
             style={{
               display: "flex",
               justifyContent: "space-between",
-              marginTop: "15%"
+              marginTop: "10%"
             }}
           >
             <span
@@ -63,7 +64,7 @@ const DialogShow:React.FunctionComponent<Props>=(props) => {
                 textAlign: "center",
                 cursor: "pointer"
               }}
-            //   onClick={print}
+              onClick={props.onButtonClick}
             >
               Confirm
             </span>
