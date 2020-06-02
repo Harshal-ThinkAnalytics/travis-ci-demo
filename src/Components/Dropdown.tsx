@@ -1,0 +1,63 @@
+import React from 'react'
+import styled from 'styled-components'
+import Label from './Label'
+import Select from 'react-select'
+import { defaultProps } from 'react-select/src/Select'
+
+const DropdownWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  .dropdown {
+    font-size: 1.6rem;
+    /* margin-bottom: 2.6rem; */
+  }
+`
+
+interface Props{
+    value:any,
+    options:any,
+    onChange:any,
+    placeholder:string
+}
+
+const Dropdown: React.FunctionComponent<Props> = (props) => {
+  return (
+    <DropdownWrapper>
+      <Select
+        value={props.value}
+        options={props.options}
+        onChange={props.onChange}
+        className="dropdown"
+        placeholder={props.placeholder}
+        components={{
+          IndicatorSeparator: () => null
+        }}
+        styles={{
+          control: (provided, { isFocused }) => {
+            return {
+              ...provided,
+              height: '2rem',
+              color: '#d4ae69',
+
+              border: !isFocused
+                ? '1px solid var(--color-lightbluegray)'
+                : '1px solid var(--color-mango)'
+            }
+          }
+        }}
+        theme={theme => ({
+          ...theme,
+          borderRadius: 5,
+          borderColor: '#d4ae69',
+          colors: {
+            ...theme.colors,
+            text: '#cdcece',
+            primary: '#d4ae69'
+          }
+        })}
+      />
+    </DropdownWrapper>
+  )
+}
+
+export default Dropdown

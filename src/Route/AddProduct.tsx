@@ -40,11 +40,8 @@ button{
 `
 
 
-interface Props{
-    onAuthorize:any,
-}
 
-class AddProductModel extends React.Component<Props> {
+class AddProduct extends React.Component {
 
     state = {
         productId: '',
@@ -83,7 +80,6 @@ class AddProductModel extends React.Component<Props> {
           } catch (error) {
             console.log(error)
           }
-          this.props.onAuthorize()
     }
 
 
@@ -197,22 +193,7 @@ class AddProductModel extends React.Component<Props> {
     render() {
         return (
             <StyledAddPartner>
-                <h1>Add Partner</h1>
-
-                <Label data={"Product Id: "} />
-                <Input
-                    onChange={e => this.handleIdChange(e.target.value)}
-                    onFocus={() =>
-                        this.setState({
-                            partnerIdError: false
-                        })}
-                    onBlur={() => { this.validateId() }}
-                    value={this.state.productId}
-                    type={this.state.productIdError}
-                />
-                <ErrorMessage show={this.state.productIdError} className="error-message">
-                    Please enter valid Id
-          </ErrorMessage>
+                <h1>Add Product</h1>
 
                 <Label data={"Product Name: "} />
                 <Input
@@ -303,4 +284,4 @@ class AddProductModel extends React.Component<Props> {
     }
 };
 
-export default AddProductModel
+export default AddProduct

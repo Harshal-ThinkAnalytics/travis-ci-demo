@@ -16,6 +16,8 @@ import Remove from '@material-ui/icons/Remove';
 import SaveAlt from '@material-ui/icons/SaveAlt';
 import Search from '@material-ui/icons/Search';
 import ViewColumn from '@material-ui/icons/ViewColumn';
+import { useHistory } from "react-router-dom";
+import DialogShow from '../Components/DialogShow'
 
 
 interface Props {
@@ -23,6 +25,7 @@ interface Props {
     columns:any;
     title:string;
 }
+
 
 const tableIcons = {
     Add: forwardRef((props, ref:React.Ref<SVGSVGElement>) => <AddBox {...props} ref={ref} />),
@@ -44,16 +47,23 @@ const tableIcons = {
     ViewColumn: forwardRef((props, ref:React.Ref<SVGSVGElement>) => <ViewColumn {...props} ref={ref} />)
   };
 
-export default class Table extends React.Component<Props>{
-    render() {
-        return (
+const Table:React.FunctionComponent<Props>=(props)=>{
+    const history = useHistory();
+    const changePath=(title:string,rowData:any)=>{
+        history.push('/Edit'+title,rowData)
+    }
+    const showDialog=()=>{
+        return <DialogShow/>;
+    }
+    return (
             <MaterialTable
-          columns={this.props.columns}
+          columns={props.columns}
           icons={tableIcons}
-          data={this.props.data}
-          title={this.props.title}
+          data={props.data}
+          title={props.title}
           style={{
             display: "inline-block",
+            overflowX:'scroll',
            // zIndex:"0",
            //  position: "inherit",
            fontSize:"13px"
@@ -63,12 +73,15 @@ export default class Table extends React.Component<Props>{
         {
             icon: () => <Edit />,
             tooltip: 'Edit User',
-            onClick: (event, rowData) => alert("You want to Edit " + rowData)
+            onClick: (event, rowData) => {
+                console.log(rowData)
+                changePath(props.title,rowData)
+            }
         },
         {
           icon: () => <DeleteOutline />,
           tooltip: 'Delete User',
-          onClick: (event, rowData) => alert("You want to delete " + rowData)
+          onClick: (event, rowData) => showDialog()
         }
         
       ]}
@@ -92,4 +105,5 @@ export default class Table extends React.Component<Props>{
         />
         )
     }
-}
+
+export default Table;

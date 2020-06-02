@@ -8,6 +8,7 @@ const HeaderWrapper = styled.header`
   align-items: center;
   justify-content: space-between;
   padding: 0 2.2rem;
+  widht:100%;
   img {
     height: 3.5rem;
   }

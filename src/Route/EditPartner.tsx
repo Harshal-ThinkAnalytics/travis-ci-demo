@@ -4,6 +4,8 @@ import Label from "../Components/Label";
 import Input from "../Components/Input";
 import Button from '../Components/Button'
 import ErrorMessage from '../Components/ErrorMessage'
+import sendRequest from "../utils/sendRequest";
+
 const StyledAddPartner = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,28 +38,51 @@ button{
  
 }
 `
-
-
-interface Props {
-    onAuthorize:any,
+interface Props{
+    location:any
 }
 
-class EditPartnerModel extends React.Component<Props> {
-
+class EditPartner extends React.Component<Props> {
+    data=this.props.location.state
     state = {
-        partnerId: '',
+        partnerId: this.data.partner_id,
         partnerIdError: false,
-        address: '',
+        address: this.data.address,
         addressError: false,
-        contactPerson: '',
+        contactPerson: this.data.contact_person_name,
         contactPersonError: false,
-        emailId: '',
+        emailId: this.data.email_id,
         emailIdError: false,
-        mobileNo: '',
+        mobileNo: this.data.mobile_number,
         mobileNoError: false,
-        shortCode: '',
+        shortCode: this.data.short_code,
         shortCodeError: false,
 
+    }
+
+    saveData = async() =>{
+        try {
+
+            var response  = await sendRequest('/SaveB2BPartnerDetails', {
+                partner_id:Number(this.state.partnerId),
+                contact_person_name:this.state.contactPerson,
+                active:true,
+                address:this.state.address,
+                email_id:this.state.emailId,
+                mobile_number:this.state.mobileNo,
+                short_code:this.state.shortCode,
+                operation:'update'
+            },'POST')
+            console.log(response)
+            if (response.data.success){
+                this.setState({data:response.data.data})
+            }
+            else{
+                console.log("Error in saving data.")
+            }
+          } catch (error) {
+            console.log(error)
+          }
     }
 
 
@@ -175,6 +200,7 @@ class EditPartnerModel extends React.Component<Props> {
         }
     }
     render() {
+        console.log(this.data)
         return (
             <StyledAddPartner>
                 <h1>Edit Partner</h1>
@@ -259,7 +285,7 @@ class EditPartnerModel extends React.Component<Props> {
                 <Button
                     type={''}
                     // disabled={false}
-                    onClick={() => this.props.onAuthorize()}
+                    onClick={() => this.saveData()}
                 >
                     Save
                 </Button>
@@ -270,4 +296,4 @@ class EditPartnerModel extends React.Component<Props> {
     }
 };
 
-export default EditPartnerModel
+export default EditPartner

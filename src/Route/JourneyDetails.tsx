@@ -1,7 +1,8 @@
 import * as React from "react";
-import styled from "styled-components";
-import Modal from '../Components/Modal'
 import { Redirect } from "react-router-dom";
+import styled from "styled-components";
+
+
 import Table from '../Components/Table'
 
 import sendRequest from "../utils/sendRequest";
@@ -11,7 +12,6 @@ const DetailsWrapper = styled.div`
 margin-left:23rem;
 margin-right:4rem;
 margin-top:1rem;
-
 
 .topDiv{
 
@@ -33,7 +33,7 @@ button{
 `
 
 
-export default class PartnerDetails extends React.Component {
+export default class JourneyDetails extends React.Component {
     state = {
         redirect:false,
         icon: null,
@@ -42,39 +42,45 @@ export default class PartnerDetails extends React.Component {
     }
     columns=[
         {
-            title: 'Partner Id', field: 'partner_id',
+            title: 'Journey Id', field: 'journey_id',
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
 
         },
         {
-            title: 'Address', field: 'address',
+            title: 'Journey Name', field: 'journey_name',
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
         },
         {
-            title: 'Contact Person', field: 'contact_person_name',
+            title: 'Minimum Loan Amount', field: 'min_loan_amount',
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
             // type: 'numeric'
         },
         {
-            title: 'Email Id', field: 'email_id',
+            title: 'Maximum Loan Amount', field: 'max_loan_amount',
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
         },
         {
-            title: 'Mobile No', field: 'mobile_number',
+            title: 'Minimum Tenure', field: 'min_tenure',
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
         },
         {
-            title: 'Short Code', field: 'short_code',
+            title: 'Maximum Tenure', field: 'max_tenure',
+            cellStyle: {
+                border: 'solid #f2f3f6 3px',
+            },
+        },
+        {
+            title: 'Product Id', field: 'product_id',
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
@@ -89,7 +95,7 @@ export default class PartnerDetails extends React.Component {
     ]
     getData = async() =>{
         try {
-            var response  = await sendRequest('/FetchB2BPartnerDetails', {},'GET')
+            var response  = await sendRequest('/FetchB2BJourneyDetails', {},'GET')
             console.log(response)
             if (response.data.success){
                 this.setState({data:response.data.data})
@@ -108,23 +114,24 @@ export default class PartnerDetails extends React.Component {
 
     render() {
         if(this.state.redirect){
-            return <Redirect to='/AddPartner'/>;
+            return <Redirect to='/AddJourney'/>;
         }
        
 
         return (
             <DetailsWrapper>
 
+
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}
                 <button onClick={() => {
                     this.setState({
-                        redirect : true
+                        redirect : true,
                     })
-                   }}>+ Add New Partner</button>
+                   }}>+ Add New Journey</button>
             </div>
             <div className="table">
-                <Table data={this.state.data} columns={this.columns} title={"Partner"}/>
+                <Table data={this.state.data} columns={this.columns} title={"Journey"}/>
             </div>
             </DetailsWrapper>
 

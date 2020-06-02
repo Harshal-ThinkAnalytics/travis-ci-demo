@@ -1,4 +1,5 @@
-import * as React from "react";
+import React, { useState, useContext } from 'react'
+import { useParams } from 'react-router-dom'
 import styled from "styled-components";
 import Label from "../Components/Label";
 import Input from "../Components/Input";
@@ -6,45 +7,23 @@ import Button from '../Components/Button'
 import ErrorMessage from '../Components/ErrorMessage'
 import sendRequest from "../utils/sendRequest";
 
-const StyledAddPartner = styled.div`
+
+const AddPartnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  width: auto;
-  h1{
-    display: block;
-    font-size: 2em;
-    margin-block-start: 0em;
-    margin-block-end: 0em;
-    margin-inline-start: 0px;
-    margin-inline-end: 0px;
-    font-weight: bold;
-    margin-bottom: 1rem;
+  flex: 1;
+  padding: 2.2rem 0;
+
+  .form {
+    margin-top: 2.2rem;
+    margin-bottom: 2.5rem;
   }
 
-  input {
-    padding-top: 5px;
-    //padding-bottom: 5px;
-    float:right;
+  .submit-button {
+    margin-top: auto;
   }
- 
-p{
-  margin-top: -0.19rem;
-  margin-bottom: auto;
-  margin-left: 0.3rem
-}
-button{
-  margin-top:1rem;
-  
- 
-}
 `
-
-
-interface Props{
-    onAuthorize:any,
-}
-
-class AddPartnerModel extends React.Component<Props> {
+class AddPartner extends React.Component {
 
     state = {
         partnerId: '',
@@ -83,7 +62,6 @@ class AddPartnerModel extends React.Component<Props> {
           } catch (error) {
             console.log(error)
           }
-          this.props.onAuthorize()
     }
 
 
@@ -202,23 +180,9 @@ class AddPartnerModel extends React.Component<Props> {
     }
     render() {
         return (
-            <StyledAddPartner>
+            <AddPartnerWrapper>
                 <h1>Add Partner</h1>
-
-                <Label data={"Partner Id: "} />
-                <Input
-                    onChange={e => this.handleIdChange(e.target.value)}
-                    onFocus={() =>
-                        this.setState({
-                            partnerIdError: false
-                        })}
-                    onBlur={() => { this.validateId() }}
-                    value={this.state.partnerId}
-                    type={this.state.partnerIdError}
-                />
-                <ErrorMessage show={this.state.partnerIdError} className="error-message">
-                    Please enter valid Id
-          </ErrorMessage>
+                
 
                 <Label data={"Address: "} />
                 <Input
@@ -304,9 +268,14 @@ class AddPartnerModel extends React.Component<Props> {
                 </Button>
 
 
-            </StyledAddPartner >
+            </AddPartnerWrapper >
         )
     }
 };
 
-export default AddPartnerModel
+export default AddPartner;
+
+
+
+
+

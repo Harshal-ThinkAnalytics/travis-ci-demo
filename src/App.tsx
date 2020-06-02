@@ -1,30 +1,43 @@
-import React from 'react';
+import React, { Component } from "react";
+import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import logo from './logo.svg';
 import './App.css';
-// import Counter from './Route/Counter'
+import Page from './Components/Page'
 import Label from './Components/Label';
 import Header from './Components/Header'
 import LabeledInput from './Components/LabeledInput'
-import AddPartnerModel from './Modals/AddPartnerModal'
-import EditPartnerModel from './Modals/EditPartnerModal'
 import Sidebar from './Route/Sidebar'
 import PartnerDetails from './Route/PartnerDetails'
+import JourneyDetails from './Route/JourneyDetails'
 import ProductDetails from './Route/ProductDetails'
-// import Header from './Components/Header'
-// import 
+import AddPartner from './Route/AddPartner'
+import AddProduct from './Route/AddProduct'
+import AddJourney from './Route/AddJourney'
+import EditPartner from './Route/EditPartner'
+import EditProduct from './Route/EditProduct'
+import EditJourney from './Route/EditJourney'
+
 function App() {
   return (
-    // <Counter/>
-    //  <Button type={"disabled"}/>
-    //  <Label data={"hello sid"}/>
-    // <AddPartnerModel/>
-    // <EditPartnerModel/>
+
     <div>
-      <ProductDetails/>
-    <Header/>
     <Sidebar/>
+    <BrowserRouter>
+      <Page>
+        <Switch>
+        <Route path="/PartnerDetails" component={PartnerDetails} />
+        <Route path="/ProductDetails" component={ProductDetails} />
+        <Route path="/JourneyDetails" component={JourneyDetails} />
+        <Route path="/AddPartner" component={AddPartner} />
+        <Route path="/AddProduct" component={AddProduct} />
+        <Route path="/AddJourney" component={AddJourney} />
+        <Route path="/EditPartner" component={EditPartner} />
+        <Route path="/EditProduct" component={EditProduct} />
+        <Route path="/EditJourney" component={EditJourney} />
+        </Switch>
+      </Page>
+    </BrowserRouter>
     </div>
-    // <h1>app</h1>
   );
 }
 

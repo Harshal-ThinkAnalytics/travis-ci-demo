@@ -13,6 +13,7 @@ const StyledModal = styled.div`
   justify-content: center;
   align-items: center;
   z-index: 10;
+  overflow:scroll;
 
   & > .modal-content {
     padding: 1.5rem 2rem;
@@ -20,6 +21,7 @@ const StyledModal = styled.div`
     border-radius: 5px;
     width: calc(100% - 4rem);
     position: relative;
+    margin:auto;
 
     .close-button {
       position: absolute;
@@ -69,6 +71,7 @@ interface Props {
       if(props.open) document.body.style.overflow = 'hidden'
         return () => {
           document.body.style.overflow = 'auto'
+          
         }
       }, [props.open])
     

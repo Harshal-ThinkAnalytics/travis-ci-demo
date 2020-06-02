@@ -1,15 +1,7 @@
 import * as React from "react";
-import { useEffect} from 'react';
 import styled from "styled-components";
-import MaterialTable from "material-table";
-import Search from '@material-ui/icons/Search';
-import Edit from '@material-ui/icons/Edit';
-import { forwardRef } from 'react';
-import DeleteOutline from '@material-ui/icons/DeleteOutline';
-import Clear from '@material-ui/icons/Clear';
+import { Redirect } from "react-router-dom";
 import Modal from '../Components/Modal'
-import AddProductModel from '../Modals/AddProductModal'
-import EditPartnerModal from '../Modals/EditPartnerModal'
 import Table from '../Components/Table'
 
 import sendRequest from "../utils/sendRequest";
@@ -43,11 +35,10 @@ button{
 
 export default class ProductDetails extends React.Component {
     state = {
-        addProductModal: false,
-        editProductModal: false,
         icon: null,
         index: "0",
-        data:[]
+        data:[],
+        redirect:false
     }
     columns=[
         {
@@ -116,47 +107,25 @@ export default class ProductDetails extends React.Component {
     }
 
     render() {
-        console.log("This is data",this.state.data);
+        if(this.state.redirect){
+            return <Redirect to='/AddProduct'/>;
+        }
        
 
         return (
             <DetailsWrapper>
-                <Modal
-                 onClose={''}
-                open={this.state.addProductModal}
-                >
-                   <AddProductModel
-                   onAuthorize={()=>
-                       this.setState({
-                           addProductModal: false,
-                       })
-                   }
-                   />
-                </Modal>
-
-                <Modal
-                 onClose={''}
-                open={this.state.editProductModal}
-                >
-                   <EditPartnerModal
-                   onAuthorize={()=>
-                       this.setState({
-                        editProductModal: false,
-                       })
-                   }
-                   />
-                </Modal>
 
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}
                 <button onClick={() => {
                     this.setState({
-                        addProductModal : true,
+                        redirect:true
                     })
+                    
                    }}>+ Add New Product</button>
             </div>
             <div className="table">
-                <Table data={this.state.data} columns={this.columns} title={"Products"}/>
+                <Table data={this.state.data} columns={this.columns} title={"Product"}/>
             </div>
             </DetailsWrapper>
 

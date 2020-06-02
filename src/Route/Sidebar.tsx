@@ -45,18 +45,11 @@ export default class Sidebar extends React.Component {
             <div style={{ flexDirection: "row" }}>
                 <SidebarWrapper >
                     <div className="sidenav">
-                        <a href="#Merchant">Merchant</a>
-                        <a href="#Category">Category</a>
-                        <a href="#Product">Product</a>
-                        <a href="#Scheme">Scheme</a>
-                        <a href="#Charges">Charges</a>
-                        <a href="#User">User</a>
-                        <a href="#MapScheme">Map Scheme To Merchant</a>
-                        <a href="#MapProduct">Map Product To Merchant</a>
-                        <a href="#MapCharges">Map Charges To Scheme</a>
+                        <a href="PartnerDetails">Partner</a>
+                        <a href="ProductDetails">Product</a>
+                        <a href="JourneyDetails">Journey</a>
                     </div>
                 </SidebarWrapper>
-            <PartnerDetails />
             </div>
         )
     }
