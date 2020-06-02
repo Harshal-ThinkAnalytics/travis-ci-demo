@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import MaterialTable from "material-table";
 import { forwardRef } from 'react';
 import AddBox from '@material-ui/icons/AddBox';
@@ -49,11 +49,9 @@ const tableIcons = {
 
 const Table:React.FunctionComponent<Props>=(props)=>{
     const history = useHistory();
+    const [dialog,setDialog]=useState(false)
     const changePath=(title:string,rowData:any)=>{
         history.push('/Edit'+title,rowData)
-    }
-    const showDialog=()=>{
-        return <DialogShow/>;
     }
     return (
             <MaterialTable
@@ -81,7 +79,7 @@ const Table:React.FunctionComponent<Props>=(props)=>{
         {
           icon: () => <DeleteOutline />,
           tooltip: 'Delete User',
-          onClick: (event, rowData) => showDialog()
+          onClick: (event, rowData) => alert("delete")
         }
         
       ]}
