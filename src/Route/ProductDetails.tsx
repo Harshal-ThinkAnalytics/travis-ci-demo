@@ -153,7 +153,9 @@ export default class ProductDetails extends React.Component {
         return (
             <DetailsWrapper>
                 <Loading open={this.state.loading}/>
-                <DialogShow openFlag={this.state.dialog} onButtonClick={this.deleteRow} onHide={this.hideDialog} />
+                <DialogShow openFlag={this.state.dialog} onButtonClick={this.deleteRow} onHide={this.hideDialog} 
+                    msg={"Are you sure you want to delete?"} buttonText={"Confirm"} heading={'Alert'}
+                />
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}
                 <button onClick={() => {
@@ -164,7 +166,7 @@ export default class ProductDetails extends React.Component {
                    }}>+ Add New Product</button>
             </div>
             <div className="table">
-                <Table data={this.state.data} columns={this.columns} title={"Product"} setDialog={this.setDialog}/>
+                <Table data={this.state.data} columns={this.columns} title={"Product"} setDialog={this.setDialog} />
             </div>
             </DetailsWrapper>
 

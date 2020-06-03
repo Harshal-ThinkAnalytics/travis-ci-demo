@@ -1,10 +1,11 @@
 import * as React from "react";
-import { Redirect } from "react-router-dom";
 import styled from "styled-components";
-import DialogShow from '../Components/DialogShow'
-
-import Table from '../Components/Table'
+import Modal from '../Components/Modal'
+import { Redirect } from "react-router-dom";
+import PartnerJourneyTable from '../Components/PartnerJourneyTable';
+import DialogShow from '../Components/DialogShow';
 import Loading from '../Components/Loading';
+
 import sendRequest from "../utils/sendRequest";
 
 
@@ -12,6 +13,7 @@ const DetailsWrapper = styled.div`
 margin-left:23rem;
 margin-right:4rem;
 margin-top:1rem;
+
 
 .topDiv{
 
@@ -33,23 +35,31 @@ button{
 `
 
 
-export default class JourneyDetails extends React.Component {
+export default class PartnerJourneyDetails extends React.Component {
     state = {
         redirect:false,
         icon: null,
         index: "0",
         data:[],
         dialog:false,
-        deleteJourneyId:'',
-        loading:true
+        passDialog:false,
+        passId:'',
+        deletePartnerJourneyId:'',
+        loading:true,
+        encryptedPass:'loading...'
     }
     columns=[
         {
-            title: 'Journey Id', field: 'journey_id',
+            title: 'Id', field: 'partner_journey_id',
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
-
+        },
+        {
+            title: 'Partner Name', field: 'partner_name',
+            cellStyle: {
+                border: 'solid #f2f3f6 3px',
+            },
         },
         {
             title: 'Journey Name', field: 'journey_name',
@@ -58,35 +68,11 @@ export default class JourneyDetails extends React.Component {
             },
         },
         {
-            title: 'Minimum Loan Amount', field: 'min_loan_amount',
+            title: 'Username', field: 'username',
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
             // type: 'numeric'
-        },
-        {
-            title: 'Maximum Loan Amount', field: 'max_loan_amount',
-            cellStyle: {
-                border: 'solid #f2f3f6 3px',
-            },
-        },
-        {
-            title: 'Minimum Tenure', field: 'min_tenure',
-            cellStyle: {
-                border: 'solid #f2f3f6 3px',
-            },
-        },
-        {
-            title: 'Maximum Tenure', field: 'max_tenure',
-            cellStyle: {
-                border: 'solid #f2f3f6 3px',
-            },
-        },
-        {
-            title: 'Product Id', field: 'product_id',
-            cellStyle: {
-                border: 'solid #f2f3f6 3px',
-            },
         },
         {
             title: 'Active', field: 'active',
@@ -96,23 +82,54 @@ export default class JourneyDetails extends React.Component {
         }
 
     ]
+    getEncryptedPass=async(id:string)=>{
+        try {
+            var response  = await sendRequest('/GetEncryptedPassword', {
+                partner_journey_id:Number(id)
+            },'POST')
+            console.log(response)
+            if (response.data.success){
+                this.setState({
+                    encryptedPass:response.data.data
+                })
+            }
+            else{
+                console.log("Error in getting passsword.")
+            }
+          } catch (error) {
+            console.log(error)
+          }
 
+    }
+    setPassDialog=(rowData:any)=>{
+        this.setState({
+            passDialog:true,
+        })
+        this.getEncryptedPass(rowData.partner_journey_id)
+
+    }
+    hidePassDialog=()=>{
+        this.setState({
+            passDialog:false,
+            encryptedPass:'loading...'
+        })
+    }
+    
     setDialog=(rowData:any)=>{
         this.setState({
             dialog:true,
-            deleteJourneyId:rowData.journey_id
+            deletePartnerJourneyId:rowData.partner_journey_id
         })
     }
     hideDialog=()=>{
         this.setState({
-            dialog:false,
-            deleteJourneyId:''
+            dialog:false
         })
     }
     deleteRow = async() =>{
         try {
-            var response  = await sendRequest('/DeleteB2BJourneyDetails', {
-                journey_id:Number(this.state.deleteJourneyId)
+            var response  = await sendRequest('/DeleteB2BPartnerJourneyMapping', {
+                partner_journey_id:Number(this.state.deletePartnerJourneyId)
             },'POST')
             console.log(response)
             if (response.data.success){
@@ -124,13 +141,13 @@ export default class JourneyDetails extends React.Component {
           } catch (error) {
             console.log(error)
           }
-        this.setState({deleteJourneyId:''})
+        this.setState({deletePartnerId:''})
         this.hideDialog()
     }  
-
+    
     getData = async() =>{
         try {
-            var response  = await sendRequest('/FetchB2BJourneyDetails', {},'GET')
+            var response  = await sendRequest('/FetchB2BPartnerJourneyMappings', {},'GET')
             console.log(response)
             if (response.data.success){
                 this.setState({data:response.data.data})
@@ -142,8 +159,8 @@ export default class JourneyDetails extends React.Component {
             console.log(error)
           }
           this.setState({
-            loading:false
-        })
+              loading:false
+          })
     }
     
     async componentDidMount(){
@@ -152,7 +169,7 @@ export default class JourneyDetails extends React.Component {
 
     render() {
         if(this.state.redirect){
-            return <Redirect to='/AddJourney'/>;
+            return <Redirect to='/AddPartner'/>;
         }
        
 
@@ -162,16 +179,20 @@ export default class JourneyDetails extends React.Component {
                 <DialogShow openFlag={this.state.dialog} onButtonClick={this.deleteRow} onHide={this.hideDialog} 
                     msg={"Are you sure you want to delete?"} buttonText={"Confirm"} heading={'Alert'}
                 />
+                <DialogShow openFlag={this.state.passDialog} onButtonClick={this.hidePassDialog} onHide={this.hidePassDialog} 
+                    msg={this.state.encryptedPass} buttonText={"OK"} heading={'Password'}
+                />
+
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}
                 <button onClick={() => {
                     this.setState({
-                        redirect : true,
+                        redirect : true
                     })
-                   }}>+ Add New Journey</button>
+                   }}>+ Map New Partner</button>
             </div>
             <div className="table">
-                <Table data={this.state.data} columns={this.columns} title={"Journey"} setDialog={this.setDialog}/>
+                <PartnerJourneyTable data={this.state.data} columns={this.columns} title={"PartnerJourney"} setDialog={this.setDialog} setPassDialog={this.setPassDialog}/>
             </div>
             </DetailsWrapper>
 

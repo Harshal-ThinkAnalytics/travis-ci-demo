@@ -154,7 +154,9 @@ export default class PartnerDetails extends React.Component {
         return (
             <DetailsWrapper>
                 <Loading open={this.state.loading}/>
-                <DialogShow openFlag={this.state.dialog} onButtonClick={this.deleteRow} onHide={this.hideDialog} />
+                <DialogShow openFlag={this.state.dialog} onButtonClick={this.deleteRow} onHide={this.hideDialog} 
+                    msg={"Are you sure you want to delete?"} buttonText={"Confirm"} heading={'Alert'}
+                />
 
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}

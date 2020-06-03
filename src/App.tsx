@@ -10,12 +10,14 @@ import Sidebar from './Route/Sidebar'
 import PartnerDetails from './Route/PartnerDetails'
 import JourneyDetails from './Route/JourneyDetails'
 import ProductDetails from './Route/ProductDetails'
+import PartnerJourneyDetails from './Route/PartnerJourneyDetails'
 import AddPartner from './Route/AddPartner'
 import AddProduct from './Route/AddProduct'
 import AddJourney from './Route/AddJourney'
 import EditPartner from './Route/EditPartner'
 import EditProduct from './Route/EditProduct'
 import EditJourney from './Route/EditJourney'
+import MapPartnerJourney from './Route/MapPartnerJourney'
 
 function App() {
   return (
@@ -28,12 +30,14 @@ function App() {
         <Route path="/PartnerDetails" component={PartnerDetails} />
         <Route path="/ProductDetails" component={ProductDetails} />
         <Route path="/JourneyDetails" component={JourneyDetails} />
+        <Route path="/PartnerJourneyDetails" component={PartnerJourneyDetails} />
         <Route path="/AddPartner" component={AddPartner} />
         <Route path="/AddProduct" component={AddProduct} />
         <Route path="/AddJourney" component={AddJourney} />
         <Route path="/EditPartner" component={EditPartner} />
         <Route path="/EditProduct" component={EditProduct} />
         <Route path="/EditJourney" component={EditJourney} />
+        <Route path="/MapPartnerJourney" component={MapPartnerJourney} />
         </Switch>
       </Page>
     </BrowserRouter>

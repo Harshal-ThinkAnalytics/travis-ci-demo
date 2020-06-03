@@ -25,6 +25,7 @@ interface Props {
     columns:any;
     title:string;
     setDialog:any;
+    setPassDialog:any;
 }
 
 
@@ -68,6 +69,11 @@ const Table:React.FunctionComponent<Props>=(props)=>{
            // fontFamily: '"Georgia", "Times New Roman", "Times", serif'
        }}
        actions={[
+        {
+            icon: () => <ViewColumn />,
+            tooltip: 'Show Password',
+            onClick: (event, rowData) => props.setPassDialog(rowData)
+          },
         {
             icon: () => <Edit />,
             tooltip: 'Edit',
