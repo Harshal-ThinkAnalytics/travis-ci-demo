@@ -239,7 +239,7 @@ class EditJourney extends React.Component<Props> {
         console.log(this.data)
         return (
             <StyledAddPartner>
-                <h1>Add Journey</h1>
+                <h1>Edit Journey</h1>
 
                 <Label data={"Journey Id: "} />
                 <Input

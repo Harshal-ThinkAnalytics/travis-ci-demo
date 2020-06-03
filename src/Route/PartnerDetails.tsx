@@ -2,8 +2,9 @@ import * as React from "react";
 import styled from "styled-components";
 import Modal from '../Components/Modal'
 import { Redirect } from "react-router-dom";
-import Table from '../Components/Table'
-import DialogShow from '../Components/DialogShow'
+import Table from '../Components/Table';
+import DialogShow from '../Components/DialogShow';
+import Loading from '../Components/Loading';
 
 import sendRequest from "../utils/sendRequest";
 
@@ -41,7 +42,8 @@ export default class PartnerDetails extends React.Component {
         index: "0",
         data:[],
         dialog:false,
-        deletePartnerId:''
+        deletePartnerId:'',
+        loading:true
     }
     columns=[
         {
@@ -134,6 +136,9 @@ export default class PartnerDetails extends React.Component {
           } catch (error) {
             console.log(error)
           }
+          this.setState({
+              loading:false
+          })
     }
     
     async componentDidMount(){
@@ -148,6 +153,7 @@ export default class PartnerDetails extends React.Component {
 
         return (
             <DetailsWrapper>
+                <Loading open={this.state.loading}/>
                 <DialogShow openFlag={this.state.dialog} onButtonClick={this.deleteRow} onHide={this.hideDialog} />
 
                  <div className="topDiv">

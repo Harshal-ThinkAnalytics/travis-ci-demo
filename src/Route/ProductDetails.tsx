@@ -1,10 +1,9 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Redirect } from "react-router-dom";
-import Modal from '../Components/Modal'
 import Table from '../Components/Table'
 import DialogShow from '../Components/DialogShow'
-
+import Loading from '../Components/Loading';
 import sendRequest from "../utils/sendRequest";
 
 
@@ -41,7 +40,8 @@ export default class ProductDetails extends React.Component {
         data:[],
         redirect:false,
         dialog:false,
-        deleteProductId:''
+        deleteProductId:'',
+        loading:true
     }
     columns=[
         {
@@ -135,6 +135,9 @@ export default class ProductDetails extends React.Component {
           } catch (error) {
             console.log(error)
           }
+          this.setState({
+            loading:false
+        })
     }
     
     async componentDidMount(){
@@ -149,6 +152,7 @@ export default class ProductDetails extends React.Component {
 
         return (
             <DetailsWrapper>
+                <Loading open={this.state.loading}/>
                 <DialogShow openFlag={this.state.dialog} onButtonClick={this.deleteRow} onHide={this.hideDialog} />
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}

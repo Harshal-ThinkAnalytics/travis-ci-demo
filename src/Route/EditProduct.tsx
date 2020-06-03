@@ -198,7 +198,7 @@ class EditProduct extends React.Component<Props> {
     render() {
         return (
             <StyledAddPartner>
-                <h1>Add Product</h1>
+                <h1>Edit Product</h1>
 
                 <Label data={"Product Id: "} />
                 <Input

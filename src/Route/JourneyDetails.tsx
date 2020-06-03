@@ -4,7 +4,7 @@ import styled from "styled-components";
 import DialogShow from '../Components/DialogShow'
 
 import Table from '../Components/Table'
-
+import Loading from '../Components/Loading';
 import sendRequest from "../utils/sendRequest";
 
 
@@ -40,7 +40,8 @@ export default class JourneyDetails extends React.Component {
         index: "0",
         data:[],
         dialog:false,
-        deleteJourneyId:''
+        deleteJourneyId:'',
+        loading:true
     }
     columns=[
         {
@@ -140,6 +141,9 @@ export default class JourneyDetails extends React.Component {
           } catch (error) {
             console.log(error)
           }
+          this.setState({
+            loading:false
+        })
     }
     
     async componentDidMount(){
@@ -154,7 +158,7 @@ export default class JourneyDetails extends React.Component {
 
         return (
             <DetailsWrapper>
-
+                <Loading open={this.state.loading}/>
                 <DialogShow openFlag={this.state.dialog} onButtonClick={this.deleteRow} onHide={this.hideDialog} />
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}
