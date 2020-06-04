@@ -39,10 +39,11 @@ const Dropdown: React.FunctionComponent<Props> = (props) => {
               
               width: '245px',
               color: 'mango',
+              borderColor: '#d4ae69',
 
-              border: !isFocused
-                ? '1px solid var(--color-mango)'
-                : '1px solid var(--color-mango)'
+              // border: !isFocused
+              //   ? '1px solid var(--color-mango)'
+              //   : '1px solid var(--color-mango)'
             }
           }
         }}
