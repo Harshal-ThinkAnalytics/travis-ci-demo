@@ -11,18 +11,62 @@ import sendRequest from "../utils/sendRequest";
 const AddPartnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
-  padding: 2.2rem 0;
-
-  .form {
-    margin-top: 2.2rem;
-    margin-bottom: 2.5rem;
+  
+  
+  width: auto;
+  margin-left: 210px;
+  h1{
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    margin-bottom: 1rem;
   }
-
-  .submit-button {
-    margin-top: auto;
+  input {
+    padding-top: 5px;
+    //padding-bottom: 5px;
+    float:right;
+  }
+  p{
+    margin-top: -0.19rem;
+    margin-bottom: auto;
+    margin-left: 0.3rem
+  }
+  button{
+    margin-top:1rem;
+    
+   
   }
 `
+
+const Mystyle = styled.div`
+display: flex;
+  flex-direction: row row-wrap;
+  flex: 2;
+  padding: 0.5rem;
+`
+
+const Mystyle1 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1;
+padding: 1px;
+order:1;
+`
+const Mystyle2 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1 20%;
+padding: 1px;
+order:2;
+`
+
+
 class AddPartner extends React.Component {
 
     state = {
@@ -181,11 +225,19 @@ class AddPartner extends React.Component {
     render() {
         return (
             <AddPartnerWrapper>
+            <Mystyle>
+                <Mystyle1>
                 <h1>Add Partner</h1>
-                
-
-                <Label data={"Address: "} />
-                <Input
+                </Mystyle1>
+            </Mystyle>
+            
+            
+            <Mystyle>
+            <Mystyle1>
+            <Label data={"Address"} />
+            </Mystyle1>
+            <Mystyle2>
+            <Input
                     onChange={e => this.handleAddressChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -198,9 +250,16 @@ class AddPartner extends React.Component {
                 <ErrorMessage show={this.state.addressError} className="error-message">
                     Please enter address
                  </ErrorMessage>
+            </Mystyle2>
+            </Mystyle>
 
-                <Label data={"Contact Person: "} />
-                <Input
+
+            <Mystyle>
+            <Mystyle1>
+            <Label data={"Contact Person"} />
+            </Mystyle1>
+            <Mystyle2>
+            <Input
                     onChange={e => this.handleContactPersonChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -213,9 +272,15 @@ class AddPartner extends React.Component {
                 <ErrorMessage show={this.state.contactPersonError} className="error-message">
                     Please enter name
                  </ErrorMessage>
+            </Mystyle2>
+            </Mystyle>
 
-                <Label data={"Email Id: "} />
-                <Input
+            <Mystyle>
+            <Mystyle1>
+            <Label data={"Email Id"} />
+            </Mystyle1>
+            <Mystyle2>
+            <Input
                     onChange={e => this.handleEmailChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -228,9 +293,15 @@ class AddPartner extends React.Component {
                 <ErrorMessage show={this.state.emailIdError} className="error-message">
                     Please enter valid email id
                  </ErrorMessage>
+            </Mystyle2>
+            </Mystyle>
 
-                <Label data={"Mobile No: "} />
-                <Input
+            <Mystyle>
+            <Mystyle1>
+            <Label data={"Mobile No"} />
+            </Mystyle1>
+            <Mystyle2>
+            <Input
                     onChange={e => this.handleMobileChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -243,9 +314,16 @@ class AddPartner extends React.Component {
                  <ErrorMessage show={this.state.mobileNoError} className="error-message">
                     Please enter valid mobile number
                  </ErrorMessage>
+            </Mystyle2>
+            </Mystyle>
 
-                <Label data={"Short Code: "} />
-                <Input
+
+            <Mystyle>
+            <Mystyle1>
+            <Label data={"Short Code"} />
+            </Mystyle1>
+            <Mystyle2>
+            <Input
                     onChange={e => this.handleShortCodeChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -258,15 +336,21 @@ class AddPartner extends React.Component {
                  <ErrorMessage show={this.state.shortCodeError} className="error-message">
                     Please enter valid short Code
                  </ErrorMessage>
+            </Mystyle2>
+            </Mystyle>
 
-                <Button
+            <Mystyle>
+            <Mystyle1>
+            <Button
                     type={''}
                     // disabled={false}
                     onClick={() => this.saveData()}
                 >
                     Save
                 </Button>
-
+            </Mystyle1>
+            </Mystyle>
+                
 
             </AddPartnerWrapper >
         )

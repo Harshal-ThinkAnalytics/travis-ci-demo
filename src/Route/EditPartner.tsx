@@ -10,6 +10,7 @@ const StyledAddPartner = styled.div`
   display: flex;
   flex-direction: column;
   width: auto;
+  margin-left: 210px;
   h1{
     display: block;
     font-size: 2em;
@@ -38,6 +39,32 @@ button{
  
 }
 `
+
+const Mystyle = styled.div`
+display: flex;
+  flex-direction: row row-wrap;
+  flex: 2;
+  padding: 0.5rem;
+`
+
+const Mystyle1 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1;
+padding: 1px;
+order:1;
+`
+const Mystyle2 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1 20%;
+padding: 1px;
+order:2;
+`
+
+
 interface Props{
     location:any
 }
@@ -203,10 +230,19 @@ class EditPartner extends React.Component<Props> {
         console.log(this.data)
         return (
             <StyledAddPartner>
-                <h1>Edit Partner</h1>
-
-                <Label data={"Partner Id: "} />
-                <Input
+                <Mystyle>
+                    <Mystyle1>
+                    <h1>Edit Partner</h1>
+                    </Mystyle1>
+                </Mystyle>
+                
+                
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Partner Id"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleIdChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -219,9 +255,16 @@ class EditPartner extends React.Component<Props> {
                 <ErrorMessage show={this.state.partnerIdError} className="error-message">
                     Please enter valid Id
           </ErrorMessage>
+                    </Mystyle2>
+                </Mystyle>
 
-                <Label data={"Address: "} />
-                <Input
+
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Address"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleAddressChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -234,9 +277,15 @@ class EditPartner extends React.Component<Props> {
                 <ErrorMessage show={this.state.addressError} className="error-message">
                     Please enter address
                  </ErrorMessage>
+                    </Mystyle2>
+                </Mystyle>
 
-                <Label data={"Contact Person: "} />
-                <Input
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Contact Person"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleContactPersonChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -249,9 +298,15 @@ class EditPartner extends React.Component<Props> {
                 <ErrorMessage show={this.state.contactPersonError} className="error-message">
                     Please enter name
                  </ErrorMessage>
+                    </Mystyle2>
+                </Mystyle>
 
-                <Label data={"Email Id: "} />
-                <Input
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Email Id"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleEmailChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -264,9 +319,15 @@ class EditPartner extends React.Component<Props> {
                 <ErrorMessage show={this.state.emailIdError} className="error-message">
                     Please enter valid email id
                  </ErrorMessage>
+                    </Mystyle2>
+                </Mystyle>
 
-                <Label data={"Mobile No: "} />
-                <Input
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Mobile No"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleMobileChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -279,17 +340,20 @@ class EditPartner extends React.Component<Props> {
                  <ErrorMessage show={this.state.mobileNoError} className="error-message">
                     Please enter valid mobile number
                  </ErrorMessage>
+                    </Mystyle2>
+                </Mystyle>
 
-               
-
-                <Button
+                <Mystyle>
+                    <Mystyle1>
+                    <Button
                     type={''}
                     // disabled={false}
                     onClick={() => this.saveData()}
                 >
                     Save
                 </Button>
-
+                    </Mystyle1>
+                </Mystyle>            
 
             </StyledAddPartner >
         )

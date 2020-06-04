@@ -8,7 +8,7 @@ const DropdownWrapper = styled.div`
   display: flex;
   flex-direction: column;
   .dropdown {
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     /* margin-bottom: 2.6rem; */
   }
 `
@@ -36,11 +36,12 @@ const Dropdown: React.FunctionComponent<Props> = (props) => {
           control: (provided, { isFocused }) => {
             return {
               ...provided,
-              height: '2rem',
-              color: '#d4ae69',
+              
+              width: '245px',
+              color: 'mango',
 
               border: !isFocused
-                ? '1px solid var(--color-lightbluegray)'
+                ? '1px solid var(--color-mango)'
                 : '1px solid var(--color-mango)'
             }
           }

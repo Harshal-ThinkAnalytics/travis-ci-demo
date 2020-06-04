@@ -12,6 +12,7 @@ const StyledAddPartner = styled.div`
   display: flex;
   flex-direction: column;
   width: auto;
+  margin-left: 210px;
   h1{
     display: block;
     font-size: 2em;
@@ -39,6 +40,30 @@ button{
   
  
 }
+`
+
+const Mystyle = styled.div`
+display: flex;
+  flex-direction: row row-wrap;
+  flex: 2;
+  padding: 0.5rem;
+`
+
+const Mystyle1 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1;
+padding: 1px;
+order:1;
+`
+const Mystyle2 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1 20%;
+padding: 1px;
+order:2;
 `
 
 interface Props{
@@ -239,10 +264,19 @@ class EditJourney extends React.Component<Props> {
         console.log(this.data)
         return (
             <StyledAddPartner>
-                <h1>Edit Journey</h1>
+                <Mystyle>
+                    <Mystyle1>
+                    <h1>Edit Journey</h1>
+                    </Mystyle1>        
+                </Mystyle>
+                
 
-                <Label data={"Journey Id: "} />
-                <Input
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Journey Id"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleIdChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -255,9 +289,15 @@ class EditJourney extends React.Component<Props> {
                 <ErrorMessage show={this.state.journeyIdError} className="error-message">
                     Please enter valid Id
           </ErrorMessage>
+                    </Mystyle2>
+                </Mystyle>
 
-                <Label data={"journey Name: "} />
-                <Input
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Journey Name"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handlejourneyNameChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -270,9 +310,15 @@ class EditJourney extends React.Component<Props> {
                 <ErrorMessage show={this.state.journeyNameError} className="error-message">
                     Please enter journey name
                  </ErrorMessage>
+                    </Mystyle2>
+                </Mystyle>
 
-                <Label data={"Minimum Loan Amount: "} />
-                <Input
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Minimum Loan Amount"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleMinLoanAmountChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -285,9 +331,15 @@ class EditJourney extends React.Component<Props> {
                 <ErrorMessage show={this.state.minLoanAmountError} className="error-message">
                     Please enter minimum loan amount
                  </ErrorMessage>
+                    </Mystyle2>
+                </Mystyle>
 
-                <Label data={"Maximum Loan Amount: "} />
-                <Input
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Maximum Loan Amount"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleMaxLoanAmountChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -300,9 +352,15 @@ class EditJourney extends React.Component<Props> {
                 <ErrorMessage show={this.state.maxLoanAmountError} className="error-message">
                     Please enter maximum loan amount
                  </ErrorMessage>
+                    </Mystyle2>
+                </Mystyle>
 
-                <Label data={"Minimum Tenure: "} />
-                <Input
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Minimum Tenure"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleMinTenureChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -315,8 +373,15 @@ class EditJourney extends React.Component<Props> {
                  <ErrorMessage show={this.state.minTenureError} className="error-message">
                     Please enter minimum tenure
                  </ErrorMessage>
-                <Label data={"Maximum Tenure: "} />
-                <Input
+                    </Mystyle2>
+                </Mystyle>
+
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Maximum Tenure"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleMaxTenureChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -329,18 +394,30 @@ class EditJourney extends React.Component<Props> {
                  <ErrorMessage show={this.state.maxTenureError} className="error-message">
                     Please enter maximum tenure
                  </ErrorMessage>
-                 <Label data={"Product Id: "} />
-                 <Dropdown value={this.state.productIdRow} onChange={this.setProductId} options={this.state.productIds} placeholder={'Select Product Id'} />
-                 
+                    </Mystyle2>
+                </Mystyle>
 
-                <Button
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Product Id"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Dropdown value={this.state.productIdRow} onChange={this.setProductId} options={this.state.productIds} placeholder={'Select Product Id'} />
+                    </Mystyle2>
+                </Mystyle>
+
+                <Mystyle>
+                    <Mystyle1>
+                    <Button
                     type={''}
                     // disabled={false}
                     onClick={() => this.saveData()}
                 >
                     Save
                 </Button>
-
+                    </Mystyle1>
+                </Mystyle>
+                
 
             </StyledAddPartner >
         )
