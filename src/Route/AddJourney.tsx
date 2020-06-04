@@ -12,6 +12,7 @@ const StyledAddPartner = styled.div`
   display: flex;
   flex-direction: column;
   width: auto;
+  margin-left: 210px;
   h1{
     display: block;
     font-size: 2em;
@@ -40,7 +41,29 @@ button{
  
 }
 `
+const Mystyle = styled.div`
+display: flex;
+  flex-direction: row row-wrap;
+  flex: 2;
+  padding: 0.5rem;
+`
 
+const Mystyle1 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1;
+padding: 1px;
+order:1;
+`
+const Mystyle2 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1 20%;
+padding: 1px;
+order:2;
+`
 
 
 class AddJourney extends React.Component {
@@ -231,94 +254,149 @@ class AddJourney extends React.Component {
         console.log("product id is",this.state.productId)
         return (
             <StyledAddPartner>
+            <Mystyle>
+            <Mystyle1>
                 <h1>Add Journey</h1>
-                <Label data={"Journey Name: "} />
+            </Mystyle1>
+            </Mystyle>
+            
+            
+            <Mystyle>
+            <Mystyle1>
+            <Label data={"Journey Name"} />
+            </Mystyle1>
+            <Mystyle2>
+            <Input
+                onChange={e => this.handlejourneyNameChange(e.target.value)}
+                onFocus={() =>
+                    this.setState({
+                        journeyNameError: false
+                    })}
+                onBlur={() => { this.validatejourneyNameChange() }}
+                value={this.state.journeyName}
+                type={this.state.journeyNameError}
+            />
+            <ErrorMessage show={this.state.journeyNameError} className="error-message">
+                Please enter journey name
+             </ErrorMessage>
+             </Mystyle2>
+            </Mystyle>
+            
+             
+            <Mystyle>
+                <Mystyle1>
+                <Label data={"Minimum Loan Amount "} />
+                </Mystyle1>
+                <Mystyle2>
                 <Input
-                    onChange={e => this.handlejourneyNameChange(e.target.value)}
-                    onFocus={() =>
-                        this.setState({
-                            journeyNameError: false
-                        })}
-                    onBlur={() => { this.validatejourneyNameChange() }}
-                    value={this.state.journeyName}
-                    type={this.state.journeyNameError}
-                />
-                <ErrorMessage show={this.state.journeyNameError} className="error-message">
-                    Please enter journey name
-                 </ErrorMessage>
-
-                <Label data={"Minimum Loan Amount: "} />
+                onChange={e => this.handleMinLoanAmountChange(e.target.value)}
+                onFocus={() =>
+                    this.setState({
+                        minLoanAmountError: false
+                    })}
+                onBlur={() => { this.validateMinLoanAmountChange() }}
+                value={this.state.minLoanAmount}
+                type={this.state.minLoanAmountError}
+            />
+            <ErrorMessage show={this.state.minLoanAmountError} className="error-message">
+                Please enter minimum loan amount
+             </ErrorMessage>
+                </Mystyle2>
+            
+            </Mystyle>
+             
+            <Mystyle>
+                <Mystyle1>
+                <Label data={"Maximum Loan Amount"} />
+                </Mystyle1>
+            
+                <Mystyle2>
                 <Input
-                    onChange={e => this.handleMinLoanAmountChange(e.target.value)}
-                    onFocus={() =>
-                        this.setState({
-                            minLoanAmountError: false
-                        })}
-                    onBlur={() => { this.validateMinLoanAmountChange() }}
-                    value={this.state.minLoanAmount}
-                    type={this.state.minLoanAmountError}
-                />
-                <ErrorMessage show={this.state.minLoanAmountError} className="error-message">
-                    Please enter minimum loan amount
-                 </ErrorMessage>
-
-                <Label data={"Maximum Loan Amount: "} />
-                <Input
-                    onChange={e => this.handleMaxLoanAmountChange(e.target.value)}
-                    onFocus={() =>
-                        this.setState({
-                            maxLoanAmountError: false
-                        })}
-                    onBlur={() => { this.validateMaxLoanAmountChange() }}
-                    value={this.state.maxLoanAmount}
-                    type={this.state.maxLoanAmountError}
+                onChange={e => this.handleMaxLoanAmountChange(e.target.value)}
+                onFocus={() =>
+                    this.setState({
+                        maxLoanAmountError: false
+                    })}
+                onBlur={() => { this.validateMaxLoanAmountChange() }}
+                value={this.state.maxLoanAmount}
+                type={this.state.maxLoanAmountError}
                 />
                 <ErrorMessage show={this.state.maxLoanAmountError} className="error-message">
-                    Please enter maximum loan amount
-                 </ErrorMessage>
-
-                <Label data={"Minimum Tenure: "} />
+                Please enter maximum loan amount
+                </ErrorMessage>
+                </Mystyle2>
+            </Mystyle>
+            
+            <Mystyle>
+                <Mystyle1>
+                <Label data={"Minimum Tenure"} />
+                </Mystyle1>
+                <Mystyle2>
                 <Input
-                    onChange={e => this.handleMinTenureChange(e.target.value)}
-                    onFocus={() =>
-                        this.setState({
-                            minTenureError: false
-                        })}
-                    onBlur={() => { this.validateMinTenureChange() }}
-                    value={this.state.minTenure}
-                    type={this.state.minTenureError}
+                onChange={e => this.handleMinTenureChange(e.target.value)}
+                onFocus={() =>
+                    this.setState({
+                        minTenureError: false
+                    })}
+                onBlur={() => { this.validateMinTenureChange() }}
+                value={this.state.minTenure}
+                type={this.state.minTenureError}
                 />
-                 <ErrorMessage show={this.state.minTenureError} className="error-message">
-                    Please enter minimum tenure
-                 </ErrorMessage>
-                <Label data={"Maximum Tenure: "} />
+                <ErrorMessage show={this.state.minTenureError} className="error-message">
+                Please enter minimum tenure
+                </ErrorMessage>
+                </Mystyle2>
+            </Mystyle>
+            
+            <Mystyle>
+                <Mystyle1>
+                <Label data={"Maximum Tenure"} />
+                </Mystyle1>
+                <Mystyle2>
                 <Input
-                    onChange={e => this.handleMaxTenureChange(e.target.value)}
-                    onFocus={() =>
-                        this.setState({
-                            maxTenureError: false
-                        })}
-                    onBlur={() => { this.validateMaxTenureChange() }}
-                    value={this.state.maxTenure}
-                    type={this.state.maxTenureError}
-                />
-                 <ErrorMessage show={this.state.maxTenureError} className="error-message">
-                    Please enter maximum tenure
-                 </ErrorMessage>
-                 <Label data={"Product Id: "} />
-                 <Dropdown value={this.state.productIdRow} onChange={this.setProductId} options={this.state.productIds} placeholder={'Select Product Id'} />
-                 
+                onChange={e => this.handleMaxTenureChange(e.target.value)}
+                onFocus={() =>
+                    this.setState({
+                        maxTenureError: false
+                    })}
+                onBlur={() => { this.validateMaxTenureChange() }}
+                value={this.state.maxTenure}
+                type={this.state.maxTenureError}
+            />
+             <ErrorMessage show={this.state.maxTenureError} className="error-message">
+                Please enter maximum tenure
+             </ErrorMessage>
+                </Mystyle2>
+            </Mystyle>
+            
 
+            <Mystyle>
+                <Mystyle1>
+                <Label data={"Product Id"} />
+                </Mystyle1>
+                <Mystyle2>
+                <Dropdown value={this.state.productIdRow} onChange={this.setProductId} options={this.state.productIds} placeholder={'Select Product Id'} />
+                </Mystyle2>
+            </Mystyle>
+            
+             
+             
+             
+            <Mystyle>
+                <Mystyle1>
                 <Button
-                    type={''}
-                    // disabled={false}
-                    onClick={() => this.saveData()}
+                type={''}
+                // disabled={false}
+                onClick={() => this.saveData()}
                 >
-                    Save
+                Save
                 </Button>
+                </Mystyle1>
+            
+            </Mystyle>
+            
 
-
-            </StyledAddPartner >
+        </StyledAddPartner>
         )
     }
 };

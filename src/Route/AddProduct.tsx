@@ -10,6 +10,7 @@ const StyledAddPartner = styled.div`
   display: flex;
   flex-direction: column;
   width: auto;
+  margin-left: 210px;
   h1{
     display: block;
     font-size: 2em;
@@ -39,6 +40,29 @@ button{
 }
 `
 
+const Mystyle = styled.div`
+display: flex;
+  flex-direction: row row-wrap;
+  flex: 2;
+  padding: 0.5rem;
+`
+
+const Mystyle1 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1;
+padding: 1px;
+order:1;
+`
+const Mystyle2 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1 20%;
+padding: 1px;
+order:2;
+`
 
 
 class AddProduct extends React.Component {
@@ -193,10 +217,19 @@ class AddProduct extends React.Component {
     render() {
         return (
             <StyledAddPartner>
-                <h1>Add Product</h1>
+                <Mystyle>
+                    <Mystyle1>
+                    <h1>Add Product</h1>
+                    </Mystyle1>
+                </Mystyle>
+                
 
-                <Label data={"Product Name: "} />
-                <Input
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Product Name"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleProductNameChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -209,9 +242,15 @@ class AddProduct extends React.Component {
                 <ErrorMessage show={this.state.productNameError} className="error-message">
                     Please enter product name
                  </ErrorMessage>
+                    </Mystyle2>
+                </Mystyle>
 
-                <Label data={"Minimum Loan Amount: "} />
-                <Input
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Minimum Loan Amount"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleMinLoanAmountChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -224,9 +263,15 @@ class AddProduct extends React.Component {
                 <ErrorMessage show={this.state.minLoanAmountError} className="error-message">
                     Please enter minimum loan amount
                  </ErrorMessage>
+                    </Mystyle2>
+                </Mystyle>
 
-                <Label data={"Maximum Loan Amount: "} />
-                <Input
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Maximum Loan Amount"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleMaxLoanAmountChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -239,9 +284,15 @@ class AddProduct extends React.Component {
                 <ErrorMessage show={this.state.maxLoanAmountError} className="error-message">
                     Please enter maximum loan amount
                  </ErrorMessage>
+                    </Mystyle2>
+                </Mystyle>
 
-                <Label data={"Minimum Tenure: "} />
-                <Input
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Minimum Tenure"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleMinTenureChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -254,9 +305,15 @@ class AddProduct extends React.Component {
                  <ErrorMessage show={this.state.minTenureError} className="error-message">
                     Please enter minimum tenure
                  </ErrorMessage>
+                    </Mystyle2>
+                </Mystyle>
 
-                <Label data={"Maximum Tenure: "} />
-                <Input
+                <Mystyle>
+                    <Mystyle1>
+                    <Label data={"Maximum Tenure"} />
+                    </Mystyle1>
+                    <Mystyle2>
+                    <Input
                     onChange={e => this.handleMaxTenureChange(e.target.value)}
                     onFocus={() =>
                         this.setState({
@@ -269,14 +326,37 @@ class AddProduct extends React.Component {
                  <ErrorMessage show={this.state.maxTenureError} className="error-message">
                     Please enter maximum tenure
                  </ErrorMessage>
+                    </Mystyle2>
+                </Mystyle>
 
-                <Button
+                <Mystyle>
+                    <Mystyle1>
+                    <Button
                     type={''}
                     // disabled={false}
                     onClick={() => this.saveData()}
                 >
                     Save
                 </Button>
+                    </Mystyle1>
+                    
+                </Mystyle>
+                
+                
+
+                
+                
+
+                
+                
+
+                
+                
+
+                
+                
+
+                
 
 
             </StyledAddPartner >
