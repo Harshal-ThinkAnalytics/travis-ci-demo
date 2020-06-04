@@ -4,17 +4,15 @@ import Header from '../Components/Header'
 import PartnerDetails from './PartnerDetails'
 
 const SidebarWrapper = styled.section`
-display: flex;
   flex-direction: column;
    flex: 1;
   display:flex;
   padding: 2.2rem rem;
   background-color: #f2f3f6;
   float:left;
-  // width:15rem;
+//   width:15rem;
   
     .sidenav {
-      
       height: 100%;
       width: 18%;
       position: fixed;
@@ -48,6 +46,7 @@ export default class Sidebar extends React.Component {
                         <a href="PartnerDetails">Partner</a>
                         <a href="ProductDetails">Product</a>
                         <a href="JourneyDetails">Journey</a>
+                        <a href="PartnerJourneyDetails">Map Partner to Journey</a>
                     </div>
                 </SidebarWrapper>
             </div>

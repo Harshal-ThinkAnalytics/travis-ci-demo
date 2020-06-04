@@ -52,7 +52,7 @@ const tableIcons = {
 const Table:React.FunctionComponent<Props>=(props)=>{
     const history = useHistory();
     const changePath=(title:string,rowData:any)=>{
-        history.push('/Edit'+title,rowData)
+        history.push('/Configure'+title,rowData)
     }
     return (
             <MaterialTable
@@ -76,7 +76,7 @@ const Table:React.FunctionComponent<Props>=(props)=>{
           },
         {
             icon: () => <Edit />,
-            tooltip: 'Edit',
+            tooltip: 'Configure',
             onClick: (event, rowData) => {
                 console.log(rowData)
                 changePath(props.title,rowData)

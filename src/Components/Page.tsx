@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-
+import Sidebar from '../Route/Sidebar'
 import Header from './Header'
 
 const Body = styled.div`
@@ -23,6 +23,7 @@ const Page: React.FunctionComponent<Props> = (props) => {
   return (
     <>
       <Header />
+      <Sidebar/>
       <Body>{props.children}</Body>
     </>
   )

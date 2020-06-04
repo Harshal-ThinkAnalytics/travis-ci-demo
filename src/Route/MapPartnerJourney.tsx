@@ -37,29 +37,25 @@ class MapPartnerJourney extends React.Component {
         journeyIdRow:{}
 
     }
-    // saveData = async() =>{
-    //     try {
+    saveData = async() =>{
+        try {
 
-    //         var response  = await sendRequest('/SaveB2BPartnerDetails', {
-    //             contact_person_name:this.state.contactPerson,
-    //             active:true,
-    //             address:this.state.address,
-    //             email_id:this.state.emailId,
-    //             mobile_number:this.state.mobileNo,
-    //             short_code:this.state.shortCode,
-    //             operation:'save'
-    //         },'POST')
-    //         console.log(response)
-    //         if (response.data.success){
-    //             this.setState({data:response.data.data})
-    //         }
-    //         else{
-    //             console.log("Error in saving data.")
-    //         }
-    //       } catch (error) {
-    //         console.log(error)
-    //       }
-    // }
+            var response  = await sendRequest('/SaveB2BPartnerJourneyMapping', {
+                partner_id:Number(this.state.partnerId),
+                journey_id:Number(this.state.journeyId),
+                operation:'save'
+            },'POST')
+            console.log(response)
+            if (response.data.success){
+                console.log("data saved successfully.")
+            }
+            else{
+                console.log("Error in saving data.")
+            }
+          } catch (error) {
+            console.log(error)
+          }
+    }
 
     setPartnerId = (partner_id:any) =>{
         this.setState({
@@ -131,7 +127,7 @@ class MapPartnerJourney extends React.Component {
                 <Button
                     type={''}
                     // disabled={false}
-                    // onClick={() => this.saveData()}
+                    onClick={() => this.saveData()}
                 >
                     Save
                 </Button>

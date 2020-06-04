@@ -169,7 +169,7 @@ export default class PartnerJourneyDetails extends React.Component {
 
     render() {
         if(this.state.redirect){
-            return <Redirect to='/AddPartner'/>;
+            return <Redirect to='/MapPartnerJourney'/>;
         }
        
 

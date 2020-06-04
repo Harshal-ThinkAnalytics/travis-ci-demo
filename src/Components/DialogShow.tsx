@@ -19,7 +19,7 @@ const DialogShow:React.FunctionComponent<Props>=(props) => {
       <div
         style={{
           border: "1px solid lightgray",
-          margin: "auto"
+          margin: "auto",
         }}
       >
         <div

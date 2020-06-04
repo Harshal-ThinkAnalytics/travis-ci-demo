@@ -15,7 +15,7 @@ const LoadingWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 10;
+  z-index: 9;
   .loader {
     color: var(--color-tantwo);
     font-size: 20px;

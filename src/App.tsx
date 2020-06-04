@@ -6,7 +6,6 @@ import Page from './Components/Page'
 import Label from './Components/Label';
 import Header from './Components/Header'
 import LabeledInput from './Components/LabeledInput'
-import Sidebar from './Route/Sidebar'
 import PartnerDetails from './Route/PartnerDetails'
 import JourneyDetails from './Route/JourneyDetails'
 import ProductDetails from './Route/ProductDetails'
@@ -18,12 +17,12 @@ import EditPartner from './Route/EditPartner'
 import EditProduct from './Route/EditProduct'
 import EditJourney from './Route/EditJourney'
 import MapPartnerJourney from './Route/MapPartnerJourney'
+import ConfigurePartnerJourney from './Route/ConfigurePartnerJourney'
 
 function App() {
   return (
 
     <div>
-    <Sidebar/>
     <BrowserRouter>
       <Page>
         <Switch>
@@ -38,6 +37,7 @@ function App() {
         <Route path="/EditProduct" component={EditProduct} />
         <Route path="/EditJourney" component={EditJourney} />
         <Route path="/MapPartnerJourney" component={MapPartnerJourney} />
+        <Route path="/ConfigurePartnerJourney" component={ConfigurePartnerJourney} />
         </Switch>
       </Page>
     </BrowserRouter>
