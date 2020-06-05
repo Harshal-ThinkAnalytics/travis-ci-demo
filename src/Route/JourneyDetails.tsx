@@ -41,7 +41,8 @@ export default class JourneyDetails extends React.Component {
         data:[],
         dialog:false,
         deleteJourneyId:'',
-        loading:true
+        loading:true,
+        refresh:true
     }
     columns=[
         {
@@ -111,6 +112,10 @@ export default class JourneyDetails extends React.Component {
     }
     deleteRow = async() =>{
         try {
+            this.setState({
+                loading:true,
+                dialog:false
+            })
             var response  = await sendRequest('/DeleteB2BJourneyDetails', {
                 journey_id:Number(this.state.deleteJourneyId)
             },'POST')
@@ -124,8 +129,11 @@ export default class JourneyDetails extends React.Component {
           } catch (error) {
             console.log(error)
           }
-        this.setState({deleteJourneyId:''})
-        this.hideDialog()
+        this.setState({
+            deleteJourneyId:'',
+            loading:false,
+            refresh:true
+        })
     }  
 
     getData = async() =>{
@@ -154,7 +162,12 @@ export default class JourneyDetails extends React.Component {
         if(this.state.redirect){
             return <Redirect to='/AddJourney'/>;
         }
-       
+        if(this.state.refresh){
+            this.setState({
+                refresh:false
+            })
+            this.componentDidMount()
+        }
 
         return (
             <DetailsWrapper>

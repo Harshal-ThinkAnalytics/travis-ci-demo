@@ -6,6 +6,7 @@ import Input from "../Components/Input";
 import Button from '../Components/Button'
 import ErrorMessage from '../Components/ErrorMessage'
 import sendRequest from "../utils/sendRequest";
+import { Redirect } from "react-router-dom";
 
 
 const AddPartnerWrapper = styled.div`
@@ -36,9 +37,7 @@ const AddPartnerWrapper = styled.div`
     margin-left: 0.3rem
   }
   button{
-    margin-top:1rem;
-    
-   
+    margin-top:1rem;  
   }
 `
 
@@ -82,6 +81,7 @@ class AddPartner extends React.Component {
         mobileNoError: false,
         shortCode: '',
         shortCodeError: false,
+        redirect:false
 
     }
     saveData = async() =>{
@@ -98,7 +98,7 @@ class AddPartner extends React.Component {
             },'POST')
             console.log(response)
             if (response.data.success){
-                this.setState({data:response.data.data})
+                this.setState({redirect:true})
             }
             else{
                 console.log("Error in saving data.")
@@ -118,7 +118,7 @@ class AddPartner extends React.Component {
     }
     validateId = () => {
         console.log("inside validateID")
-        if (this.state.partnerId.length <= 1) {
+        if (this.state.partnerId.length < 1) {
             this.setState({
                 partnerIdError: true
             });
@@ -223,6 +223,9 @@ class AddPartner extends React.Component {
         }
     }
     render() {
+        if(this.state.redirect){
+            return <Redirect to='/PartnerDetails'/>;
+        }
         return (
             <AddPartnerWrapper>
             <Mystyle>
@@ -340,16 +343,26 @@ class AddPartner extends React.Component {
             </Mystyle>
 
             <Mystyle>
-            <Mystyle1>
-            <Button
+                    <Mystyle1>
+                    <Button
+                    type={''}
+                    // disabled={false}
+                    onClick={() => this.setState({redirect:true})}
+                    
+                >
+                    Back
+                </Button>
+                </Mystyle1>
+                <Mystyle2>
+                    <Button
                     type={''}
                     // disabled={false}
                     onClick={() => this.saveData()}
                 >
                     Save
                 </Button>
-            </Mystyle1>
-            </Mystyle>
+                </Mystyle2>
+                </Mystyle> 
                 
 
             </AddPartnerWrapper >

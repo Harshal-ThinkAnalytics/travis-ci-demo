@@ -6,51 +6,113 @@ import Input from "../Components/Input";
 import Button from '../Components/Button'
 import ErrorMessage from '../Components/ErrorMessage'
 import sendRequest from "../utils/sendRequest";
+import { Redirect } from "react-router-dom";
+import Dropdown from '../Components/Dropdown'
 
 
 const AddPartnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
-  padding: 2.2rem 0;
-
-  .form {
-    margin-top: 2.2rem;
-    margin-bottom: 2.5rem;
+  width: auto;
+  margin-left: 210px;
+  h1{
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    margin-bottom: 1rem;
   }
 
-  .submit-button {
-    margin-top: auto;
+  input {
+    padding-top: 5px;
+    //padding-bottom: 5px;
+    float:right;
   }
+ 
+p{
+  margin-top: -0.19rem;
+  margin-bottom: auto;
+  margin-left: 0.3rem
+}
+button{
+  margin-top:1rem;
+  
+ 
+}
 `
-class ConfigurePartnerJourney extends React.Component {
+
+const Mystyle = styled.div`
+display: flex;
+  flex-direction: row row-wrap;
+  flex: 2;
+  padding: 0.5rem;
+`
+
+const Mystyle1 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1;
+padding: 1px;
+order:1;
+`
+const Mystyle2 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1 20%;
+padding: 1px;
+order:2;
+`
+interface Props{
+    id:string
+}
+
+class ConfigurePartnerJourney extends React.Component<Props> {
 
     state = {
-        partnerId: '',
+        id: this.props.id,
         partnerIdError: false,
-        address: '',
-        addressError: false,
-        contactPerson: '',
-        contactPersonError: false,
-        emailId: '',
-        emailIdError: false,
-        mobileNo: '',
-        mobileNoError: false,
-        shortCode: '',
-        shortCodeError: false,
-
+        data:[],
+        minAge:'',
+        minAgeError:false,
+        maxAge:'',
+        maxAgeError:false,
+        lmsScheme:'',
+        lmsSchemeRow:{},
+        lmsSchemes:[],
+        lmsProduct:'',
+        lmsProductRow:{},
+        lmsProducts:[],
+        kyc:'',
+        kycRow:{},
+        bureauToCall:'',
+        bureauToCallRow:{},
+        mandate:'',
+        mandateRow:{},
+        paymentGateway:'',
+        paymentGatewayRow:{},
+        lmsDisbursal:'',
+        lmsDisbursalRow:{},
+        dkycVersion:'',
+        dkycVersionRow:{},
+        mrpVersion:'',
+        mrpVersionRow:{}
     }
     saveData = async() =>{
         try {
 
             var response  = await sendRequest('/SaveB2BPartnerDetails', {
-                contact_person_name:this.state.contactPerson,
-                active:true,
-                address:this.state.address,
-                email_id:this.state.emailId,
-                mobile_number:this.state.mobileNo,
-                short_code:this.state.shortCode,
-                operation:'save'
+                // contact_person_name:this.state.contactPerson,
+                // active:true,
+                // address:this.state.address,
+                // email_id:this.state.emailId,
+                // mobile_number:this.state.mobileNo,
+                // short_code:this.state.shortCode,
+                // operation:'save'
             },'POST')
             console.log(response)
             if (response.data.success){
@@ -64,210 +126,155 @@ class ConfigurePartnerJourney extends React.Component {
           }
     }
 
+    getValue=(data:any)=>{
+        return data.value
+    }
 
-    handleIdChange = (value: string) => {
-        const Id = value.replace(/\D+/g, '')
+    getRow=(data:string)=>{
+        return {label:data,value:data}
+    }
+
+    getLmsSchemes = async() =>{
+        try {
+            var response  = await sendRequest('/FetchSchemeFromLms', {},'GET')
+            console.log(response)
+            if (response.data.success){
+                var schemes=[]
+                for(var key in response.data.data){
+                    schemes.push({label:response.data.data[key]['schemeDesc'],value:response.data.data[key]['schemeId']})
+                }
+                this.setState({
+                    lmsSchemes:schemes
+                })
+            }
+            else{
+                console.log("Error in fetching data.")
+            }
+          } catch (error) {
+            console.log(error)
+          }
+    }
+
+    setLmsScheme = (lms_scheme:any) =>{
         this.setState({
-            partnerId: Id
-        });
-
-    }
-    validateId = () => {
-        console.log("inside validateID")
-        if (this.state.partnerId.length <= 1) {
-            this.setState({
-                partnerIdError: true
-            });
-
-        }
+            lmsSchemeRow:lms_scheme,
+            lmsScheme:lms_scheme.value
+        })
     }
 
-    handleAddressChange = (value: string) => {
+    getLmsProducts = async() =>{
+        try {
+            var response  = await sendRequest('/FetchProductFromLms', {},'GET')
+            console.log(response)
+            if (response.data.success){
+                var products=[]
+                for(var key in response.data.data){
+                    products.push({label:response.data.data[key]['productDesc'],value:response.data.data[key]['productId']})
+                }
+                this.setState({
+                    lmsProducts:products
+                })
+            }
+            else{
+                console.log("Error in fetching data.")
+            }
+          } catch (error) {
+            console.log(error)
+          }
+    }
 
-        const filteredValue = value.replace(/[^.^-^/^@^#^,^;^a-z^A-Z^0-9^\s ]/g, '')
+    setLmsProduct = (lms_product:any) =>{
         this.setState({
-            address: filteredValue
-        });
-
+            lmsProductRow:lms_product,
+            lmsProduct:lms_product.value
+        })
     }
 
-    validateAddressChange = () => {
-        console.log("inside validateAddressChange")
-        if (this.state.address.length < 5) {
-            this.setState({
-                addressError: true
-            });
+    getData = async() =>{
+        try {
+            var response  = await sendRequest('/FetchB2BJourneyConfig', {},'GET')
+            console.log(response)
+            if (response.data.success){
+                var data =response.data.data[0]
+                this.setState({
+                    minAge:data['min_age'],
+                    maxAge:data['max_age'],
+                    lmsScheme:data['lms_scheme'],
+                    lmsSchemeRow:this.getRow(data['lms_scheme']),
+                    lmsProduct:data['lms_product'],
+                    lmsProductRow:this.getRow(data['lms_product']),
+                    kyc:data['kyc'],
+                    kycRow:this.getRow(data['kyc']),
+                    mandate:data['mandate'],
+                    mandateRow:this.getRow(data['mandate']),
+                    bureauToCall:data['bureau_to_call'],
+                    bureauToCallRow:this.getRow(data['bureau_to_call']),
+                    paymentGateway:data['payment_gateway'],
+                    paymentGatewayRow:this.getRow(data['payment_gateway']),
+                })
 
-        }
+            }
+                
+            else{
+                console.log("Error in fetching data.")
+            }
+          } catch (error) {
+            console.log(error)
+          }
+    }
+    async componentDidMount(){
+        this.getData()
+        this.getLmsSchemes()
+        this.getLmsProducts()
     }
 
-    handleContactPersonChange = (value: string) => {
-        const filteredValue = value.replace(/[^a-z^A-Z^\s]/g, '')
-        this.setState({
-            contactPerson: filteredValue
-        });
-
-    }
-
-    validateContactPersonChange = () => {
-        console.log("inside validateContactPersonChange")
-        if (this.state.contactPerson.length < 2) {
-            this.setState({
-                contactPersonError: true
-            });
-
-        }
-    }
-
-    handleEmailChange = (value: string) => {
-        const filteredValue = value.replace(/[^a-zA-Z_.@0-9]/g, '')
-        this.setState({
-            emailId: filteredValue
-        });
-    }
-
-
-    validateEmail = () => {
-        if (
-            this.state.emailId.length <= 0 ||
-            !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.state.emailId)
-        )
-            this.setState({
-                emailIdError: true
-            });
-
-    }
-
-    handleMobileChange = (value: string) => {
-        if (value.length > 10) return
-        const filteredMobile = value.replace(/\D+/g, '')
-        if (filteredMobile.length === 10) this.validateMobile(filteredMobile)
-        this.setState({
-            mobileNo: filteredMobile
-        });
-
-    }
-
-    validateMobile = (value: string) => {
-        if (!/^[6789]{1}[0-9]{9}$/.test(value || this.state.mobileNo)) {
-            this.setState({
-                mobileNoError: true
-            });
-            // setMobileNoError(true)
-        } else {
-            this.setState({
-                mobileNoError: false
-            });
-            // setMobileNoError(false)
-        }
-    }
-
-    handleShortCodeChange = (value: string) => {
-        const filteredValue = value.replace(/[^a-z^A-Z^\s]/g, '')
-        this.setState({
-            shortCode: filteredValue
-        });
-        // setShortCode(filteredValue)
-    }
-    validateShortCodeChange = () => {
-        console.log("inside validateShortCodeChange")
-        if (this.state.shortCode.length < 1) {
-            this.setState({
-                shortCodeError: true
-            });
-
-        }
-    }
     render() {
         return (
             <AddPartnerWrapper>
-                <h1>Add Partner</h1>
-                
+                <Mystyle>
+                    <Mystyle1>
+                    <h1>Configure Partner Journey</h1>
+                    </Mystyle1>
+                </Mystyle>
+                <Mystyle>
+                    <Mystyle1>
+                        <Label data={"LMS Scheme: "} />
+                    </Mystyle1>
+                    <Mystyle2>
+                        <Dropdown value={this.state.lmsSchemeRow} onChange={this.setLmsScheme} options={this.state.lmsSchemes} placeholder={'Select LMS Scheme'} />
+                    </Mystyle2>
+                 </Mystyle>
 
-                <Label data={"Address: "} />
-                <Input
-                    onChange={e => this.handleAddressChange(e.target.value)}
-                    onFocus={() =>
-                        this.setState({
-                            addressError: false
-                        })}
-                    onBlur={() => { this.validateAddressChange() }}
-                    value={this.state.address}
-                    type={this.state.addressError}
-                />
-                <ErrorMessage show={this.state.addressError} className="error-message">
-                    Please enter address
-                 </ErrorMessage>
+                 <Mystyle>
+                    <Mystyle1>
+                        <Label data={"LMS Product: "} />
+                    </Mystyle1>
+                    <Mystyle2>
+                        <Dropdown value={this.state.lmsProductRow} onChange={this.setLmsProduct} options={this.state.lmsProducts} placeholder={'Select LMS Product'} />
+                    </Mystyle2>
+                 </Mystyle>
 
-                <Label data={"Contact Person: "} />
-                <Input
-                    onChange={e => this.handleContactPersonChange(e.target.value)}
-                    onFocus={() =>
-                        this.setState({
-                            contactPersonError: false
-                        })}
-                    onBlur={() => { this.validateContactPersonChange() }}
-                    value={this.state.contactPerson}
-                    type={this.state.contactPersonError}
-                />
-                <ErrorMessage show={this.state.contactPersonError} className="error-message">
-                    Please enter name
-                 </ErrorMessage>
-
-                <Label data={"Email Id: "} />
-                <Input
-                    onChange={e => this.handleEmailChange(e.target.value)}
-                    onFocus={() =>
-                        this.setState({
-                            emailIdError: false
-                        })}
-                    onBlur={() => { this.validateEmail() }}
-                    value={this.state.emailId}
-                    type={this.state.emailIdError}
-                />
-                <ErrorMessage show={this.state.emailIdError} className="error-message">
-                    Please enter valid email id
-                 </ErrorMessage>
-
-                <Label data={"Mobile No: "} />
-                <Input
-                    onChange={e => this.handleMobileChange(e.target.value)}
-                    onFocus={() =>
-                        this.setState({
-                            mobileNoError: false
-                        })}
-                    onBlur={() => { this.validateMobile(this.state.mobileNo) }}
-                    value={this.state.mobileNo}
-                    type={this.state.mobileNoError}
-                />
-                 <ErrorMessage show={this.state.mobileNoError} className="error-message">
-                    Please enter valid mobile number
-                 </ErrorMessage>
-
-                <Label data={"Short Code: "} />
-                <Input
-                    onChange={e => this.handleShortCodeChange(e.target.value)}
-                    onFocus={() =>
-                        this.setState({
-                            shortCodeError: false
-                        })}
-                    onBlur={() => { this.validateShortCodeChange() }}
-                    value={this.state.shortCode}
-                    type={this.state.shortCodeError}
-                />
-                 <ErrorMessage show={this.state.shortCodeError} className="error-message">
-                    Please enter valid short Code
-                 </ErrorMessage>
-
-                <Button
+                 <Mystyle>
+                    <Mystyle1>
+                    <Button
+                    type={''}
+                    // disabled={false}
+                    onClick={() => this.setState({redirect:true})}
+                    
+                >
+                    Back
+                </Button>
+                </Mystyle1>
+                <Mystyle2>
+                    <Button
                     type={''}
                     // disabled={false}
                     onClick={() => this.saveData()}
                 >
                     Save
                 </Button>
-
-
+                </Mystyle2>
+                </Mystyle> 
             </AddPartnerWrapper >
         )
     }

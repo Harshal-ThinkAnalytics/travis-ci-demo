@@ -5,6 +5,7 @@ import Input from "../Components/Input";
 import Button from '../Components/Button'
 import ErrorMessage from '../Components/ErrorMessage'
 import sendRequest from "../utils/sendRequest";
+import { Redirect } from "react-router-dom";
 
 const StyledAddPartner = styled.div`
   display: flex;
@@ -86,6 +87,7 @@ class EditProduct extends React.Component<Props> {
         minTenureError: false,
         maxTenure: this.data.max_tenure,
         maxTenureError: false,
+        redirect:false
 
     }
     saveData = async() =>{
@@ -103,7 +105,7 @@ class EditProduct extends React.Component<Props> {
             },'POST')
             console.log(response)
             if (response.data.success){
-                this.setState({data:response.data.data})
+                this.setState({redirect:true})
             }
             else{
                 console.log("Error in saving data.")
@@ -123,7 +125,7 @@ class EditProduct extends React.Component<Props> {
     }
     validateId = () => {
         console.log("inside validateID")
-        if (this.state.productId.length <= 1) {
+        if (this.state.productId.length < 1) {
             this.setState({
                 productIdError: true
             });
@@ -222,6 +224,9 @@ class EditProduct extends React.Component<Props> {
         }
     }
     render() {
+        if(this.state.redirect){
+            return <Redirect to='/ProductDetails'/>;
+        }
         return (
             <StyledAddPartner>
                 <Mystyle>
@@ -361,11 +366,21 @@ class EditProduct extends React.Component<Props> {
                     <Button
                     type={''}
                     // disabled={false}
+                    onClick={() => this.setState({redirect:true})}
+                    
+                >
+                    Back
+                </Button>
+                </Mystyle1>
+                <Mystyle2>
+                    <Button
+                    type={''}
+                    // disabled={false}
                     onClick={() => this.saveData()}
                 >
                     Save
                 </Button>
-                    </Mystyle1>
+                </Mystyle2>
                 </Mystyle>
 
 

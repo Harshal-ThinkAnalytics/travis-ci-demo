@@ -41,7 +41,8 @@ export default class ProductDetails extends React.Component {
         redirect:false,
         dialog:false,
         deleteProductId:'',
-        loading:true
+        loading:true,
+        refresh:false
     }
     columns=[
         {
@@ -105,6 +106,10 @@ export default class ProductDetails extends React.Component {
     }
     deleteRow = async() =>{
         try {
+            this.setState({
+                loading:true,
+                dialog:false
+            })
             var response  = await sendRequest('/DeleteB2BProductDetails', {
                 product_id:Number(this.state.deleteProductId)
             },'POST')
@@ -118,8 +123,11 @@ export default class ProductDetails extends React.Component {
           } catch (error) {
             console.log(error)
           }
-        this.setState({deleteProductId:''})
-        this.hideDialog()
+        this.setState({
+            deleteProductId:'',
+            loading:false,
+            refresh:true
+        })
     } 
 
     getData = async() =>{
@@ -147,6 +155,12 @@ export default class ProductDetails extends React.Component {
     render() {
         if(this.state.redirect){
             return <Redirect to='/AddProduct'/>;
+        }
+        if(this.state.refresh){
+            this.setState({
+                refresh:false
+            })
+            this.componentDidMount()
         }
        
 

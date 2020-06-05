@@ -7,22 +7,65 @@ import Button from '../Components/Button'
 import ErrorMessage from '../Components/ErrorMessage'
 import sendRequest from "../utils/sendRequest";
 import Dropdown from '../Components/Dropdown'
+import { Redirect } from "react-router-dom";
 
 
 const AddPartnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1;
-  padding: 2.2rem 0;
-
-  .form {
-    margin-top: 2.2rem;
-    margin-bottom: 2.5rem;
+  width: auto;
+  margin-left: 210px;
+  h1{
+    display: block;
+    font-size: 2em;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    font-weight: bold;
+    margin-bottom: 1rem;
   }
 
-  .submit-button {
-    margin-top: auto;
+  input {
+    padding-top: 5px;
+    //padding-bottom: 5px;
+    float:right;
   }
+ 
+p{
+  margin-top: -0.19rem;
+  margin-bottom: auto;
+  margin-left: 0.3rem
+}
+button{
+  margin-top:1rem;
+  
+ 
+}
+`
+
+const Mystyle = styled.div`
+display: flex;
+  flex-direction: row row-wrap;
+  flex: 2;
+  padding: 0.5rem;
+`
+
+const Mystyle1 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1;
+padding: 1px;
+order:1;
+`
+const Mystyle2 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1 20%;
+padding: 1px;
+order:2;
 `
 class MapPartnerJourney extends React.Component {
 
@@ -34,7 +77,8 @@ class MapPartnerJourney extends React.Component {
         journeys:[],
         partners:[],
         partnerIdRow:{},
-        journeyIdRow:{}
+        journeyIdRow:{},
+        redirect:false
 
     }
     saveData = async() =>{
@@ -48,6 +92,9 @@ class MapPartnerJourney extends React.Component {
             console.log(response)
             if (response.data.success){
                 console.log("data saved successfully.")
+                this.setState({
+                    redirect:true
+                })
             }
             else{
                 console.log("Error in saving data.")
@@ -116,21 +163,53 @@ class MapPartnerJourney extends React.Component {
         this.getPartners()
     }
     render() {
+        if(this.state.redirect){
+            return <Redirect to='/PartnerJourneyDetails'/>;
+        }
         return (
             <AddPartnerWrapper>
-                <h1>Map Partner to Journey</h1>
-                <Label data={"Partner Id: "} />
-                 <Dropdown value={this.state.partnerIdRow} onChange={this.setPartnerId} options={this.state.partners} placeholder={'Select Partner'} />
-
-                 <Label data={"Journey Id: "} />
-                 <Dropdown value={this.state.journeyIdRow} onChange={this.setJourneyId} options={this.state.journeys} placeholder={'Select Journey'} />
-                <Button
+                <Mystyle>
+                    <Mystyle1>
+                    <h1>Map Partner to Journey</h1>
+                    </Mystyle1>
+                </Mystyle>
+                <Mystyle>
+                    <Mystyle1>
+                        <Label data={"Partner Id: "} />
+                    </Mystyle1>
+                    <Mystyle2>
+                        <Dropdown value={this.state.partnerIdRow} onChange={this.setPartnerId} options={this.state.partners} placeholder={'Select Partner'} />
+                    </Mystyle2>
+                 </Mystyle>
+                 <Mystyle>
+                    <Mystyle1>
+                        <Label data={"Journey Id: "} />
+                    </Mystyle1>
+                    <Mystyle2>
+                        <Dropdown value={this.state.journeyIdRow} onChange={this.setJourneyId} options={this.state.journeys} placeholder={'Select Journey'} />
+                    </Mystyle2>
+                 </Mystyle>
+                 <Mystyle>
+                    <Mystyle1>
+                    <Button
+                    type={''}
+                    // disabled={false}
+                    onClick={() => this.setState({redirect:true})}
+                    
+                >
+                    Back
+                </Button>
+                </Mystyle1>
+                <Mystyle2>
+                    <Button
                     type={''}
                     // disabled={false}
                     onClick={() => this.saveData()}
                 >
                     Save
                 </Button>
+                </Mystyle2>
+                </Mystyle>  
 
 
             </AddPartnerWrapper >

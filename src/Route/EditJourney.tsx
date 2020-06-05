@@ -6,6 +6,7 @@ import Button from '../Components/Button'
 import ErrorMessage from '../Components/ErrorMessage'
 import sendRequest from "../utils/sendRequest";
 import Dropdown from '../Components/Dropdown'
+import { Redirect } from "react-router-dom";
 
 
 const StyledAddPartner = styled.div`
@@ -89,7 +90,8 @@ class EditJourney extends React.Component<Props> {
         productId:this.data.product_id,
         productIdError:false,
         productIdRow:{},
-        productIds:[]
+        productIds:[],
+        redirect:false
 
     }
     setProductId = (product_id:any) =>{
@@ -100,7 +102,6 @@ class EditJourney extends React.Component<Props> {
     }
     saveData = async() =>{
         try {
-
             var response  = await sendRequest('/SaveB2BJourneyDetails', {
                 journey_id:Number(this.state.journeyId),
                 journey_name:this.state.journeyName,
@@ -114,7 +115,7 @@ class EditJourney extends React.Component<Props> {
             },'POST')
             console.log(response)
             if (response.data.success){
-                this.setState({data:response.data.data})
+                this.setState({redirect:true})
             }
             else{
                 console.log("Error in saving data.")
@@ -159,7 +160,7 @@ class EditJourney extends React.Component<Props> {
     }
     validateId = () => {
         console.log("inside validateID")
-        if (this.state.journeyId.length <= 1) {
+        if (this.state.journeyId.length < 1) {
             this.setState({
                 journeyIdError: true
             });
@@ -171,7 +172,7 @@ class EditJourney extends React.Component<Props> {
 
         const filteredValue = value.replace(/[^a-z^A-Z^0-9^\s ]/g, '')
         this.setState({
-            address: filteredValue
+            journeyName: filteredValue
         });
 
     }
@@ -262,6 +263,9 @@ class EditJourney extends React.Component<Props> {
     }
     render() {
         console.log(this.data)
+        if(this.state.redirect){
+            return <Redirect to='/JourneyDetails'/>;
+        }
         return (
             <StyledAddPartner>
                 <Mystyle>
@@ -411,12 +415,22 @@ class EditJourney extends React.Component<Props> {
                     <Button
                     type={''}
                     // disabled={false}
+                    onClick={() => this.setState({redirect:true})}
+                    
+                >
+                    Back
+                </Button>
+                </Mystyle1>
+                <Mystyle2>
+                    <Button
+                    type={''}
+                    // disabled={false}
                     onClick={() => this.saveData()}
                 >
                     Save
                 </Button>
-                    </Mystyle1>
-                </Mystyle>
+                </Mystyle2>
+                </Mystyle> 
                 
 
             </StyledAddPartner >

@@ -6,6 +6,7 @@ import Button from '../Components/Button'
 import ErrorMessage from '../Components/ErrorMessage'
 import sendRequest from "../utils/sendRequest";
 import Dropdown from '../Components/Dropdown'
+import { Redirect } from "react-router-dom";
 
 
 const StyledAddPartner = styled.div`
@@ -84,7 +85,8 @@ class AddJourney extends React.Component {
         productIdRow:{},
         productId:'',
         productIdError:false,
-        productIds:[]
+        productIds:[],
+        redirect:false
 
     }
     setProductId = (product_id:any) =>{
@@ -109,7 +111,7 @@ class AddJourney extends React.Component {
             },'POST')
             console.log(response)
             if (response.data.success){
-                this.setState({data:response.data.data})
+                this.setState({redirect:true})
             }
             else{
                 console.log("Error in saving data.")
@@ -149,7 +151,7 @@ class AddJourney extends React.Component {
     }
     validateId = () => {
         console.log("inside validateID")
-        if (this.state.journeyId.length <= 1) {
+        if (this.state.journeyId.length < 1) {
             this.setState({
                 journeyIdError: true
             });
@@ -251,6 +253,9 @@ class AddJourney extends React.Component {
         this.getProductIds()
     }
     render() {
+        if(this.state.redirect){
+            return <Redirect to='/JourneyDetails'/>;
+        }
         console.log("product id is",this.state.productId)
         return (
             <StyledAddPartner>
@@ -378,22 +383,27 @@ class AddJourney extends React.Component {
                 <Dropdown value={this.state.productIdRow} onChange={this.setProductId} options={this.state.productIds} placeholder={'Select Product Id'} />
                 </Mystyle2>
             </Mystyle>
-            
-             
-             
-             
             <Mystyle>
-                <Mystyle1>
-                <Button
-                type={''}
-                // disabled={false}
-                onClick={() => this.saveData()}
+                    <Mystyle1>
+                    <Button
+                    type={''}
+                    // disabled={false}
+                    onClick={() => this.setState({redirect:true})}
+                    
                 >
-                Save
+                    Back
                 </Button>
                 </Mystyle1>
-            
-            </Mystyle>
+                <Mystyle2>
+                    <Button
+                    type={''}
+                    // disabled={false}
+                    onClick={() => this.saveData()}
+                >
+                    Save
+                </Button>
+                </Mystyle2>
+                </Mystyle> 
             
 
         </StyledAddPartner>

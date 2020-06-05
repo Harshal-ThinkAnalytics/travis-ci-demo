@@ -5,6 +5,7 @@ import Input from "../Components/Input";
 import Button from '../Components/Button'
 import ErrorMessage from '../Components/ErrorMessage'
 import sendRequest from "../utils/sendRequest";
+import { Redirect } from "react-router-dom";
 
 const StyledAddPartner = styled.div`
   display: flex;
@@ -80,6 +81,7 @@ class AddProduct extends React.Component {
         minTenureError: false,
         maxTenure: '',
         maxTenureError: false,
+        redirect:false
 
     }
     saveData = async() =>{
@@ -96,7 +98,7 @@ class AddProduct extends React.Component {
             },'POST')
             console.log(response)
             if (response.data.success){
-                this.setState({data:response.data.data})
+                this.setState({redirect:true})
             }
             else{
                 console.log("Error in saving data.")
@@ -116,7 +118,7 @@ class AddProduct extends React.Component {
     }
     validateId = () => {
         console.log("inside validateID")
-        if (this.state.productId.length <= 1) {
+        if (this.state.productId.length < 1) {
             this.setState({
                 productIdError: true
             });
@@ -215,6 +217,9 @@ class AddProduct extends React.Component {
         }
     }
     render() {
+        if(this.state.redirect){
+            return <Redirect to='/ProductDetails'/>;
+        }
         return (
             <StyledAddPartner>
                 <Mystyle>
@@ -334,13 +339,22 @@ class AddProduct extends React.Component {
                     <Button
                     type={''}
                     // disabled={false}
+                    onClick={() => this.setState({redirect:true})}
+                    
+                >
+                    Back
+                </Button>
+                </Mystyle1>
+                <Mystyle2>
+                    <Button
+                    type={''}
+                    // disabled={false}
                     onClick={() => this.saveData()}
                 >
                     Save
                 </Button>
-                    </Mystyle1>
-                    
-                </Mystyle>
+                </Mystyle2>
+                </Mystyle> 
                 
                 
 

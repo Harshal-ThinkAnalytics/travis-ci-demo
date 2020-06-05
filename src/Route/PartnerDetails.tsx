@@ -43,7 +43,8 @@ export default class PartnerDetails extends React.Component {
         data:[],
         dialog:false,
         deletePartnerId:'',
-        loading:true
+        loading:true,
+        refresh:false
     }
     columns=[
         {
@@ -106,6 +107,10 @@ export default class PartnerDetails extends React.Component {
     }
     deleteRow = async() =>{
         try {
+            this.setState({
+                loading:true,
+                dialog:false
+            })
             var response  = await sendRequest('/DeleteB2BPartnerDetails', {
                 partner_id:Number(this.state.deletePartnerId)
             },'POST')
@@ -119,8 +124,11 @@ export default class PartnerDetails extends React.Component {
           } catch (error) {
             console.log(error)
           }
-        this.setState({deletePartnerId:''})
-        this.hideDialog()
+        this.setState({
+            deletePartnerId:'',
+            loading:false,
+            refresh:true
+        })
     }  
     
     getData = async() =>{
@@ -148,6 +156,12 @@ export default class PartnerDetails extends React.Component {
     render() {
         if(this.state.redirect){
             return <Redirect to='/AddPartner'/>;
+        }
+        if(this.state.refresh){
+            this.setState({
+                refresh:false
+            })
+            this.componentDidMount()
         }
        
 
