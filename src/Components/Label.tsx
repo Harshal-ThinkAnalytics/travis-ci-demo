@@ -8,7 +8,7 @@ interface Props {
 }
 const StyledLabel = styled.label`
   label {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     color: var(--color-footergray);
     display: block;
   }

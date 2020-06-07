@@ -15,7 +15,7 @@ const DialogShow:React.FunctionComponent<Props>=(props) => {
     //     console.log("clicked")
     // }
   return (
-    <Popup open={props.openFlag}>
+    <Popup open={props.openFlag} contentStyle={{width:"auto",padding:"0px"}}>
       <div
         style={{
           border: "1px solid lightgray",
@@ -36,14 +36,17 @@ const DialogShow:React.FunctionComponent<Props>=(props) => {
           }}
           onClick={props.onHide}
         >
-          <span style={{ fontSize: 20 }}> ✕ </span>
+          <span style={{ fontSize: 10 }}> ✕ </span>
         </div>
         <div style={{ padding: "1rem" }}>
           <div style={{ fontSize: 18, fontWeight: "bold" }}>{props.heading}</div>
           <div
             style={{
               color: "#6c7174",
-              margin:'3%'
+              margin:'3%',
+              paddingRight:"10px",
+              
+              textAlign:"center"
             }}
           >
             {props.msg}
@@ -62,7 +65,7 @@ const DialogShow:React.FunctionComponent<Props>=(props) => {
                 color: "#fff",
                 backgroundColor: "#685834",
                 borderRadius: "4px",
-                width: "80%",
+                width: "auto",
                 margin: "auto",
                 textAlign: "center",
                 cursor: "pointer"

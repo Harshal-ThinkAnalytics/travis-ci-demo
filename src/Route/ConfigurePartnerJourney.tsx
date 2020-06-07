@@ -100,7 +100,8 @@ class ConfigurePartnerJourney extends React.Component<Props> {
         dkycVersion:'',
         dkycVersionRow:{},
         mrpVersion:'',
-        mrpVersionRow:{}
+        mrpVersionRow:{},
+        redirect:false
     }
     saveData = async() =>{
         try {
@@ -229,6 +230,9 @@ class ConfigurePartnerJourney extends React.Component<Props> {
     }
 
     render() {
+        if(this.state.redirect){
+            return <Redirect to='/PartnerJourneyDetails'/>;
+        }
         return (
             <AddPartnerWrapper>
                 <Mystyle>

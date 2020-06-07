@@ -14,7 +14,7 @@ const AddPartnerWrapper = styled.div`
   display: flex;
   flex-direction: column;
   width: auto;
-  margin-left: 210px;
+  margin-left: 100px;
   h1{
     display: block;
     font-size: 2em;
@@ -32,11 +32,7 @@ const AddPartnerWrapper = styled.div`
     float:right;
   }
  
-p{
-  margin-top: -0.19rem;
-  margin-bottom: auto;
-  margin-left: 0.3rem
-}
+
 button{
   margin-top:1rem;
   
@@ -175,7 +171,7 @@ class MapPartnerJourney extends React.Component {
                 </Mystyle>
                 <Mystyle>
                     <Mystyle1>
-                        <Label data={"Partner Id: "} />
+                        <Label data={"Partner Id"} />
                     </Mystyle1>
                     <Mystyle2>
                         <Dropdown value={this.state.partnerIdRow} onChange={this.setPartnerId} options={this.state.partners} placeholder={'Select Partner'} />
@@ -183,7 +179,7 @@ class MapPartnerJourney extends React.Component {
                  </Mystyle>
                  <Mystyle>
                     <Mystyle1>
-                        <Label data={"Journey Id: "} />
+                        <Label data={"Journey Id"} />
                     </Mystyle1>
                     <Mystyle2>
                         <Dropdown value={this.state.journeyIdRow} onChange={this.setJourneyId} options={this.state.journeys} placeholder={'Select Journey'} />
