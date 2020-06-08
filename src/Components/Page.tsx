@@ -7,6 +7,7 @@ const Body = styled.div`
   padding: 0 2.2rem;
   display: flex;
   flex: 1;
+  margin-top:7.8rem;
   background-color: white;
   position: relative;
   overflow-x:hidden;
@@ -22,7 +23,9 @@ interface Props{
 const Page: React.FunctionComponent<Props> = (props) => {
   return (
     <>
-      <Header />
+      <div style={{position:"fixed", top:0,left:0,right:0,overflowX: "hidden",zIndex: 1030}}>
+    <Header />
+    </div>
       <Sidebar/>
       <Body>{props.children}</Body>
     </>

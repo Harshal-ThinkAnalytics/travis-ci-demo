@@ -47,6 +47,7 @@ export default class Sidebar extends React.Component {
                         <a href="ProductDetails">Product</a>
                         <a href="JourneyDetails">Journey</a>
                         <a href="PartnerJourneyDetails">Map Partner to Journey</a>
+                        <a href="APIDetails">API List</a>
                     </div>
                 </SidebarWrapper>
             </div>
