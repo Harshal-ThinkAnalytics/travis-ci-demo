@@ -18,6 +18,7 @@ interface Props{
     options:any,
     onChange:any,
     placeholder:string
+    isMulti?:boolean
 }
 
 const Dropdown: React.FunctionComponent<Props> = (props) => {
@@ -29,6 +30,7 @@ const Dropdown: React.FunctionComponent<Props> = (props) => {
         onChange={props.onChange}
         className="dropdown"
         placeholder={props.placeholder}
+        isMulti = {props.isMulti? true:false}
         components={{
           IndicatorSeparator: () => null
         }}
