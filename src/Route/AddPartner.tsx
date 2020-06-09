@@ -69,8 +69,6 @@ order:2;
 class AddPartner extends React.Component {
 
     state = {
-        partnerId: '',
-        partnerIdError: false,
         address: '',
         addressError: false,
         contactPerson: '',
@@ -108,23 +106,6 @@ class AddPartner extends React.Component {
           }
     }
 
-
-    handleIdChange = (value: string) => {
-        const Id = value.replace(/\D+/g, '')
-        this.setState({
-            partnerId: Id
-        });
-
-    }
-    validateId = () => {
-        console.log("inside validateID")
-        if (this.state.partnerId.length < 1) {
-            this.setState({
-                partnerIdError: true
-            });
-
-        }
-    }
 
     handleAddressChange = (value: string) => {
 
@@ -222,10 +203,26 @@ class AddPartner extends React.Component {
 
         }
     }
+
+
+    isValidScreen = !(
+        this.state.address.length < 5 )
+        // this.state.addressError ||
+        // this.state.contactPerson.length < 2 ||
+        // this.state.contactPersonError ||
+        // this.state.emailId.length < 1 ||
+        // this.state.emailIdError ||
+        // this.state.mobileNo.length < 10 ||
+        // this.state.mobileNoError ||
+        // this.state.shortCode.length < 1 ||
+        // this.state.shortCodeError )
+
+
     render() {
         if(this.state.redirect){
             return <Redirect to='/PartnerDetails'/>;
         }
+        console.log(this.isValidScreen,this.state.address.length<5)
         return (
             <AddPartnerWrapper>
             <Mystyle>
@@ -356,6 +353,7 @@ class AddPartner extends React.Component {
                 <Mystyle2>
                     <Button
                     type={''}
+                    disabled={!this.isValidScreen}
                     // disabled={false}
                     onClick={() => this.saveData()}
                 >

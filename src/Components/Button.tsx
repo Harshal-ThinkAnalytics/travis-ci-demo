@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from "styled-components";
 
-const Button = styled.button<{type: any}>`
+const Button = styled.button<{type: any,disabled?:boolean}>`
   all: unset;
   font-size: 1.6rem;
   
@@ -26,7 +26,7 @@ const Button = styled.button<{type: any}>`
  
 
   ${Props =>
-    Props.type === 'disabled' ?  `
+    Props.disabled  ?  `
    
     background-color: #f2f3f6;
     color: #cdcece;

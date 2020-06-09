@@ -74,7 +74,7 @@ interface Props{
 class ConfigurePartnerJourney extends React.Component<Props> {
     data=this.props.location.state
     state = {
-        id: this.data.partner_journey_id,
+        id: this.data['partner_journey_id'],
         partnerIdError: false,
         data:[],
         minAge:'',
@@ -108,7 +108,8 @@ class ConfigurePartnerJourney extends React.Component<Props> {
         mrpKey:'',
         mrpKeyError:false,
         ceKey:'',
-        ceKeyError:false
+        ceKeyError:false,
+        redirect:false
     }
 
     kycOptions = [

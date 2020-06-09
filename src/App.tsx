@@ -21,6 +21,8 @@ import EditJourney from './Route/EditJourney'
 import EditAPI from './Route/EditAPI'
 import MapPartnerJourney from './Route/MapPartnerJourney'
 import ConfigurePartnerJourney from './Route/ConfigurePartnerJourney'
+import EditPartnerJourney from './Route/EditPartnerJourneyScopes'
+import EditPartnerJourneyScopes from "./Route/EditPartnerJourneyScopes";
 
 function App() {
   return (
@@ -44,6 +46,7 @@ function App() {
         <Route path="/EditJourney" component={EditJourney} />
         <Route path="/MapPartnerJourney" component={MapPartnerJourney} />
         <Route path="/ConfigurePartnerJourney" component={ConfigurePartnerJourney} />
+        <Route path="/EditPartnerJourneyScopes" component={EditPartnerJourneyScopes} />
         </Switch>
       </Page>
     </BrowserRouter>

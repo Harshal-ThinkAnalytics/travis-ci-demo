@@ -25,7 +25,6 @@ interface Props {
     columns:any;
     title:string;
     setDialog:any;
-    setPassDialog:any;
 }
 
 
@@ -51,12 +50,9 @@ const tableIcons = {
 
 const Table:React.FunctionComponent<Props>=(props)=>{
     const history = useHistory();
-    const changePathToConfig=(title:string,rowData:any)=>{
+    const changePath=(title:string,rowData:any)=>{
         history.push('/Configure'+title,rowData)
     }
-    const changePathToScope=(title:string,rowData:any)=>{
-      history.push('/Edit'+title+'Scopes',rowData)
-  }
     return (
             <MaterialTable
           columns={props.columns}
@@ -74,36 +70,16 @@ const Table:React.FunctionComponent<Props>=(props)=>{
        
        actions={[
         {
-            icon: () => <ViewColumn />,
-            tooltip: 'Show Password',
-            onClick: (event, rowData) => props.setPassDialog(rowData)
+            icon: () => <Check />,
+            tooltip: 'Save Scopes',
+            onClick: (event, rowData) => props.setDialog(rowData)
           },
-        {
-            icon: () => <Edit />,
-            tooltip: 'Configure Journey',
-            onClick: (event, rowData) => {
-                console.log(rowData)
-                changePathToConfig(props.title,rowData)
-            }
-        },
-        {
-          icon: () => <Edit />,
-          tooltip: 'Edit Scopes',
-          onClick: (event, rowData) => {
-              console.log(rowData)
-              changePathToScope(props.title,rowData)
-          }
-      },
-        {
-          icon: () => <DeleteOutline />,
-          tooltip: 'Delete',
-          onClick: (event, rowData) => props.setDialog(rowData)
-        }
       ]
     }
 
        options={{
         search: true,
+        selection:true,
         actionsColumnIndex: -1,
         headerStyle: {
             backgroundColor: '#fff',
