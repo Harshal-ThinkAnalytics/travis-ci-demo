@@ -124,7 +124,7 @@ class EditAPI extends React.Component<Props> {
 
     }
     handleApiName = (value: string) => {
-        const filteredValue = value.replace(/[^a-zA-Z_.\/@0-9]/g, '')
+        const filteredValue = value.replace(/[^a-zA-Z-\{\}\/0-9]/g, '')
         this.setState({
             apiNameError:false,
             apiName: filteredValue
@@ -134,7 +134,7 @@ class EditAPI extends React.Component<Props> {
     validateApiName = () => {
         if (
             this.state.apiName.length <= 0 ||
-            !/^^\/(\w*[-\/\{\}]?\w*)+\w$/.test(this.state.apiName)
+            !/^^\/(\w*[-\/\{\}]?\w*)+(\w|\})$/.test(this.state.apiName)
         )
             this.setState({
                 apiNameError: true
