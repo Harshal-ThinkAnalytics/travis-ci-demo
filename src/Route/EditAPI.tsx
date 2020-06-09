@@ -85,7 +85,7 @@ class EditAPI extends React.Component<Props> {
     saveData = async() =>{
         try {
 
-            var response  = await sendRequest('/EditAPI', {
+            var response  = await sendRequest('/SaveAPI', {
                 scope_no:this.state.scopeNo,
                 api_name:this.state.apiName,
                 active:true,
@@ -109,20 +109,24 @@ class EditAPI extends React.Component<Props> {
     handleScopeNo = (value: string) => {
         
         this.setState({
-            scopeNo: value
+            scopeNoError:false,
+            scopeNo: this.data.scope_no
         });
     }
 
     validateScopeNo = () => {
-
+        if (
+            !/^\w+(([\d\w]?)*[_]?)*$/.test(this.state.scopeNo)
+        )
             this.setState({
-                scopeNoError: false
+                scopeNoError: true
             });
 
     }
     handleApiName = (value: string) => {
         const filteredValue = value.replace(/[^a-zA-Z_.\/@0-9]/g, '')
         this.setState({
+            apiNameError:false,
             apiName: filteredValue
         });
     }
@@ -130,10 +134,10 @@ class EditAPI extends React.Component<Props> {
     validateApiName = () => {
         if (
             this.state.apiName.length <= 0 ||
-            !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.state.apiName)
+            !/^^\/(\w*[-\/\{\}]?\w*)+\w$/.test(this.state.apiName)
         )
             this.setState({
-                versionError: true
+                apiNameError: true
             });
 
     }
@@ -141,6 +145,7 @@ class EditAPI extends React.Component<Props> {
     handleVersion = (value:string) => {
         const filteredValue = value.replace(/[^0-9.]/g, '')
         this.setState({
+            versionError: false,
             version: filteredValue
         });
     }
@@ -148,8 +153,8 @@ class EditAPI extends React.Component<Props> {
 
     validateVersion = () => {
         if (
-            this.state.apiName.length <= 0 ||
-            !/^\d+([.]?\d)*$/.test(this.state.apiName)
+            this.state.version.length <= 0 ||
+            !/^\d+([.]?\d)*$/.test(this.state.version)
         )
             this.setState({
                 versionError: true
@@ -167,7 +172,7 @@ class EditAPI extends React.Component<Props> {
             <StyledAddPartner>
                 <Mystyle>
                     <Mystyle1>
-                    <h1>Add API</h1>
+                    <h1>Edit API</h1>
                     </Mystyle1>
                 </Mystyle>
                 
@@ -180,7 +185,7 @@ class EditAPI extends React.Component<Props> {
                     onChange={e => this.handleScopeNo(e.target.value)}
                     onFocus={() =>
                         this.setState({
-                            addressError: false
+                            scopeNoError: false
                         })}
                     onBlur={() => { this.validateScopeNo() }}
                     value={this.state.scopeNo}
@@ -199,7 +204,7 @@ class EditAPI extends React.Component<Props> {
                     onChange={e => this.handleApiName(e.target.value)}
                     onFocus={() =>
                         this.setState({
-                            addressError: false
+                            apiNameError: false
                         })}
                     onBlur={() => { this.validateApiName() }}
                     value={this.state.apiName}
@@ -220,7 +225,7 @@ class EditAPI extends React.Component<Props> {
                     onChange={e => this.handleVersion(e.target.value)}
                     onFocus={() =>
                         this.setState({
-                            addressError: false
+                            versionError: false
                         })}
                     onBlur={() => { this.validateVersion() }}
                     value={this.state.version}
