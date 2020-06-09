@@ -78,7 +78,9 @@ class AddPartner extends React.Component {
         mobileNoError: false,
         shortCode: '',
         shortCodeError: false,
-        redirect:false
+        redirect:false,
+        isValidScreen: false,
+        startCheck: new Set()
 
     }
     saveData = async() =>{
@@ -110,7 +112,9 @@ class AddPartner extends React.Component {
 
         const filteredValue = value.replace(/[^.^-^/^@^#^,^;^a-z^A-Z^0-9^\s ]/g, '')
         this.setState({
-            address: filteredValue
+            address: filteredValue,
+            isValidScreen: false,
+            startCheck: this.state.startCheck.add("1")
         });
 
     }
@@ -119,16 +123,30 @@ class AddPartner extends React.Component {
         console.log("inside validateAddressChange")
         if (this.state.address.length < 5) {
             this.setState({
-                addressError: true
+                addressError: true,
+                isValidScreen: false
+                
             });
 
+        } else {
+            this.setState({
+                addressError: false
+                
+            });
+            this.setState({
+                
+                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                    && !this.state.emailIdError && !this.state.mobileNoError && (this.state.startCheck.size==5))
+            });
         }
     }
 
     handleContactPersonChange = (value: string) => {
         const filteredValue = value.replace(/[^a-z^A-Z^\s]/g, '')
         this.setState({
-            contactPerson: filteredValue
+            contactPerson: filteredValue,
+            isValidScreen: false,
+            startCheck: this.state.startCheck.add("2")
         });
 
     }
@@ -137,16 +155,30 @@ class AddPartner extends React.Component {
         console.log("inside validateContactPersonChange")
         if (this.state.contactPerson.length < 2) {
             this.setState({
-                contactPersonError: true
+                contactPersonError: true,
+                isValidScreen:false
             });
 
+        } else {
+            this.setState({
+                contactPersonError: false
+                
+            });
+
+            this.setState({
+                
+                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                    && !this.state.emailIdError && !this.state.mobileNoError && (this.state.startCheck.size==5)) 
+            });
         }
     }
 
     handleEmailChange = (value: string) => {
         const filteredValue = value.replace(/[^a-zA-Z_.@0-9]/g, '')
         this.setState({
-            emailId: filteredValue
+            emailId: filteredValue,
+            isValidScreen: false,
+            startCheck: this.state.startCheck.add("3")
         });
     }
 
@@ -155,10 +187,26 @@ class AddPartner extends React.Component {
         if (
             this.state.emailId.length <= 0 ||
             !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.state.emailId)
-        )
+        ) {
             this.setState({
-                emailIdError: true
+                emailIdError: true,
+                isValidScreen: false
+                
             });
+        } else {
+            this.setState({
+                emailIdError: false
+            });
+
+
+            this.setState({
+                
+                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                    && !this.state.emailIdError && !this.state.mobileNoError && (this.state.startCheck.size==5))
+            });
+        }
+            
+
 
     }
 
@@ -167,7 +215,9 @@ class AddPartner extends React.Component {
         const filteredMobile = value.replace(/\D+/g, '')
         if (filteredMobile.length === 10) this.validateMobile(filteredMobile)
         this.setState({
-            mobileNo: filteredMobile
+            mobileNo: filteredMobile,
+            isValidScreen: false,
+            startCheck: this.state.startCheck.add("4")
         });
 
     }
@@ -175,13 +225,22 @@ class AddPartner extends React.Component {
     validateMobile = (value: string) => {
         if (!/^[6789]{1}[0-9]{9}$/.test(value || this.state.mobileNo)) {
             this.setState({
-                mobileNoError: true
+                mobileNoError: true,
+                isValidScreen: false
             });
+            
             // setMobileNoError(true)
         } else {
             this.setState({
                 mobileNoError: false
+                
             });
+            this.setState({
+                
+                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                    && !this.state.emailIdError && !this.state.mobileNoError && (this.state.startCheck.size==5))
+            });
+
             // setMobileNoError(false)
         }
     }
@@ -189,7 +248,9 @@ class AddPartner extends React.Component {
     handleShortCodeChange = (value: string) => {
         const filteredValue = value.replace(/[^a-z^A-Z^\s]/g, '')
         this.setState({
-            shortCode: filteredValue
+            shortCode: filteredValue,
+            isValidScreen: false,
+            startCheck: this.state.startCheck.add("5")
         });
         // setShortCode(filteredValue)
     }
@@ -197,15 +258,25 @@ class AddPartner extends React.Component {
         console.log("inside validateShortCodeChange")
         if (this.state.shortCode.length < 1) {
             this.setState({
-                shortCodeError: true
+                shortCodeError: true,
+                isValidScreen: false
+            });
+            
+
+        } else {
+            this.setState({
+                shortCodeError: false
+                
             });
 
+            this.setState({
+                shortCodeError: false,
+                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                    && !this.state.emailIdError && !this.state.mobileNoError && (this.state.startCheck.size==5))
+            });
         }
     }
 
-
-    isValidScreen = !(
-        this.state.address.length < 5 )
         // this.state.addressError ||
         // this.state.contactPerson.length < 2 ||
         // this.state.contactPersonError ||
@@ -221,7 +292,7 @@ class AddPartner extends React.Component {
         if(this.state.redirect){
             return <Redirect to='/PartnerDetails'/>;
         }
-        console.log(this.isValidScreen,this.state.address.length<5)
+        console.log(this.state.isValidScreen,this.state.address.length<5)
         return (
             <AddPartnerWrapper>
             <Mystyle>
@@ -352,7 +423,7 @@ class AddPartner extends React.Component {
                 <Mystyle2>
                     <Button
                     type={''}
-                    disabled={!this.isValidScreen}
+                    disabled={!this.state.isValidScreen}
                     // disabled={false}
                     onClick={() => this.saveData()}
                 >

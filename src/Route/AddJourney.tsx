@@ -84,17 +84,21 @@ class AddJourney extends React.Component {
         maxTenureError: false,
         productIdRow:{},
         productId:'',
-        productIdError:false,
+        productIdError:true,
         productIds:[],
-        redirect:false
+        redirect:false,
+        isValidScreen: false,
+        startCheck: new Set()
 
     }
     setProductId = (product_id:any) =>{
         console.log(product_id)
         this.setState({
             productIdRow:product_id,
-            productId:product_id.value
+            productId:product_id.value,
+            
         })
+        
     }
     saveData = async() =>{
         try {
@@ -131,7 +135,8 @@ class AddJourney extends React.Component {
                 }
                 console.log(ids)
                 this.setState({
-                    productIds:ids
+                    productIds:ids,
+                    isValidScreen:true
                 })
             }
             else{
@@ -145,7 +150,9 @@ class AddJourney extends React.Component {
     handleIdChange = (value: string) => {
         const Id = value.replace(/\D+/g, '')
         this.setState({
-            journeyId: Id
+            journeyId: Id,
+            isValidScreen:false,
+            startCheck: this.state.startCheck.add("1")
         });
 
     }
@@ -156,6 +163,16 @@ class AddJourney extends React.Component {
                 journeyIdError: true
             });
 
+        } else {
+            this.setState({
+                journeyIdError: false
+            });
+            this.setState({
+                isValidScreen: (!this.state.journeyNameError &&
+                    !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
+                    !this.state.minTenureError && !this.state.maxTenureError &&
+                    (this.state.startCheck.size==5))
+            });
         }
     }
 
@@ -163,7 +180,9 @@ class AddJourney extends React.Component {
 
         const filteredValue = value.replace(/[^a-z^A-Z^0-9^\s ]/g, '')
         this.setState({
-            journeyName: filteredValue
+            journeyName: filteredValue,
+            isValidScreen:false,
+            startCheck: this.state.startCheck.add("2")
         });
 
     }
@@ -175,13 +194,25 @@ class AddJourney extends React.Component {
                 journeyNameError: true
             });
 
+        } else {
+            this.setState({
+                journeyNameError: false
+            });
+            this.setState({
+                isValidScreen: (!this.state.journeyNameError &&
+                    !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
+                    !this.state.minTenureError && !this.state.maxTenureError &&
+                    (this.state.startCheck.size==5))
+            });
         }
     }
 
     handleMinLoanAmountChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
-            minLoanAmount: filteredValue
+            minLoanAmount: filteredValue,
+            isValidScreen:false,
+            startCheck: this.state.startCheck.add("3")
         });
 
     }
@@ -193,13 +224,25 @@ class AddJourney extends React.Component {
                 minLoanAmountError: true
             });
 
+        } else {
+            this.setState({
+                minLoanAmountError: false
+            });
+            this.setState({
+                isValidScreen: (!this.state.journeyNameError &&
+                    !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
+                    !this.state.minTenureError && !this.state.maxTenureError &&
+                    (this.state.startCheck.size==5))
+            });
         }
     }
 
     handleMaxLoanAmountChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
-            maxLoanAmount: filteredValue
+            maxLoanAmount: filteredValue,
+            isValidScreen:false,
+            startCheck: this.state.startCheck.add("4")
         });
 
     }
@@ -211,13 +254,25 @@ class AddJourney extends React.Component {
                 maxLoanAmountError: true
             });
 
+        } else {
+            this.setState({
+                maxLoanAmountError: false
+            });
+            this.setState({
+                isValidScreen: (!this.state.journeyNameError &&
+                    !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
+                    !this.state.minTenureError && !this.state.maxTenureError &&
+                    (this.state.startCheck.size==5))
+            });
         }
     }
 
     handleMinTenureChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
-            minTenure: filteredValue
+            minTenure: filteredValue,
+            isValidScreen:false,
+            startCheck: this.state.startCheck.add("5")
         });
 
     }
@@ -229,13 +284,25 @@ class AddJourney extends React.Component {
                 minTenureError: true
             });
 
+        } else {
+            this.setState({
+                minTenureError: false
+            });
+            this.setState({
+                isValidScreen: (!this.state.journeyNameError &&
+                    !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
+                    !this.state.minTenureError && !this.state.maxTenureError &&
+                    (this.state.startCheck.size==5))
+            });
         }
     }
 
     handleMaxTenureChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
-            maxTenure: filteredValue
+            maxTenure: filteredValue,
+            isValidScreen:false,
+            startCheck: this.state.startCheck.add("6")
         });
 
     }
@@ -247,6 +314,16 @@ class AddJourney extends React.Component {
                 maxTenureError: true
             });
 
+        } else {
+            this.setState({
+                maxTenureError: false
+            });
+            this.setState({
+                isValidScreen: (!this.state.journeyNameError &&
+                    !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
+                    !this.state.minTenureError && !this.state.maxTenureError &&
+                    (this.state.startCheck.size==5))
+            });
         }
     }
     async componentDidMount(){
@@ -397,7 +474,7 @@ class AddJourney extends React.Component {
                 <Mystyle2>
                     <Button
                     type={''}
-                    // disabled={false}
+                    disabled={!this.state.isValidScreen}
                     onClick={() => this.saveData()}
                 >
                     Save

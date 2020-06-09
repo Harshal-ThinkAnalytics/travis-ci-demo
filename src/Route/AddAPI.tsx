@@ -76,7 +76,9 @@ class AddAPI extends React.Component<Props> {
         apiNameError: false,
         version: '',
         versionError: false,
-        redirect:false
+        redirect:false,
+        isValidScreen: false,
+        startCheck: new Set()
 
     }
 
@@ -107,19 +109,30 @@ class AddAPI extends React.Component<Props> {
     handleApiName = (value: string) => {
         const filteredValue = value.replace(/[^a-zA-Z-\{\}\/0-9]/g, '')
         this.setState({
-            
-            apiName: filteredValue
+            apiName: filteredValue,
+            isValidScreen: false,
+            startCheck: this.state.startCheck.add("1")
         });
     }
 
     validateApiName = () => {
         if (
             this.state.apiName.length <= 0 ||
-            !/^^\/(\w*[-\/\{\}]?\w*)+(\w|\})$/.test(this.state.apiName)
-        )
+            !/^\/(\w*[-\/\{\}]?\w*)+(\w|\})$/.test(this.state.apiName)
+        ){
             this.setState({
                 apiNameError: true
             });
+        } else {
+            this.setState({
+                apiNameError: false
+            });
+            this.setState({
+                isValidScreen: (!this.state.apiNameError && !this.state.versionError 
+                    && (this.state.startCheck.size==2))
+            });
+        }
+            
 
     }
 
@@ -127,7 +140,9 @@ class AddAPI extends React.Component<Props> {
         const filteredValue = value.replace(/[^0-9.]/g, '')
         this.setState({
             
-            version: filteredValue
+            version: filteredValue,
+            isValidScreen: false,
+            startCheck: this.state.startCheck.add("2")
         });
     }
 
@@ -136,10 +151,20 @@ class AddAPI extends React.Component<Props> {
         if (
             this.state.version.length <= 0 ||
             !/^\d+([.]?\d)*$/.test(this.state.version)
-        )
+        ) {
             this.setState({
                 versionError: true
             });
+
+        }    else {
+                this.setState({
+                    versionError: false
+                });
+                this.setState({
+                    isValidScreen: (!this.state.apiNameError && !this.state.versionError 
+                        && (this.state.startCheck.size==2))
+                });
+            }
 
     }
 
@@ -216,7 +241,7 @@ class AddAPI extends React.Component<Props> {
                 <Mystyle2>
                     <Button
                     type={''}
-                    // disabled={false}
+                    disabled={!this.state.isValidScreen}
                     onClick={() => this.saveData()}
                 >
                     Save

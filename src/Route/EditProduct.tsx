@@ -87,7 +87,9 @@ class EditProduct extends React.Component<Props> {
         minTenureError: false,
         maxTenure: this.data.max_tenure,
         maxTenureError: false,
-        redirect:false
+        redirect:false,
+        isValidScreen: false,
+        startCheck: new Set()
 
     }
     saveData = async() =>{
@@ -119,7 +121,8 @@ class EditProduct extends React.Component<Props> {
     handleIdChange = (value: string) => {
         const Id = value.replace(/\D+/g, '')
         this.setState({
-            productId: this.data.product_id
+            productId: this.data.product_id,
+            isValidScreen:false
         });
 
     }
@@ -130,6 +133,17 @@ class EditProduct extends React.Component<Props> {
                 productIdError: true
             });
 
+        } else {
+            this.setState({
+                productIdError: false
+            });
+            this.setState({
+                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
+                    && !this.state.maxTenureError && !this.state.minTenureError && 
+                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError &&
+                    (this.state.startCheck.size==6)
+                    )
+            });
         }
     }
 
@@ -137,7 +151,8 @@ class EditProduct extends React.Component<Props> {
 
         const filteredValue = value.replace(/[^a-z^A-Z^0-9^\s ]/g, '')
         this.setState({
-            productName: filteredValue
+            productName: filteredValue,
+            isValidScreen:false
         });
 
     }
@@ -149,13 +164,24 @@ class EditProduct extends React.Component<Props> {
                 productNameError: true
             });
 
+        } else {
+            this.setState({
+                productNameError: false
+            });
+            this.setState({
+                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
+                    && !this.state.maxTenureError && !this.state.minTenureError && 
+                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError
+                    )
+            });
         }
     }
 
     handleMinLoanAmountChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
-            minLoanAmount: filteredValue
+            minLoanAmount: filteredValue,
+            isValidScreen:false
         });
 
     }
@@ -167,13 +193,24 @@ class EditProduct extends React.Component<Props> {
                 minLoanAmountError: true
             });
 
+        } else {
+            this.setState({
+                minLoanAmountError: false
+            });
+            this.setState({
+                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
+                    && !this.state.maxTenureError && !this.state.minTenureError && 
+                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError
+                    )
+            });
         }
     }
 
     handleMaxLoanAmountChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
-            maxLoanAmount: filteredValue
+            maxLoanAmount: filteredValue,
+            isValidScreen:false
         });
 
     }
@@ -185,13 +222,24 @@ class EditProduct extends React.Component<Props> {
                 maxLoanAmountError: true
             });
 
+        } else {
+            this.setState({
+                maxLoanAmountError: false
+            });
+            this.setState({
+                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
+                    && !this.state.maxTenureError && !this.state.minTenureError && 
+                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError 
+                    )
+            });
         }
     }
 
     handleMinTenureChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
-            minTenure: filteredValue
+            minTenure: filteredValue,
+            isValidScreen:false
         });
 
     }
@@ -203,13 +251,24 @@ class EditProduct extends React.Component<Props> {
                 minTenureError: true
             });
 
+        } else {
+            this.setState({
+                minTenureError: false
+            });
+            this.setState({
+                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
+                    && !this.state.maxTenureError && !this.state.minTenureError && 
+                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError 
+                    )
+            });
         }
     }
 
     handleMaxTenureChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
-            maxTenure: filteredValue
+            maxTenure: filteredValue,
+            isValidScreen:false
         });
 
     }
@@ -221,6 +280,16 @@ class EditProduct extends React.Component<Props> {
                 maxTenureError: true
             });
 
+        } else {
+            this.setState({
+                maxTenureError: false
+            });
+            this.setState({
+                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
+                    && !this.state.maxTenureError && !this.state.minTenureError && 
+                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError
+                    )
+            });
         }
     }
     render() {
@@ -375,7 +444,7 @@ class EditProduct extends React.Component<Props> {
                 <Mystyle2>
                     <Button
                     type={''}
-                    // disabled={false}
+                    disabled={!this.state.isValidScreen}
                     onClick={() => this.saveData()}
                 >
                     Save
