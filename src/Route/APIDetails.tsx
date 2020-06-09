@@ -94,7 +94,7 @@ export default class APIDetails extends React.Component {
                 dialog:false
             })
             var response  = await sendRequest('/DeleteAPI', {
-                scope_no:Number(this.state.deleteScopeNo)
+                scope_no:this.state.deleteScopeNo
             },'POST')
             console.log(response)
             if (response.data.success){

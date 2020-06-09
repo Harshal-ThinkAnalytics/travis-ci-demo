@@ -119,7 +119,7 @@ class EditPartner extends React.Component<Props> {
     handleIdChange = (value: string) => {
         const Id = value.replace(/\D+/g, '')
         this.setState({
-            partnerId: Id
+            partnerId: this.data.partner_id
         });
 
     }

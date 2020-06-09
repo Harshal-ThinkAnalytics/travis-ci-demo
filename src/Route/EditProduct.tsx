@@ -119,7 +119,7 @@ class EditProduct extends React.Component<Props> {
     handleIdChange = (value: string) => {
         const Id = value.replace(/\D+/g, '')
         this.setState({
-            productId: Id
+            productId: this.data.product_id
         });
 
     }

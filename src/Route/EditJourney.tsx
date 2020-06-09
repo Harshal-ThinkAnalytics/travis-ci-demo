@@ -154,7 +154,7 @@ class EditJourney extends React.Component<Props> {
     handleIdChange = (value: string) => {
         const Id = value.replace(/\D+/g, '')
         this.setState({
-            journeyId: Id
+            journeyId: this.data.journey_id
         });
 
     }

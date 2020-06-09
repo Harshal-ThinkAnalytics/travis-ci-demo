@@ -83,7 +83,7 @@ class AddAPI extends React.Component<Props> {
     saveData = async() =>{
         try {
 
-            var response  = await sendRequest('/SaveScopes', {
+            var response  = await sendRequest('/SaveAPI', {
                 
                 api_name:this.state.apiName,
                 active:true,
@@ -105,8 +105,9 @@ class AddAPI extends React.Component<Props> {
     }
 
     handleApiName = (value: string) => {
-        const filteredValue = value.replace(/[^a-zA-Z_.\/@0-9]/g, '')
+        const filteredValue = value.replace(/[^a-zA-Z-\{\}\/0-9]/g, '')
         this.setState({
+            
             apiName: filteredValue
         });
     }
@@ -114,10 +115,10 @@ class AddAPI extends React.Component<Props> {
     validateApiName = () => {
         if (
             this.state.apiName.length <= 0 ||
-            !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.state.apiName)
+            !/^^\/(\w*[-\/\{\}]?\w*)+(\w|\})$/.test(this.state.apiName)
         )
             this.setState({
-                versionError: true
+                apiNameError: true
             });
 
     }
@@ -125,6 +126,7 @@ class AddAPI extends React.Component<Props> {
     handleVersion = (value:string) => {
         const filteredValue = value.replace(/[^0-9.]/g, '')
         this.setState({
+            
             version: filteredValue
         });
     }
@@ -132,8 +134,8 @@ class AddAPI extends React.Component<Props> {
 
     validateVersion = () => {
         if (
-            this.state.apiName.length <= 0 ||
-            !/^\d+([.]?\d)*$/.test(this.state.apiName)
+            this.state.version.length <= 0 ||
+            !/^\d+([.]?\d)*$/.test(this.state.version)
         )
             this.setState({
                 versionError: true
@@ -165,13 +167,13 @@ class AddAPI extends React.Component<Props> {
                     onChange={e => this.handleApiName(e.target.value)}
                     onFocus={() =>
                         this.setState({
-                            addressError: false
+                            apiNameError: false
                         })}
                     onBlur={() => { this.validateApiName() }}
                     value={this.state.apiName}
                     type={this.state.apiNameError}/>
                     <ErrorMessage show={this.state.apiNameError} className="error-message">
-                    Please enter api name
+                    Enter valid api name
                  </ErrorMessage>
                 
                     </Mystyle2>
@@ -186,13 +188,13 @@ class AddAPI extends React.Component<Props> {
                     onChange={e => this.handleVersion(e.target.value)}
                     onFocus={() =>
                         this.setState({
-                            addressError: false
+                            versionError: false
                         })}
                     onBlur={() => { this.validateVersion() }}
                     value={this.state.version}
                     type={this.state.versionError}/>
                     <ErrorMessage show={this.state.versionError} className="error-message">
-                    Please enter version
+                    Enter valid version
                  </ErrorMessage>
                 
                     </Mystyle2>
