@@ -33,6 +33,7 @@ const Input = styled.input<{type:any}>`
     margin: 0;
   }
 
+
   /* Firefox */
   &[type='number'] {
     -moz-appearance: textfield;

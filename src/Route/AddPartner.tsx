@@ -8,7 +8,6 @@ import ErrorMessage from '../Components/ErrorMessage'
 import sendRequest from "../utils/sendRequest";
 import { Redirect } from "react-router-dom";
 
-
 const AddPartnerWrapper = styled.div`
   display: flex;
   flex-direction: column;

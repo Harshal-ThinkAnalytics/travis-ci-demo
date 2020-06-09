@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import Modal from '../Components/Modal'
+import Button from '../Components/Button'
 import { Redirect } from "react-router-dom";
 import Table from '../Components/PartnerJourneyScopesTable';
 import DialogShow from '../Components/DialogShow';
@@ -33,6 +33,30 @@ button{
     font-size:18px;
 }}
 `
+const Mystyle = styled.div`
+display: flex;
+  flex-direction: row row-wrap;
+  flex: 2;
+  padding: 0.5rem;
+`
+
+const Mystyle1 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1;
+padding: 1px;
+order:1;
+`
+const Mystyle2 = styled.div`
+display: flex;
+align-items: center;
+
+flex:1 20%;
+padding: 1px;
+order:2;
+`
+
 interface Props{
     location:any
 }
@@ -186,7 +210,7 @@ export default class EditPartnerJourneyScopes extends React.Component<Props> {
 
     render() {
         if(this.state.redirect){
-            return <Redirect to='/AddAPI'/>;
+            return <Redirect to='/PartnerJourneyDetails'/>;
         }
         if(this.state.refresh){
             this.setState({
@@ -202,6 +226,19 @@ export default class EditPartnerJourneyScopes extends React.Component<Props> {
                 <DialogShow openFlag={this.state.dialog} onButtonClick={this.saveScopes} onHide={this.hideDialog} 
                     msg={"Are you sure?"} buttonText={"Confirm"} heading={'Alert'}
                 />
+
+                <Mystyle>
+                    <Mystyle1>
+                    <Button
+                    type={''}
+                    // disabled={false}
+                    onClick={() => this.setState({redirect:true})}
+                    
+                >
+                    Back
+                </Button>
+                </Mystyle1>
+                </Mystyle>
 
             <div className="table">
                 <Table data={this.state.data} columns={this.columns} title={"API"} setDialog={this.setDialog}/>

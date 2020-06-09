@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import Sidebar from '../Route/Sidebar'
 import Header from './Header'
+import { useToken } from '../Context/AppContext'
+import { Redirect } from "react-router-dom";
 
 const Body = styled.div`
   padding: 0 2.2rem;
@@ -20,15 +22,21 @@ const Body = styled.div`
 interface Props{
     children:any
 }
-const Page: React.FunctionComponent<Props> = (props) => {
+const PrivatePage: React.FunctionComponent<Props> = (props) => {
+  const { token,setToken } = useToken()!;
+  console.log("token is",token)
+  if (token.length==0){
+    return <Redirect to='/Login'/>;
+  }
   return (
     <>
       <div style={{position:"fixed", top:0,left:0,right:0,overflowX: "hidden",zIndex: 1030}}>
     <Header />
     </div>
+      <Sidebar/>
       <Body>{props.children}</Body>
     </>
   )
 }
 
-export default Page
+export default PrivatePage
