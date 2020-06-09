@@ -1,9 +1,10 @@
 import React from 'react'
 import styled from 'styled-components'
-import Sidebar from '../Route/Sidebar'
-import Header from './Header'
-import { useToken } from '../Context/AppContext'
-import { Redirect } from "react-router-dom";
+
+import { Route, Redirect } from  "react-router-dom";
+import App from '../App'
+import Cookies from 'universal-cookie';
+
 
 const Body = styled.div`
   padding: 0 2.2rem;
@@ -19,24 +20,18 @@ const Body = styled.div`
     justify-content: flex-start;
   }
 `
-interface Props{
-    children:any
-}
-const PrivatePage: React.FunctionComponent<Props> = (props) => {
-  const { token,setToken } = useToken()!;
-  console.log("token is",token)
-  if (token.length==0){
-    return <Redirect to='/Login'/>;
-  }
-  return (
-    <>
-      <div style={{position:"fixed", top:0,left:0,right:0,overflowX: "hidden",zIndex: 1030}}>
-    <Header />
-    </div>
-      <Sidebar/>
-      <Body>{props.children}</Body>
-    </>
-  )
-}
+const cookies = new Cookies();
 
-export default PrivatePage
+const  PrivateRoute: React.FC<{
+        component: any;
+        path: string;
+    }> = (props) => {
+
+    const token =cookies.get('token')
+
+    return  token ? (<Route  path={props.path}  exact={true} component={props.component} />) : 
+        (<Redirect  to="/Login"  />);
+};
+export  default  PrivateRoute;
+
+

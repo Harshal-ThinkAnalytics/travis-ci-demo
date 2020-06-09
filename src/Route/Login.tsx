@@ -4,29 +4,11 @@ import Label from "../Components/Label";
 import Input from "../Components/Input";
 import Button from '../Components/Button'
 import ErrorMessage from '../Components/ErrorMessage'
-import PrivatePage from '../Components/PrivatePage'
-import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import sendRequest from "../utils/sendRequest";
 import { Redirect } from "react-router-dom";
-import { useToken } from '../Context/AppContext'
-import {AppProvider} from '../Context/AppContext';
-import PartnerDetails from '../Route/PartnerDetails'
-import JourneyDetails from '../Route/JourneyDetails'
-import ProductDetails from '../Route/ProductDetails'
-import APIDetails from '../Route/APIDetails'
-import PartnerJourneyDetails from '../Route/PartnerJourneyDetails'
-import AddPartner from '../Route/AddPartner'
-import AddProduct from '../Route/AddProduct'
-import AddJourney from '../Route/AddJourney'
-import AddAPI from '../Route/AddAPI'
-import EditPartner from '../Route/EditPartner'
-import EditProduct from '../Route/EditProduct'
-import EditJourney from '../Route/EditJourney'
-import EditAPI from '../Route/EditAPI'
-import MapPartnerJourney from '../Route/MapPartnerJourney'
-import ConfigurePartnerJourney from '../Route/ConfigurePartnerJourney'
-import EditPartnerJourney from '../Route/EditPartnerJourneyScopes'
-import EditPartnerJourneyScopes from "../Route/EditPartnerJourneyScopes";
+import Cookies from 'universal-cookie';
+import sendRequest from "../utils/sendRequest";
+
+const cookies = new Cookies();
 
 const AddPartnerWrapper = styled.div`
   display: flex;
@@ -90,7 +72,7 @@ const Login:React.FunctionComponent=()=>{
     const [usernameError,setUsernameError]=useState(false)
     const [password,setPassword]=useState('')
     const [passwordError,setPasswordError]=useState(false)
-    const { token,setToken } = useToken()!;
+    const [redirect,setRedirect]=useState(false)
 
     // if (token.length!=0){
     //   return(
@@ -122,8 +104,14 @@ const Login:React.FunctionComponent=()=>{
       username: "b2bhub",
       password: "admin123"
     },'POST')
-    console.log(response,setToken,token)
-    setToken(response.data.token)
+    // console.log(response,setToken,token)
+    cookies.set('token',response.data.token)
+    setRedirect(true)
+    
+  }
+
+  if (redirect){
+    return <Redirect to='/PartnerDetails'/>
   }
 
     const handleUsernameChange = (value: string) => {
@@ -154,7 +142,6 @@ const Login:React.FunctionComponent=()=>{
 
 
     return (
-      <AppProvider>
         <AddPartnerWrapper>
         <Mystyle>
             <Mystyle1>
@@ -212,7 +199,6 @@ const Login:React.FunctionComponent=()=>{
             </Mystyle>
 
        </AddPartnerWrapper >
-       </AppProvider>
     )
 } 
 

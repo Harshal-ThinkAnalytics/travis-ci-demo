@@ -1,12 +1,9 @@
 import React, { Component } from "react";
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
-import logo from './logo.svg';
 import './App.css';
 import Page from './Components/Page'
-import PrivatePage from './Components/PrivatePage'
-import Label from './Components/Label';
-import Header from './Components/Header'
-import LabeledInput from './Components/LabeledInput'
+import LoginPage from './Components/LoginPage'
+import PrivateRoute from './Components/PrivatePage'
 import PartnerDetails from './Route/PartnerDetails'
 import JourneyDetails from './Route/JourneyDetails'
 import ProductDetails from './Route/ProductDetails'
@@ -25,39 +22,33 @@ import ConfigurePartnerJourney from './Route/ConfigurePartnerJourney'
 import EditPartnerJourney from './Route/EditPartnerJourneyScopes'
 import EditPartnerJourneyScopes from "./Route/EditPartnerJourneyScopes";
 import Login from "./Route/Login";
-import {AppProvider} from './Context/AppContext';
 
 function App() {
   return (
     <div>
-      <AppProvider>
     <BrowserRouter>
-    
-      <PrivatePage>
+    <Page>
         <Switch>
-        <Route path="/APIDetails" component={APIDetails} />
-        <Route path="/PartnerDetails" component={PartnerDetails} />
-        <Route path="/ProductDetails" component={ProductDetails} />
-        <Route path="/JourneyDetails" component={JourneyDetails} />
-        <Route path="/PartnerJourneyDetails" component={PartnerJourneyDetails} />
-        <Route path="/AddAPI" component={AddAPI} />
-        <Route path="/AddPartner" component={AddPartner} />
-        <Route path="/AddProduct" component={AddProduct} />
-        <Route path="/AddJourney" component={AddJourney} />
-        <Route path="/EditAPI" component={EditAPI} />
-        <Route path="/EditPartner" component={EditPartner} />
-        <Route path="/EditProduct" component={EditProduct} />
-        <Route path="/EditJourney" component={EditJourney} />
-        <Route path="/MapPartnerJourney" component={MapPartnerJourney} />
-        <Route path="/ConfigurePartnerJourney" component={ConfigurePartnerJourney} />
-        <Route path="/EditPartnerJourneyScopes" component={EditPartnerJourneyScopes} />
+        <PrivateRoute path="/APIDetails" component={APIDetails} />
+        <PrivateRoute path="/PartnerDetails" component={PartnerDetails} />
+        <PrivateRoute path="/ProductDetails" component={ProductDetails} />
+        <PrivateRoute path="/JourneyDetails" component={JourneyDetails} />
+        <PrivateRoute path="/PartnerJourneyDetails" component={PartnerJourneyDetails} />
+        <PrivateRoute path="/AddAPI" component={AddAPI} />
+        <PrivateRoute path="/AddPartner" component={AddPartner} />
+        <PrivateRoute path="/AddProduct" component={AddProduct} />
+        <PrivateRoute path="/AddJourney" component={AddJourney} />
+        <PrivateRoute path="/EditAPI" component={EditAPI} />
+        <PrivateRoute path="/EditPartner" component={EditPartner} />
+        <PrivateRoute path="/EditProduct" component={EditProduct} />
+        <PrivateRoute path="/EditJourney" component={EditJourney} />
+        <PrivateRoute path="/MapPartnerJourney" component={MapPartnerJourney} />
+        <PrivateRoute path="/ConfigurePartnerJourney" component={ConfigurePartnerJourney} />
+        <PrivateRoute path="/EditPartnerJourneyScopes" component={EditPartnerJourneyScopes} />
+        <Route path="/Login" component={Login}  />
         </Switch>
-      </PrivatePage>
-      <Page>
-      <Route path="/Login" component={Login} />
-      </Page>
+    </Page>
     </BrowserRouter>
-    </AppProvider>
     </div>
   );
 }

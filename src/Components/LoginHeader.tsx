@@ -1,11 +1,8 @@
 import * as React from "react";
 import styled from 'styled-components'
 import logo from '../Images/logo-fill.png'
-import sendRequest from '../utils/sendRequest'
-import Cookies from 'universal-cookie';
-import { Redirect } from  "react-router-dom";
 
-const cookies = new Cookies();
+
 
 const HeaderWrapper = styled.header`
   height: 7.7rem;
@@ -29,24 +26,12 @@ const HeaderWrapper = styled.header`
   
 `
 
-const Header:React.FunctionComponent=()=>{
-    const[redirect,setRedirect]=React.useState(false)
-
-    const logout=()=>{
-      cookies.remove('token')
-      setRedirect(true)
-    }
-    if (redirect){
-      return <Redirect to='/Login'/>;
-    }
+const LoginHeader:React.FunctionComponent=()=>{
       return (
           <HeaderWrapper>
           <img src={logo} alt="ABFL" />
-          { <button
-            onClick={()=>logout()}
-          >Logout</button>}
           </HeaderWrapper>
       )
     
 }
-export default Header
+export default LoginHeader
