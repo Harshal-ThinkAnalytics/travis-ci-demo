@@ -100,7 +100,6 @@ class EditJourney extends React.Component<Props> {
         this.setState({
             productIdRow:product_id,
             productId:product_id.value,
-            
             isValidScreen: (!this.state.journeyNameError &&
                 !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
                 !this.state.minTenureError && !this.state.maxTenureError)
