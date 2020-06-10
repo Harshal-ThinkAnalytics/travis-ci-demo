@@ -6,6 +6,7 @@ import Button from '../Components/Button'
 import ErrorMessage from '../Components/ErrorMessage'
 import sendRequest from "../utils/sendRequest";
 import { Redirect } from "react-router-dom";
+import { start } from "repl";
 
 const StyledAddPartner = styled.div`
   display: flex;
@@ -81,7 +82,9 @@ class AddProduct extends React.Component {
         minTenureError: false,
         maxTenure: '',
         maxTenureError: false,
-        redirect:false
+        redirect:false,
+        isValidScreen: false,
+        startCheck: new Set()
 
     }
     saveData = async() =>{
@@ -112,7 +115,9 @@ class AddProduct extends React.Component {
     handleIdChange = (value: string) => {
         const Id = value.replace(/\D+/g, '')
         this.setState({
-            productId: Id
+            productId: Id,
+            isValidScreen:false,
+            startCheck: this.state.startCheck.add("1")
         });
 
     }
@@ -123,14 +128,27 @@ class AddProduct extends React.Component {
                 productIdError: true
             });
 
+        } else {
+            this.setState({
+                productIdError: false
+            });
+            this.setState({
+                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
+                    && !this.state.maxTenureError && !this.state.minTenureError && 
+                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError &&
+                    (this.state.startCheck.size==5)
+                    )
+            });
         }
     }
 
     handleProductNameChange = (value: string) => {
 
-        const filteredValue = value.replace(/[^a-z^A-Z^0-9^\s ]/g, '')
+        const filteredValue = value.replace(/[^a-z^A-Z^0-9^\s ]/g,'')
         this.setState({
-            address: filteredValue
+            productName: filteredValue,
+            isValidScreen:false,
+            startCheck: this.state.startCheck.add("2")
         });
 
     }
@@ -142,13 +160,26 @@ class AddProduct extends React.Component {
                 productNameError: true
             });
 
+        } else {
+            this.setState({
+                productNameError: false
+            });
+            this.setState({
+                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
+                    && !this.state.maxTenureError && !this.state.minTenureError && 
+                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError &&
+                    (this.state.startCheck.size==5)
+                    )
+            });
         }
     }
 
     handleMinLoanAmountChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
-            minLoanAmount: filteredValue
+            minLoanAmount: filteredValue,
+            isValidScreen:false,
+            startCheck: this.state.startCheck.add("3")
         });
 
     }
@@ -160,13 +191,26 @@ class AddProduct extends React.Component {
                 minLoanAmountError: true
             });
 
+        } else {
+            this.setState({
+                minLoanAmountError: false
+            });
+            this.setState({
+                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
+                    && !this.state.maxTenureError && !this.state.minTenureError && 
+                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError &&
+                    (this.state.startCheck.size==5)
+                    )
+            });
         }
     }
 
     handleMaxLoanAmountChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
-            maxLoanAmount: filteredValue
+            maxLoanAmount: filteredValue,
+            isValidScreen:false,
+            startCheck: this.state.startCheck.add("4")
         });
 
     }
@@ -178,13 +222,26 @@ class AddProduct extends React.Component {
                 maxLoanAmountError: true
             });
 
+        } else {
+            this.setState({
+                maxLoanAmountError: false
+            });
+            this.setState({
+                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
+                    && !this.state.maxTenureError && !this.state.minTenureError && 
+                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError &&
+                    (this.state.startCheck.size==5)
+                    )
+            });
         }
     }
 
     handleMinTenureChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
-            minTenure: filteredValue
+            minTenure: filteredValue,
+            isValidScreen:false,
+            startCheck: this.state.startCheck.add("5")
         });
 
     }
@@ -196,13 +253,26 @@ class AddProduct extends React.Component {
                 minTenureError: true
             });
 
+        } else {
+            this.setState({
+                minTenureError: false
+            });
+            this.setState({
+                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
+                    && !this.state.maxTenureError && !this.state.minTenureError && 
+                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError &&
+                    (this.state.startCheck.size==5)
+                    )
+            });
         }
     }
 
     handleMaxTenureChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
-            maxTenure: filteredValue
+            maxTenure: filteredValue,
+            isValidScreen:false,
+            startCheck: this.state.startCheck.add("6")
         });
 
     }
@@ -214,6 +284,17 @@ class AddProduct extends React.Component {
                 maxTenureError: true
             });
 
+        } else {
+            this.setState({
+                maxTenureError: false
+            });
+            this.setState({
+                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
+                    && !this.state.maxTenureError && !this.state.minTenureError && 
+                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError &&
+                    (this.state.startCheck.size==5)
+                    )
+            });
         }
     }
     render() {
@@ -348,7 +429,7 @@ class AddProduct extends React.Component {
                 <Mystyle2>
                     <Button
                     type={''}
-                    // disabled={false}
+                    disabled={!this.state.isValidScreen}
                     onClick={() => this.saveData()}
                 >
                     Save

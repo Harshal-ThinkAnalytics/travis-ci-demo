@@ -84,7 +84,9 @@ class EditPartner extends React.Component<Props> {
         mobileNoError: false,
         shortCode: this.data.short_code,
         shortCodeError: false,
-        redirect:false
+        redirect:false,
+        isValidScreen: false,
+        startCheck: new Set()
 
     }
 
@@ -137,7 +139,9 @@ class EditPartner extends React.Component<Props> {
 
         const filteredValue = value.replace(/[^.^-^/^@^#^,^;^a-z^A-Z^0-9^\s ]/g, '')
         this.setState({
-            address: filteredValue
+            address: filteredValue,
+            isValidScreen: false,
+            startCheck: this.state.startCheck.add("1")
         });
 
     }
@@ -146,16 +150,30 @@ class EditPartner extends React.Component<Props> {
         console.log("inside validateAddressChange")
         if (this.state.address.length < 5) {
             this.setState({
-                addressError: true
+                addressError: true,
+                isValidScreen: false
+                
             });
 
+        } else {
+            this.setState({
+                addressError: false
+                
+            });
+            this.setState({
+                
+                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                    && !this.state.emailIdError && !this.state.mobileNoError )
+            });
         }
     }
 
     handleContactPersonChange = (value: string) => {
         const filteredValue = value.replace(/[^a-z^A-Z^\s]/g, '')
         this.setState({
-            contactPerson: filteredValue
+            contactPerson: filteredValue,
+            isValidScreen: false,
+            startCheck: this.state.startCheck.add("2")
         });
 
     }
@@ -164,16 +182,30 @@ class EditPartner extends React.Component<Props> {
         console.log("inside validateContactPersonChange")
         if (this.state.contactPerson.length < 2) {
             this.setState({
-                contactPersonError: true
+                contactPersonError: true,
+                isValidScreen:false
             });
 
+        } else {
+            this.setState({
+                contactPersonError: false
+                
+            });
+
+            this.setState({
+                
+                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                    && !this.state.emailIdError && !this.state.mobileNoError ) 
+            });
         }
     }
 
     handleEmailChange = (value: string) => {
         const filteredValue = value.replace(/[^a-zA-Z_.@0-9]/g, '')
         this.setState({
-            emailId: filteredValue
+            emailId: filteredValue,
+            isValidScreen: false,
+            startCheck: this.state.startCheck.add("3")
         });
     }
 
@@ -182,10 +214,26 @@ class EditPartner extends React.Component<Props> {
         if (
             this.state.emailId.length <= 0 ||
             !/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(this.state.emailId)
-        )
+        ) {
             this.setState({
-                emailIdError: true
+                emailIdError: true,
+                isValidScreen: false
+                
             });
+        } else {
+            this.setState({
+                emailIdError: false
+            });
+
+
+            this.setState({
+                
+                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                    && !this.state.emailIdError && !this.state.mobileNoError )
+            });
+        }
+            
+
 
     }
 
@@ -194,7 +242,9 @@ class EditPartner extends React.Component<Props> {
         const filteredMobile = value.replace(/\D+/g, '')
         if (filteredMobile.length === 10) this.validateMobile(filteredMobile)
         this.setState({
-            mobileNo: filteredMobile
+            mobileNo: filteredMobile,
+            isValidScreen: false,
+            startCheck: this.state.startCheck.add("4")
         });
 
     }
@@ -202,13 +252,22 @@ class EditPartner extends React.Component<Props> {
     validateMobile = (value: string) => {
         if (!/^[6789]{1}[0-9]{9}$/.test(value || this.state.mobileNo)) {
             this.setState({
-                mobileNoError: true
+                mobileNoError: true,
+                isValidScreen: false
             });
+            
             // setMobileNoError(true)
         } else {
             this.setState({
                 mobileNoError: false
+                
             });
+            this.setState({
+                
+                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                    && !this.state.emailIdError && !this.state.mobileNoError )
+            });
+
             // setMobileNoError(false)
         }
     }
@@ -216,7 +275,9 @@ class EditPartner extends React.Component<Props> {
     handleShortCodeChange = (value: string) => {
         const filteredValue = value.replace(/[^a-z^A-Z^\s]/g, '')
         this.setState({
-            shortCode: filteredValue
+            shortCode: filteredValue,
+            isValidScreen: false,
+            startCheck: this.state.startCheck.add("5")
         });
         // setShortCode(filteredValue)
     }
@@ -224,11 +285,26 @@ class EditPartner extends React.Component<Props> {
         console.log("inside validateShortCodeChange")
         if (this.state.shortCode.length < 1) {
             this.setState({
-                shortCodeError: true
+                shortCodeError: true,
+                isValidScreen: false
+            });
+            
+
+        } else {
+            this.setState({
+                shortCodeError: false
+                
             });
 
+            this.setState({
+                shortCodeError: false,
+                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                    && !this.state.emailIdError && !this.state.mobileNoError )
+            });
         }
     }
+
+
     render() {
         if(this.state.redirect){
             return <Redirect to='/PartnerDetails'/>;
@@ -363,7 +439,7 @@ class EditPartner extends React.Component<Props> {
                 <Mystyle2>
                     <Button
                     type={''}
-                    // disabled={false}
+                    disabled={!this.state.isValidScreen}
                     onClick={() => this.saveData()}
                 >
                     Save
