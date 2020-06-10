@@ -7,6 +7,7 @@ import ErrorMessage from '../Components/ErrorMessage'
 import { Redirect } from "react-router-dom";
 import Cookies from 'universal-cookie';
 import sendRequest from "../utils/sendRequest";
+import Loading from '../Components/Loading';
 
 const cookies = new Cookies();
 
@@ -73,6 +74,7 @@ const Login:React.FunctionComponent=()=>{
     const [password,setPassword]=useState('')
     const [passwordError,setPasswordError]=useState(false)
     const [redirect,setRedirect]=useState(false)
+    const [loading,setLoading]=useState(false)
 
   const token = cookies.get('token')
 
@@ -83,13 +85,16 @@ const Login:React.FunctionComponent=()=>{
 
   
   const login = async()=>{
+    setLoading(true)
     const response  = await sendRequest('/Login', {
       username: username,
       password: password
     },'POST')
+    
     // console.log(response,setToken,token)
     cookies.set('token',response.data.token)
     setRedirect(true)
+    setLoading(false)
     
   }
 
@@ -126,6 +131,7 @@ const Login:React.FunctionComponent=()=>{
 
     return (
         <AddPartnerWrapper>
+          <Loading open={loading}/>
         <Mystyle>
             <Mystyle1>
             <h1>Login</h1>

@@ -125,7 +125,7 @@ export default class ProductDetails extends React.Component {
           }
         this.setState({
             deleteProductId:'',
-            loading:false,
+            
             refresh:true
         })
     } 

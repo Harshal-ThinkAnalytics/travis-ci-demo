@@ -126,7 +126,6 @@ export default class PartnerDetails extends React.Component {
           }
         this.setState({
             deletePartnerId:'',
-            loading:false,
             refresh:true
         })
     }  
@@ -159,9 +158,11 @@ export default class PartnerDetails extends React.Component {
         }
         if(this.state.refresh){
             this.setState({
-                refresh:false
+                refresh:false,
+                
             })
             this.componentDidMount()
+            this.setState({loading:false})
         }
        
 
