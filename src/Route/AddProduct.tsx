@@ -323,7 +323,7 @@ class AddProduct extends React.Component {
                         })}
                     onBlur={() => { this.validateProductNameChange() }}
                     value={this.state.productName}
-                    type={this.state.productNameError}
+                    cltype={this.state.productNameError}
                 />
                 <ErrorMessage show={this.state.productNameError} className="error-message">
                     Please enter product name
@@ -344,7 +344,7 @@ class AddProduct extends React.Component {
                         })}
                     onBlur={() => { this.validateMinLoanAmountChange() }}
                     value={this.state.minLoanAmount}
-                    type={this.state.minLoanAmountError}
+                    cltype={this.state.minLoanAmountError}
                 />
                 <ErrorMessage show={this.state.minLoanAmountError} className="error-message">
                     Please enter minimum loan amount
@@ -365,7 +365,7 @@ class AddProduct extends React.Component {
                         })}
                     onBlur={() => { this.validateMaxLoanAmountChange() }}
                     value={this.state.maxLoanAmount}
-                    type={this.state.maxLoanAmountError}
+                    cltype={this.state.maxLoanAmountError}
                 />
                 <ErrorMessage show={this.state.maxLoanAmountError} className="error-message">
                     Please enter maximum loan amount
@@ -386,7 +386,7 @@ class AddProduct extends React.Component {
                         })}
                     onBlur={() => { this.validateMinTenureChange() }}
                     value={this.state.minTenure}
-                    type={this.state.minTenureError}
+                    cltype={this.state.minTenureError}
                 />
                  <ErrorMessage show={this.state.minTenureError} className="error-message">
                     Please enter minimum tenure
@@ -407,7 +407,7 @@ class AddProduct extends React.Component {
                         })}
                     onBlur={() => { this.validateMaxTenureChange() }}
                     value={this.state.maxTenure}
-                    type={this.state.maxTenureError}
+                    cltype={this.state.maxTenureError}
                 />
                  <ErrorMessage show={this.state.maxTenureError} className="error-message">
                     Please enter maximum tenure

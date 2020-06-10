@@ -45,6 +45,7 @@ function App() {
         <PrivateRoute path="/MapPartnerJourney" component={MapPartnerJourney} />
         <PrivateRoute path="/ConfigurePartnerJourney" component={ConfigurePartnerJourney} />
         <PrivateRoute path="/EditPartnerJourneyScopes" component={EditPartnerJourneyScopes} />
+        
         <Route path="/Login" component={Login}  />
         </Switch>
     </Page>

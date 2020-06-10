@@ -196,7 +196,7 @@ class AddAPI extends React.Component<Props> {
                         })}
                     onBlur={() => { this.validateApiName() }}
                     value={this.state.apiName}
-                    type={this.state.apiNameError}/>
+                    cltype={this.state.apiNameError}/>
                     <ErrorMessage show={this.state.apiNameError} className="error-message">
                     Enter valid api name
                  </ErrorMessage>
@@ -217,7 +217,7 @@ class AddAPI extends React.Component<Props> {
                         })}
                     onBlur={() => { this.validateVersion() }}
                     value={this.state.version}
-                    type={this.state.versionError}/>
+                    cltype={this.state.versionError}/>
                     <ErrorMessage show={this.state.versionError} className="error-message">
                     Enter valid version
                  </ErrorMessage>

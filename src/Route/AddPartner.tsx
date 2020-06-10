@@ -315,7 +315,7 @@ class AddPartner extends React.Component {
                         })}
                     onBlur={() => { this.validateAddressChange() }}
                     value={this.state.address}
-                    type={this.state.addressError}
+                    cltype={this.state.addressError}
                 />
                 <ErrorMessage show={this.state.addressError} className="error-message">
                     Please enter address
@@ -337,7 +337,7 @@ class AddPartner extends React.Component {
                         })}
                     onBlur={() => { this.validateContactPersonChange() }}
                     value={this.state.contactPerson}
-                    type={this.state.contactPersonError}
+                    cltype={this.state.contactPersonError}
                 />
                 <ErrorMessage show={this.state.contactPersonError} className="error-message">
                     Please enter name
@@ -358,7 +358,7 @@ class AddPartner extends React.Component {
                         })}
                     onBlur={() => { this.validateEmail() }}
                     value={this.state.emailId}
-                    type={this.state.emailIdError}
+                    cltype={this.state.emailIdError}
                 />
                 <ErrorMessage show={this.state.emailIdError} className="error-message">
                     Please enter valid email id
@@ -379,7 +379,7 @@ class AddPartner extends React.Component {
                         })}
                     onBlur={() => { this.validateMobile(this.state.mobileNo) }}
                     value={this.state.mobileNo}
-                    type={this.state.mobileNoError}
+                    cltype={this.state.mobileNoError}
                 />
                  <ErrorMessage show={this.state.mobileNoError} className="error-message">
                     Please enter valid mobile number
@@ -401,7 +401,7 @@ class AddPartner extends React.Component {
                         })}
                     onBlur={() => { this.validateShortCodeChange() }}
                     value={this.state.shortCode}
-                    type={this.state.shortCodeError}
+                    cltype={this.state.shortCodeError}
                 />
                  <ErrorMessage show={this.state.shortCodeError} className="error-message">
                     Please enter valid short Code
