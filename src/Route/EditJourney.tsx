@@ -99,7 +99,11 @@ class EditJourney extends React.Component<Props> {
     setProductId = (product_id:any) =>{
         this.setState({
             productIdRow:product_id,
-            productId:product_id.value
+            productId:product_id.value,
+            
+            isValidScreen: (!this.state.journeyNameError &&
+                !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
+                !this.state.minTenureError && !this.state.maxTenureError)
         })
     }
     saveData = async() =>{

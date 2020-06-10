@@ -84,32 +84,44 @@ class ConfigurePartnerJourney extends React.Component<Props> {
         lmsScheme:'',
         lmsSchemeRow:{},
         lmsSchemes:[],
+        lmsSchemeError:true,
         lmsProduct:'',
         lmsProductRow:{},
         lmsProducts:[],
+        lmsProductError:true,
         kyc:'',
         kycRow:{},
+        kycError:true,
         bureauToCall:'',
         bureauToCallRow:{},
+        bureauToCallError:true,
         mandate:'',
         mandateRow:{},
+        mandateError:true,
         paymentGateway:'',
         paymentGatewayRow:{},
+        paymentGatewayError:true,
         lmsDisbursal:'',
         lmsDisbursalRow:{},
+        lmsDisbursalError:true,
         dkycVersion:'',
         dkycVersionRow:{},
+        dkycVersionError:true,
         mrpVersion:'',
         mrpVersionRow:{},
+        mrpVersionError:true,
         ceApis:[],
         ceApisRow:[],
+        ceApisError:true,
         dkycKey:'',
         dkycKeyError:false,
         mrpKey:'',
         mrpKeyError:false,
         ceKey:'',
         ceKeyError:false,
-        redirect:false
+        redirect:false,
+        isValidScreen:false,
+        startCheck: new Set()
     }
 
     kycOptions = [
@@ -215,7 +227,15 @@ class ConfigurePartnerJourney extends React.Component<Props> {
     setLmsScheme = (lms_scheme:any) =>{
         this.setState({
             lmsSchemeRow:lms_scheme,
-            lmsScheme:lms_scheme.value
+            lmsScheme:lms_scheme.value,
+            lmsSchemeError:false,
+            isValidScreen:(!this.state.lmsProductError && 
+                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                 && !this.state.bureauToCallError && !this.state.mandateError &&
+                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
+                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                && (this.state.startCheck.size==5)),
         })
     }
 
@@ -243,56 +263,120 @@ class ConfigurePartnerJourney extends React.Component<Props> {
     setLmsProduct = (lms_product:any) =>{
         this.setState({
             lmsProductRow:lms_product,
-            lmsProduct:lms_product.value
+            lmsProduct:lms_product.value,
+            lmsProductError:false,
+            isValidScreen:(!this.state.lmsSchemeError && 
+                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                 && !this.state.bureauToCallError && !this.state.mandateError &&
+                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
+                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                && (this.state.startCheck.size==5)),
         })
     }
 
     setKyc = (kyc:any) =>{
         this.setState({
             kycRow:kyc,
-            kyc:kyc.value
+            kyc:kyc.value,
+            kycError:false,
+            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
+                !this.state.minAgeError && !this.state.maxAgeError
+                 && !this.state.bureauToCallError && !this.state.mandateError &&
+                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
+                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                && (this.state.startCheck.size==5)),
         })
     }
 
     setBureau = (bureau:any) =>{
         this.setState({
             bureauToCallRow:bureau,
-            bureauToCall:bureau.value
+            bureauToCall:bureau.value,
+            bureauToCallError:false,
+            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
+                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                  && !this.state.mandateError &&
+                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
+                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                && (this.state.startCheck.size==5)),
         })
     }
 
     setMandate = (mandate:any) =>{
         this.setState({
             mandateRow:mandate,
-            mandate:mandate.value
+            mandate:mandate.value,
+            mandateError:false,
+            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
+                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                 && !this.state.bureauToCallError && 
+                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
+                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                && (this.state.startCheck.size==5)),
         })
     }
 
     setPaymentGateway = (pg:any) =>{
         this.setState({
             paymentGatewayRow:pg,
-            paymentGateway:pg.value
+            paymentGateway:pg.value,
+            paymentGatewayError:false,
+            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
+                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                 && !this.state.bureauToCallError && !this.state.mandateError &&
+                 !this.state.lmsDisbursalError &&
+                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
+                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                && (this.state.startCheck.size==5)),
         })
     }
 
     setDisbursal = (disbursal:any) =>{
         this.setState({
             lmsDisbursalRow:disbursal,
-            lmsDisbursal:disbursal.value
+            lmsDisbursal:disbursal.value,
+            lmsDisbursalError:false,
+            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
+                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                 && !this.state.bureauToCallError && !this.state.mandateError &&
+                 !this.state.paymentGatewayError && 
+                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
+                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                && (this.state.startCheck.size==5)),
         })
     } 
 
     setDkyc = (dkyc:any) =>{
         this.setState({
             dkycVersionRow:dkyc,
-            dkycVersion:dkyc.value
+            dkycVersion:dkyc.value,
+            dkycVersionError:false,
+            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
+                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                 && !this.state.bureauToCallError && !this.state.mandateError &&
+                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                !this.state.mrpVersionError && !this.state.ceApisError 
+                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                && (this.state.startCheck.size==5)),
         })
     } 
 
     setMrp = (mrp:any) =>{
         this.setState({
             mrpVersionRow:mrp,
-            mrpVersion:mrp.value
+            mrpVersion:mrp.value,
+            mrpVersionError:false,
+            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
+                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                 && !this.state.bureauToCallError && !this.state.mandateError &&
+                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                !this.state.dkycVersionError && !this.state.ceApisError 
+                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                && (this.state.startCheck.size==5)),
         })
     } 
 
@@ -306,7 +390,15 @@ class ConfigurePartnerJourney extends React.Component<Props> {
         }
         this.setState({
             ceApisRow:row,
-            ceApis:apis
+            ceApis:apis,
+            ceApisError:false,
+            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
+                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                 && !this.state.bureauToCallError && !this.state.mandateError &&
+                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                !this.state.dkycVersionError && !this.state.mrpVersionError  
+                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                && (this.state.startCheck.size==5)),
         })
     } 
 
@@ -360,7 +452,9 @@ class ConfigurePartnerJourney extends React.Component<Props> {
     handleMinAgeChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
-            minAge: filteredValue
+            minAge: filteredValue,
+            isValidScreen:false,
+            startCheck:this.state.startCheck.add("1")
         });
 
     }
@@ -372,13 +466,29 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                 minAgeError: true
             });
 
+        } else {
+            this.setState({
+                minAgeError:false,
+            });
+
+            this.setState({
+                isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
+                    !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                     && !this.state.bureauToCallError && !this.state.mandateError &&
+                     !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                    !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
+                    && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                    && (this.state.startCheck.size==5)),
+            });
         }
     }
 
     handleMaxAgeChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
-            maxAge: filteredValue
+            maxAge: filteredValue,
+            isValidScreen:false,
+            startCheck:this.state.startCheck.add("2")
         });
 
     }
@@ -390,6 +500,20 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                 maxAgeError: true
             });
 
+        }else {
+            this.setState({
+                minAgeError:false,
+            });
+
+            this.setState({
+                isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
+                    !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                     && !this.state.bureauToCallError && !this.state.mandateError &&
+                     !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                    !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
+                    && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                    && (this.state.startCheck.size==5)),
+            });
         }
     }
 
@@ -397,7 +521,9 @@ class ConfigurePartnerJourney extends React.Component<Props> {
 
         const filteredValue = value.replace(/[^.^-^/^@^#^,^;^a-z^A-Z^0-9^\s ]/g, '')
         this.setState({
-            dkycKey: filteredValue
+            dkycKey: filteredValue,
+            isValidScreen:false,
+            startCheck:this.state.startCheck.add("3")
         });
 
     }
@@ -409,6 +535,20 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                 dkycKeyError: true
             });
 
+        }else {
+            this.setState({
+                minAgeError:false,
+            });
+
+            this.setState({
+                isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
+                    !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                     && !this.state.bureauToCallError && !this.state.mandateError &&
+                     !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                    !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
+                    && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                    && (this.state.startCheck.size==5)),
+            });
         }
     }
 
@@ -416,7 +556,9 @@ class ConfigurePartnerJourney extends React.Component<Props> {
 
         const filteredValue = value.replace(/[^.^-^/^@^#^,^;^a-z^A-Z^0-9^\s ]/g, '')
         this.setState({
-            mrpKey: filteredValue
+            mrpKey: filteredValue,
+            isValidScreen:false,
+            startCheck:this.state.startCheck.add("4")
         });
 
     }
@@ -428,6 +570,20 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                 mrpKeyError: true
             });
 
+        }else {
+            this.setState({
+                minAgeError:false,
+            });
+
+            this.setState({
+                isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
+                    !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                     && !this.state.bureauToCallError && !this.state.mandateError &&
+                     !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                    !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
+                    && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                    && (this.state.startCheck.size==5)),
+            });
         }
     }
 
@@ -435,7 +591,9 @@ class ConfigurePartnerJourney extends React.Component<Props> {
 
         const filteredValue = value.replace(/[^.^-^/^@^#^,^;^a-z^A-Z^0-9^\s ]/g, '')
         this.setState({
-            ceKey: filteredValue
+            ceKey: filteredValue,
+            isValidScreen:false,
+            startCheck:this.state.startCheck.add("5")
         });
 
     }
@@ -447,6 +605,20 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                 ceKeyError: true
             });
 
+        }else {
+            this.setState({
+                minAgeError:false,
+            });
+
+            this.setState({
+                isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
+                    !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                     && !this.state.bureauToCallError && !this.state.mandateError &&
+                     !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                    !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
+                    && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
+                    && (this.state.startCheck.size==5)),
+            });
         }
     }
 
@@ -678,7 +850,7 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                 <Mystyle2>
                     <Button
                     type={''}
-                    // disabled={false}
+                    disabled={!this.state.isValidScreen}
                     onClick={() => this.saveData()}
                 >
                     Save

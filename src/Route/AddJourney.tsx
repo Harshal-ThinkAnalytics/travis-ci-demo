@@ -96,7 +96,11 @@ class AddJourney extends React.Component {
         this.setState({
             productIdRow:product_id,
             productId:product_id.value,
-            
+            productIdError:false,
+            isValidScreen: (!this.state.journeyNameError &&
+                !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
+                !this.state.minTenureError && !this.state.maxTenureError &&
+                (this.state.startCheck.size==5))
         })
         
     }
@@ -136,7 +140,7 @@ class AddJourney extends React.Component {
                 console.log(ids)
                 this.setState({
                     productIds:ids,
-                    isValidScreen:true
+                    
                 })
             }
             else{
@@ -168,7 +172,7 @@ class AddJourney extends React.Component {
                 journeyIdError: false
             });
             this.setState({
-                isValidScreen: (!this.state.journeyNameError &&
+                isValidScreen: (!this.state.productIdError&&!this.state.journeyNameError &&
                     !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
                     !this.state.minTenureError && !this.state.maxTenureError &&
                     (this.state.startCheck.size==5))
@@ -199,7 +203,7 @@ class AddJourney extends React.Component {
                 journeyNameError: false
             });
             this.setState({
-                isValidScreen: (!this.state.journeyNameError &&
+                isValidScreen: (!this.state.productIdError && !this.state.journeyNameError &&
                     !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
                     !this.state.minTenureError && !this.state.maxTenureError &&
                     (this.state.startCheck.size==5))
@@ -229,7 +233,7 @@ class AddJourney extends React.Component {
                 minLoanAmountError: false
             });
             this.setState({
-                isValidScreen: (!this.state.journeyNameError &&
+                isValidScreen: (!this.state.productIdError && !this.state.journeyNameError &&
                     !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
                     !this.state.minTenureError && !this.state.maxTenureError &&
                     (this.state.startCheck.size==5))
@@ -259,7 +263,7 @@ class AddJourney extends React.Component {
                 maxLoanAmountError: false
             });
             this.setState({
-                isValidScreen: (!this.state.journeyNameError &&
+                isValidScreen: (!this.state.productIdError && !this.state.journeyNameError &&
                     !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
                     !this.state.minTenureError && !this.state.maxTenureError &&
                     (this.state.startCheck.size==5))
@@ -289,7 +293,7 @@ class AddJourney extends React.Component {
                 minTenureError: false
             });
             this.setState({
-                isValidScreen: (!this.state.journeyNameError &&
+                isValidScreen: (!this.state.productIdError && !this.state.journeyNameError &&
                     !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
                     !this.state.minTenureError && !this.state.maxTenureError &&
                     (this.state.startCheck.size==5))
@@ -319,7 +323,7 @@ class AddJourney extends React.Component {
                 maxTenureError: false
             });
             this.setState({
-                isValidScreen: (!this.state.journeyNameError &&
+                isValidScreen: (!this.state.productIdError && !this.state.journeyNameError &&
                     !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
                     !this.state.minTenureError && !this.state.maxTenureError &&
                     (this.state.startCheck.size==5))
