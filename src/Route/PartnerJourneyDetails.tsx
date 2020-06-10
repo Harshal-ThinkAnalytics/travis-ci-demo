@@ -148,7 +148,6 @@ export default class PartnerJourneyDetails extends React.Component {
           }
         this.setState({
             deletePartnerId:'',
-            loading:false,
             refresh:true
         })
     }  

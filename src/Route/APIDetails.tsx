@@ -108,7 +108,6 @@ export default class APIDetails extends React.Component {
           }
         this.setState({
             deleteScopeNo:'',
-            loading:false,
             refresh:true
         })
     }  
