@@ -2,6 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import Header from '../Components/Header'
 import PartnerDetails from './PartnerDetails'
+import {Link} from "react-router-dom";
 
 const SidebarWrapper = styled.section`
   flex-direction: column;
@@ -43,11 +44,11 @@ export default class Sidebar extends React.Component {
             <div style={{ flexDirection: "row" }}>
                 <SidebarWrapper >
                     <div className="sidenav">
-                        <a href="PartnerDetails">Partner</a>
-                        <a href="ProductDetails">Product</a>
-                        <a href="JourneyDetails">Journey</a>
-                        <a href="PartnerJourneyDetails">Map Partner to Journey</a>
-                        <a href="APIDetails">API List</a>
+                        <Link to="/PartnerDetails">Partner</Link>
+                        <Link to="/ProductDetails">Product</Link>
+                        <Link to="/JourneyDetails">Journey</Link>
+                        <Link to="/PartnerJourneyDetails">Map Partner to Journey</Link>
+                        <Link to="/APIDetails">API List</Link>
                     </div>
                 </SidebarWrapper>
             </div>

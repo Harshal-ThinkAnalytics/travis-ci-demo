@@ -1,7 +1,11 @@
-import React from 'react'
+import React,{useState, useEffect} from 'react'
 import styled from 'styled-components'
 import Sidebar from '../Route/Sidebar'
 import Header from './Header'
+import LoginHeader from './LoginHeader'
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 
 const Body = styled.div`
@@ -22,6 +26,21 @@ interface Props{
     children:any;
 }
 const Page: React.FunctionComponent<Props> = (props) => {
+  // const [isLogin,setIsLogin]=useState(false)
+
+  // const token = cookies.get('token')
+  
+  
+  // if (!token){
+  //   return (
+  //     <>
+  //       <div style={{position:"fixed", top:0,left:0,right:0,overflowX: "hidden",zIndex: 1030}}>
+  //     <LoginHeader />
+  //     </div>
+  //       <Body>{props.children}</Body>
+  //     </>
+  //   )
+  // }
     return (
       <>
         <div style={{position:"fixed", top:0,left:0,right:0,overflowX: "hidden",zIndex: 1030}}>

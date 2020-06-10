@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import styled from "styled-components";
 import Label from "../Components/Label";
 import Input from "../Components/Input";
@@ -74,35 +74,18 @@ const Login:React.FunctionComponent=()=>{
     const [passwordError,setPasswordError]=useState(false)
     const [redirect,setRedirect]=useState(false)
 
-    // if (token.length!=0){
-    //   return(
-    //   <PrivatePage>
-    //   <Switch>
-    //   <Route path="/APIDetails" component={APIDetails} />
-    //   <Route path="/PartnerDetails" component={PartnerDetails} />
-    //   <Route path="/ProductDetails" component={ProductDetails} />
-    //   <Route path="/JourneyDetails" component={JourneyDetails} />
-    //   <Route path="/PartnerJourneyDetails" component={PartnerJourneyDetails} />
-    //   <Route path="/AddAPI" component={AddAPI} />
-    //   <Route path="/AddPartner" component={AddPartner} />
-    //   <Route path="/AddProduct" component={AddProduct} />
-    //   <Route path="/AddJourney" component={AddJourney} />
-    //   <Route path="/EditAPI" component={EditAPI} />
-    //   <Route path="/EditPartner" component={EditPartner} />
-    //   <Route path="/EditProduct" component={EditProduct} />
-    //   <Route path="/EditJourney" component={EditJourney} />
-    //   <Route path="/MapPartnerJourney" component={MapPartnerJourney} />
-    //   <Route path="/ConfigurePartnerJourney" component={ConfigurePartnerJourney} />
-    //   <Route path="/EditPartnerJourneyScopes" component={EditPartnerJourneyScopes} />
-    //   </Switch>
-    // </PrivatePage>
-    //   )
-    // }
+  const token = cookies.get('token')
 
+  if (token){
+    return <Redirect to='/PartnerDetails'/>
+  }
+
+
+  
   const login = async()=>{
     const response  = await sendRequest('/Login', {
-      username: "b2bhub",
-      password: "admin123"
+      username: username,
+      password: password
     },'POST')
     // console.log(response,setToken,token)
     cookies.set('token',response.data.token)
