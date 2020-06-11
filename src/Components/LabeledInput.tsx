@@ -37,7 +37,7 @@ export default class LabeledInput extends React.Component<Props>{
         return (
             <LabeledInputWrapper>
                 <Label data={this.props.label}/>
-                <Input type={this.props.error}/>
+                <Input cltype={this.props.error}/>
             </LabeledInputWrapper>
 
         )

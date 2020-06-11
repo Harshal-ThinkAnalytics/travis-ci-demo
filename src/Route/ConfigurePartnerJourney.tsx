@@ -670,7 +670,7 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                         })}
                     onBlur={() => { this.validateMinAgeChange() }}
                     value={this.state.minAge}
-                    type={this.state.minAgeError}
+                    cltype={this.state.minAgeError}
                 />
                  <ErrorMessage show={this.state.minAgeError} className="error-message">
                     Please enter minimum age
@@ -691,7 +691,7 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                         })}
                     onBlur={() => { this.validateMaxAgeChange() }}
                     value={this.state.maxAge}
-                    type={this.state.maxAgeError}
+                    cltype={this.state.maxAgeError}
                 />
                  <ErrorMessage show={this.state.maxAgeError} className="error-message">
                     Please enter maximum age
@@ -784,7 +784,7 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                         })}
                     onBlur={() => { this.validateDKYCKeyChange() }}
                     value={this.state.dkycKey}
-                    type={this.state.dkycKeyError}
+                    cltype={this.state.dkycKeyError}
                 />
                 <ErrorMessage show={this.state.dkycKeyError} className="error-message">
                     Please enter valid key
@@ -805,7 +805,7 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                         })}
                     onBlur={() => { this.validateMRPKeyChange() }}
                     value={this.state.mrpKey}
-                    type={this.state.mrpKeyError}
+                    cltype={this.state.mrpKeyError}
                 />
                 <ErrorMessage show={this.state.mrpKeyError} className="error-message">
                     Please enter valid key
@@ -826,7 +826,7 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                         })}
                     onBlur={() => { this.validateCEKeyChange() }}
                     value={this.state.ceKey}
-                    type={this.state.ceKeyError}
+                    cltype={this.state.ceKeyError}
                 />
                 <ErrorMessage show={this.state.ceKeyError} className="error-message">
                     Please enter valid key

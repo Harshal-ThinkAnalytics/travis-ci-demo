@@ -360,7 +360,7 @@ class AddJourney extends React.Component {
                     })}
                 onBlur={() => { this.validatejourneyNameChange() }}
                 value={this.state.journeyName}
-                type={this.state.journeyNameError}
+                cltype={this.state.journeyNameError}
             />
             <ErrorMessage show={this.state.journeyNameError} className="error-message">
                 Please enter journey name
@@ -382,7 +382,7 @@ class AddJourney extends React.Component {
                     })}
                 onBlur={() => { this.validateMinLoanAmountChange() }}
                 value={this.state.minLoanAmount}
-                type={this.state.minLoanAmountError}
+                cltype={this.state.minLoanAmountError}
             />
             <ErrorMessage show={this.state.minLoanAmountError} className="error-message">
                 Please enter minimum loan amount
@@ -405,7 +405,7 @@ class AddJourney extends React.Component {
                     })}
                 onBlur={() => { this.validateMaxLoanAmountChange() }}
                 value={this.state.maxLoanAmount}
-                type={this.state.maxLoanAmountError}
+                cltype={this.state.maxLoanAmountError}
                 />
                 <ErrorMessage show={this.state.maxLoanAmountError} className="error-message">
                 Please enter maximum loan amount
@@ -426,7 +426,7 @@ class AddJourney extends React.Component {
                     })}
                 onBlur={() => { this.validateMinTenureChange() }}
                 value={this.state.minTenure}
-                type={this.state.minTenureError}
+                cltype={this.state.minTenureError}
                 />
                 <ErrorMessage show={this.state.minTenureError} className="error-message">
                 Please enter minimum tenure
@@ -447,7 +447,7 @@ class AddJourney extends React.Component {
                     })}
                 onBlur={() => { this.validateMaxTenureChange() }}
                 value={this.state.maxTenure}
-                type={this.state.maxTenureError}
+                cltype={this.state.maxTenureError}
             />
              <ErrorMessage show={this.state.maxTenureError} className="error-message">
                 Please enter maximum tenure

@@ -214,7 +214,7 @@ class EditAPI extends React.Component<Props> {
                         })}
                     onBlur={() => { this.validateScopeNo() }}
                     value={this.state.scopeNo}
-                    type={this.state.scopeNoError}/>
+                    cltype={this.state.scopeNoError}/>
                     
                 
                     </Mystyle2>
@@ -233,7 +233,7 @@ class EditAPI extends React.Component<Props> {
                         })}
                     onBlur={() => { this.validateApiName() }}
                     value={this.state.apiName}
-                    type={this.state.apiNameError}/>
+                    cltype={this.state.apiNameError}/>
                     <ErrorMessage show={this.state.apiNameError} className="error-message">
                     Please enter api name
                  </ErrorMessage>
@@ -254,7 +254,7 @@ class EditAPI extends React.Component<Props> {
                         })}
                     onBlur={() => { this.validateVersion() }}
                     value={this.state.version}
-                    type={this.state.versionError}/>
+                    cltype={this.state.versionError}/>
                     <ErrorMessage show={this.state.versionError} className="error-message">
                     Please enter version
                  </ErrorMessage>

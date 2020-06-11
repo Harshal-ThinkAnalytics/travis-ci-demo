@@ -8,6 +8,7 @@ import ErrorMessage from '../Components/ErrorMessage'
 import sendRequest from "../utils/sendRequest";
 import Dropdown from '../Components/Dropdown'
 import { Redirect } from "react-router-dom";
+import { threadId } from 'worker_threads';
 
 
 const AddPartnerWrapper = styled.div`
@@ -67,14 +68,15 @@ class MapPartnerJourney extends React.Component {
 
     state = {
         partnerId: '',
-        partnerIdError: false,
+        partnerIdError: true,
         journeyId: '',
-        journeyIdError: false,
+        journeyIdError: true,
         journeys:[],
         partners:[],
         partnerIdRow:{},
         journeyIdRow:{},
-        redirect:false
+        redirect:false,
+        isValidScreen:false
 
     }
     saveData = async() =>{
@@ -103,13 +105,17 @@ class MapPartnerJourney extends React.Component {
     setPartnerId = (partner_id:any) =>{
         this.setState({
             partnerIdRow:partner_id,
-            partnerId:partner_id.value
+            partnerId:partner_id.value,
+            partnerIdError:false,
+            isValidScreen:(!this.state.journeyIdError)
         })
     }
     setJourneyId = (journey_id:any) =>{
         this.setState({
             journeyIdRow:journey_id,
-            journeyId:journey_id.value
+            journeyId:journey_id.value,
+            journeyIdError:false,
+            isValidScreen:(!this.state.partnerIdError)
         })
     }
     getJourneys = async() =>{
@@ -199,7 +205,7 @@ class MapPartnerJourney extends React.Component {
                 <Mystyle2>
                     <Button
                     type={''}
-                    // disabled={false}
+                    disabled={!this.state.isValidScreen}
                     onClick={() => this.saveData()}
                 >
                     Save

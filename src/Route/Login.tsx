@@ -86,15 +86,27 @@ const Login:React.FunctionComponent=()=>{
   
   const login = async()=>{
     setLoading(true)
-    const response  = await sendRequest('/Login', {
-      username: username,
-      password: password
-    },'POST')
+    try {
+      const response  = await sendRequest('/Login', {
+        username: username,
+        password: password
+      },'POST')
+      console.log(response,token)
+    if (response.status==200) {
+      cookies.set('token',response.data.token)
+      setRedirect(true)
+      
+    } else {
+      setLoading(false)
+      setUsernameError(true)
+      setPasswordError(true)
+    }
+    }catch(e){
+      setLoading(false)
+      setUsernameError(true)
+      setPasswordError(true)
+    }
     
-    // console.log(response,setToken,token)
-    cookies.set('token',response.data.token)
-    setRedirect(true)
-    setLoading(false)
     
   }
 
@@ -148,7 +160,7 @@ const Login:React.FunctionComponent=()=>{
                     onFocus={() =>setUsernameError(false)}
                     onBlur={() => { validateUsernameChange() }}
                     value={username}
-                    type={usernameError}
+                    cltype={usernameError}
                 />
                 <ErrorMessage show={usernameError} className="error-message">
                     Please enter valid username
@@ -166,7 +178,8 @@ const Login:React.FunctionComponent=()=>{
                     onFocus={() =>setPasswordError(false)}
                     onBlur={() => { validatePasswordChange() }}
                     value={password}
-                    type={passwordError}
+                    type="password"
+                    cltype={passwordError}
                 />
                 <ErrorMessage show={passwordError} className="error-message">
                     Please enter valid password
