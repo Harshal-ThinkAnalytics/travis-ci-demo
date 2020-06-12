@@ -174,14 +174,17 @@ class ConfigurePartnerJourney extends React.Component<Props> {
     saveData = async() =>{
         try {
 
-            var response  = await sendRequest('/SaveB2BPartnerDetails', {
-                // contact_person_name:this.state.contactPerson,
-                // active:true,
-                // address:this.state.address,
-                // email_id:this.state.emailId,
-                // mobile_number:this.state.mobileNo,
-                // short_code:this.state.shortCode,
-                // operation:'save'
+            var response  = await sendRequest('/SaveB2BJourneyConfig', {
+                "active" : true,
+	            "bureau_to_call" : this.state.bureauToCall,
+	            "kyc" : this.state.kyc,
+	            "lms_product" : this.state.lmsProduct,
+	            "lms_scheme" : this.state.lmsScheme,
+	            "mandate" : this.state.mandate,
+	            "max_age" : this.state.maxAge,
+	            "min_age" : this.state.minAge,
+	            "payment_gateway" : this.state.paymentGateway,
+	            "operation" : "save"
             },'POST')
             console.log(response)
             if (response.data.success){

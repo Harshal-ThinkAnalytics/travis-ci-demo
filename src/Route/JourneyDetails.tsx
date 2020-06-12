@@ -50,7 +50,7 @@ export default class JourneyDetails extends React.Component {
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
-
+            hidden:true,
         },
         {
             title: 'Journey Name', field: 'journey_name',
