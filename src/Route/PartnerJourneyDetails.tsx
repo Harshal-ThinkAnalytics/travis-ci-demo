@@ -55,6 +55,7 @@ export default class PartnerJourneyDetails extends React.Component {
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
+            hidden:true,
         },
         {
             title: 'Partner Name', field: 'partner_name',

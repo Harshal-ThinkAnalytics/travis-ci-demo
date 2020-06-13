@@ -74,6 +74,8 @@ class EditPartner extends React.Component<Props> {
     state = {
         partnerId: this.data.partner_id,
         partnerIdError: false,
+        partnerName:'',
+        partnerNameError:false,
         address: this.data.address,
         addressError: false,
         contactPerson: this.data.contact_person_name,
@@ -114,6 +116,9 @@ class EditPartner extends React.Component<Props> {
             }
           } catch (error) {
             console.log(error)
+            this.setState({
+                shortCodeError:true
+            });
           }
     }
 
@@ -132,8 +137,52 @@ class EditPartner extends React.Component<Props> {
                 partnerIdError: true
             });
 
+        } else {
+            this.setState({
+                partnerIdError: false
+                
+            });
+            this.setState({
+                
+                isValidScreen: (!this.state.partnerNameError && !this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                    && !this.state.emailIdError && !this.state.mobileNoError )
+            });
         }
     }
+
+    handleNameChange = (value:string) => {
+
+        const filteredValue = value.replace(/[^a-z^A-Z]/g,'')
+        this.setState({
+            partnerName: filteredValue,
+            isValidScreen:false,
+            startCheck: this.state.startCheck.add("n")
+        })
+
+    }
+
+    validateName = () => {
+        console.log("inside validateAddressChange")
+        if (this.state.partnerName.length < 3) {
+            this.setState({
+                partnerNameError: true,
+                isValidScreen: false
+                
+            });
+
+        } else {
+            this.setState({
+                partnerNameError: false
+                
+            });
+            this.setState({
+                
+                isValidScreen: (!this.state.partnerNameError && !this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                    && !this.state.emailIdError && !this.state.mobileNoError )
+            });
+        }
+    }
+
 
     handleAddressChange = (value: string) => {
 
@@ -162,7 +211,7 @@ class EditPartner extends React.Component<Props> {
             });
             this.setState({
                 
-                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                isValidScreen: (!this.state.partnerNameError &&!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
                     && !this.state.emailIdError && !this.state.mobileNoError )
             });
         }
@@ -194,7 +243,7 @@ class EditPartner extends React.Component<Props> {
 
             this.setState({
                 
-                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                isValidScreen: (!this.state.partnerNameError &&!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
                     && !this.state.emailIdError && !this.state.mobileNoError ) 
             });
         }
@@ -228,7 +277,7 @@ class EditPartner extends React.Component<Props> {
 
             this.setState({
                 
-                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                isValidScreen: (!this.state.partnerNameError &&!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
                     && !this.state.emailIdError && !this.state.mobileNoError )
             });
         }
@@ -239,7 +288,7 @@ class EditPartner extends React.Component<Props> {
 
     handleMobileChange = (value: string) => {
         if (value.length > 10) return
-        const filteredMobile = value.replace(/\D+/g, '')
+        const filteredMobile = value.replace(/[^0-9]/g, '')
         if (filteredMobile.length === 10) this.validateMobile(filteredMobile)
         this.setState({
             mobileNo: filteredMobile,
@@ -264,7 +313,7 @@ class EditPartner extends React.Component<Props> {
             });
             this.setState({
                 
-                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                isValidScreen: (!this.state.partnerNameError &&!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
                     && !this.state.emailIdError && !this.state.mobileNoError )
             });
 
@@ -298,7 +347,7 @@ class EditPartner extends React.Component<Props> {
 
             this.setState({
                 shortCodeError: false,
-                isValidScreen: (!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
+                isValidScreen: (!this.state.partnerNameError &&!this.state.shortCodeError && !this.state.addressError && !this.state.contactPersonError
                     && !this.state.emailIdError && !this.state.mobileNoError )
             });
         }
@@ -317,6 +366,7 @@ class EditPartner extends React.Component<Props> {
                     <h1>Edit Partner</h1>
                     </Mystyle1>
                 </Mystyle>
+                
                 
                 
                 <Mystyle>
@@ -340,6 +390,26 @@ class EditPartner extends React.Component<Props> {
                     </Mystyle2>
                 </Mystyle>
 
+                <Mystyle>
+                <Mystyle1>
+                    <Label data={"Partner Name"} />
+                </Mystyle1>
+                <Mystyle2>
+                    <Input
+                    onChange={e => this.handleNameChange(e.target.value)}
+                    onFocus={() =>
+                        this.setState({
+                            partnerNameError: false
+                        })}
+                    onBlur={() => { this.validateName() }}
+                    value={this.state.partnerName}
+                    cltype={this.state.partnerNameError}
+                />
+                <ErrorMessage show={this.state.partnerNameError} className="error-message">
+                    Please enter valid Name
+                </ErrorMessage>
+                </Mystyle2>
+                </Mystyle>
 
                 <Mystyle>
                     <Mystyle1>
@@ -416,6 +486,7 @@ class EditPartner extends React.Component<Props> {
                             mobileNoError: false
                         })}
                     onBlur={() => { this.validateMobile(this.state.mobileNo) }}
+                    
                     value={this.state.mobileNo}
                     cltype={this.state.mobileNoError}
                 />

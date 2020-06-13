@@ -177,6 +177,82 @@ class EditProduct extends React.Component<Props> {
         }
     }
 
+
+    validateLoanAmountChange = () => {
+        console.log("inside validate MinTenureChange")
+        if ((Number(this.state.minLoanAmount) > Number(this.state.maxLoanAmount)) || 
+        (this.state.minLoanAmount.length < 2 && this.state.maxLoanAmount.length < 2) ) {
+            this.setState({
+                maxLoanAmountError: true,
+                minLoanAmountError:true
+            });
+        } else {
+            
+                if (this.state.minLoanAmount.length < 2) {
+                    this.setState({
+                        minLoanAmountError: true,
+                        maxLoanAmountError:false
+                    });
+        
+                } else if (this.state.maxLoanAmount.length < 2) {
+                    this.setState({
+                        minLoanAmountError: false,
+                        maxLoanAmountError:true
+                    });
+                } else {
+                    this.setState({
+                        minLoanAmountError: false,
+                        maxLoanAmountError:false
+                    },()=>{
+                        this.setState({
+                            isValidScreen: (!this.state.productIdError && !this.state.productNameError 
+                                && !this.state.maxTenureError && !this.state.minTenureError && 
+                                !this.state.minLoanAmountError && !this.state.maxLoanAmountError )
+                        });
+                    });
+                    
+                }
+        }
+    }
+
+
+    validateTenureChange = () => {
+        console.log("inside validate MinTenureChange")
+        if ((Number(this.state.minTenure) > Number(this.state.maxTenure)) || 
+        (this.state.minTenure.length < 2 && this.state.maxTenure.length < 2) ) {
+            this.setState({
+                maxTenureError: true,
+                minTenureError:true
+            });
+        } else {
+            
+                if (this.state.minTenure.length < 2) {
+                    this.setState({
+                        minTenureError: true,
+                        maxTenureError:false
+                    });
+        
+                } else if (this.state.maxTenure.length < 2) {
+                    this.setState({
+                        minTenureError: false,
+                        maxTenureError:true
+                    });
+                } else {
+                    this.setState({
+                        minTenureError: false,
+                        maxTenureError:false
+                    },()=>{
+                        this.setState({
+                            isValidScreen: (!this.state.productIdError && !this.state.productNameError 
+                                && !this.state.maxTenureError && !this.state.minTenureError && 
+                                !this.state.minLoanAmountError && !this.state.maxLoanAmountError )
+                        });
+                    });
+                    
+                }
+        }
+    }
+
     handleMinLoanAmountChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
@@ -186,26 +262,7 @@ class EditProduct extends React.Component<Props> {
 
     }
 
-    validateMinLoanAmountChange = () => {
-        console.log("inside validateMinLoanAmountChange")
-        if (this.state.minLoanAmount.length < 2) {
-            this.setState({
-                minLoanAmountError: true
-            });
-
-        } else {
-            this.setState({
-                minLoanAmountError: false
-            });
-            this.setState({
-                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
-                    && !this.state.maxTenureError && !this.state.minTenureError && 
-                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError
-                    )
-            });
-        }
-    }
-
+    
     handleMaxLoanAmountChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
@@ -215,25 +272,7 @@ class EditProduct extends React.Component<Props> {
 
     }
 
-    validateMaxLoanAmountChange = () => {
-        console.log("inside validateMaxLoanAmountChange")
-        if (this.state.maxLoanAmount.length < 2) {
-            this.setState({
-                maxLoanAmountError: true
-            });
-
-        } else {
-            this.setState({
-                maxLoanAmountError: false
-            });
-            this.setState({
-                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
-                    && !this.state.maxTenureError && !this.state.minTenureError && 
-                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError 
-                    )
-            });
-        }
-    }
+    
 
     handleMinTenureChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
@@ -244,26 +283,7 @@ class EditProduct extends React.Component<Props> {
 
     }
 
-    validateMinTenureChange = () => {
-        console.log("inside validateTenureChange")
-        if (this.state.minTenure.length < 2) {
-            this.setState({
-                minTenureError: true
-            });
-
-        } else {
-            this.setState({
-                minTenureError: false
-            });
-            this.setState({
-                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
-                    && !this.state.maxTenureError && !this.state.minTenureError && 
-                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError 
-                    )
-            });
-        }
-    }
-
+    
     handleMaxTenureChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
         this.setState({
@@ -273,25 +293,7 @@ class EditProduct extends React.Component<Props> {
 
     }
 
-    validateMaxTenureChange = () => {
-        console.log("inside validateTenureChange")
-        if (this.state.maxTenure.length < 2) {
-            this.setState({
-                maxTenureError: true
-            });
-
-        } else {
-            this.setState({
-                maxTenureError: false
-            });
-            this.setState({
-                isValidScreen:(!this.state.productIdError && !this.state.productNameError 
-                    && !this.state.maxTenureError && !this.state.minTenureError && 
-                    !this.state.minLoanAmountError && !this.state.maxLoanAmountError
-                    )
-            });
-        }
-    }
+    
     render() {
         if(this.state.redirect){
             return <Redirect to='/ProductDetails'/>;
@@ -320,7 +322,7 @@ class EditProduct extends React.Component<Props> {
                     cltype={this.state.productIdError}
                 />
                 <ErrorMessage show={this.state.productIdError} className="error-message">
-                    Please enter valid Id
+                    Enter valid Id
           </ErrorMessage>
                     </Mystyle2>
                 </Mystyle>
@@ -341,7 +343,7 @@ class EditProduct extends React.Component<Props> {
                     cltype={this.state.productNameError}
                 />
                 <ErrorMessage show={this.state.productNameError} className="error-message">
-                    Please enter product name
+                    Enter valid product name
                  </ErrorMessage>
                     </Mystyle2>
                 </Mystyle>
@@ -357,12 +359,12 @@ class EditProduct extends React.Component<Props> {
                         this.setState({
                             minLoanAmountError: false
                         })}
-                    onBlur={() => { this.validateMinLoanAmountChange() }}
+                    onBlur={() => { this.validateLoanAmountChange() }}
                     value={this.state.minLoanAmount}
                     cltype={this.state.minLoanAmountError}
                 />
                 <ErrorMessage show={this.state.minLoanAmountError} className="error-message">
-                    Please enter minimum loan amount
+                    Enter valid minimum loan amount
                  </ErrorMessage>
                     </Mystyle2>
                 </Mystyle>
@@ -378,12 +380,12 @@ class EditProduct extends React.Component<Props> {
                         this.setState({
                             maxLoanAmountError: false
                         })}
-                    onBlur={() => { this.validateMaxLoanAmountChange() }}
+                    onBlur={() => { this.validateLoanAmountChange() }}
                     value={this.state.maxLoanAmount}
                     cltype={this.state.maxLoanAmountError}
                 />
                 <ErrorMessage show={this.state.maxLoanAmountError} className="error-message">
-                    Please enter maximum loan amount
+                    Enter valid maximum loan amount
                  </ErrorMessage>
                     </Mystyle2>
                 </Mystyle>
@@ -399,12 +401,12 @@ class EditProduct extends React.Component<Props> {
                         this.setState({
                             minTenureError: false
                         })}
-                    onBlur={() => { this.validateMinTenureChange() }}
+                    onBlur={() => { this.validateTenureChange() }}
                     value={this.state.minTenure}
                     cltype={this.state.minTenureError}
                 />
                  <ErrorMessage show={this.state.minTenureError} className="error-message">
-                    Please enter minimum tenure
+                    Enter valid minimum tenure
                  </ErrorMessage>
                     </Mystyle2>
                 </Mystyle>
@@ -420,12 +422,12 @@ class EditProduct extends React.Component<Props> {
                         this.setState({
                             maxTenureError: false
                         })}
-                    onBlur={() => { this.validateMaxTenureChange() }}
+                    onBlur={() => { this.validateTenureChange() }}
                     value={this.state.maxTenure}
                     cltype={this.state.maxTenureError}
                 />
                  <ErrorMessage show={this.state.maxTenureError} className="error-message">
-                    Please enter maximum tenure
+                    Enter valid maximum tenure
                  </ErrorMessage>
                     </Mystyle2>
                 </Mystyle>

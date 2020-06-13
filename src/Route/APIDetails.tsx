@@ -52,7 +52,7 @@ export default class APIDetails extends React.Component {
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
             },
-
+            
         },
         {
             title: 'API Name', field: 'api_name',
