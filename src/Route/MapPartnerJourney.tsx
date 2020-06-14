@@ -81,6 +81,7 @@ class MapPartnerJourney extends React.Component {
     }
     saveData = async() =>{
         try {
+            console.log("jofjojofe",this.state.partnerId,this.state.journeyId)
 
             var response  = await sendRequest('/SaveB2BPartnerJourneyMapping', {
                 partner_id:Number(this.state.partnerId),

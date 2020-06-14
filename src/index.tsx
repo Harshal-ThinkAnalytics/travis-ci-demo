@@ -4,12 +4,15 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import setAxiosDefaults from './utils/setAxiosDefaults'
+import {UserProvider} from './contexts/UserContext'
 
 setAxiosDefaults()
 
 ReactDOM.render(
   <React.StrictMode>
+    <UserProvider>
     <App />
+    </UserProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

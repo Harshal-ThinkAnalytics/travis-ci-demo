@@ -9,16 +9,15 @@ const BASE_URL="http://3.6.39.193:9000/"
 
 const setAxiosDefaults = () => {
   axios.defaults.baseURL = BASE_URL
-  // axios.defaults.withCredentials = true
+  axios.defaults.withCredentials = true
 
 
-  axios.interceptors.request.use(config => {
-    if (token) {
-      config.headers['TOKEN'] = token
-      config.headers['Access-Control-Allow-Origin'] = '*'
-    }
-    return config
-  })
+  // axios.interceptors.request.use(config => {
+  //   if (token) {
+  //     config.headers['TOKEN'] = token
+  //   }
+  //   return config
+  // })
 
   // axios.interceptors.response.use(
   //   async error => {

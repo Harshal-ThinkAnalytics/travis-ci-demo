@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useEffect, useState } from "react";
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import './App.css';
 import Page from './Components/Page'
@@ -19,13 +19,36 @@ import EditJourney from './Route/EditJourney'
 import EditAPI from './Route/EditAPI'
 import MapPartnerJourney from './Route/MapPartnerJourney'
 import ConfigurePartnerJourney from './Route/ConfigurePartnerJourney'
-import EditPartnerJourney from './Route/EditPartnerJourneyScopes'
 import EditPartnerJourneyScopes from "./Route/EditPartnerJourneyScopes";
 import Login from "./Route/Login";
+import sendRequest from "./utils/sendRequest";
+import {useAuth} from './contexts/UserContext'
+import Loading from './Components/Loading';
 
 function App() {
+  const { authenticated, setAuthenticated } = useAuth()!;
+  const [loading,setLoading]=useState(false)
+  useEffect(()=>{
+    console.log("component mounted..")
+    checkAuth()
+  },[])
+
+  const checkAuth = async()=>{
+    try {
+      setLoading(true)
+      const response  = await sendRequest('/CheckAuth', {},'GET')
+    if (response.status==200) {
+      setAuthenticated(true)
+    } 
+  }
+    catch(e){
+        console.log("No token present!")
+      }
+    setLoading(false)
+    }
   return (
     <div>
+    <Loading open={loading}/>
     <BrowserRouter>
     <Page>
         <Switch>

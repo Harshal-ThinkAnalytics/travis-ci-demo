@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { Route, Redirect } from  "react-router-dom";
 import App from '../App'
 import Cookies from 'universal-cookie';
-
+import {useAuth} from '../contexts/UserContext'
 
 const Body = styled.div`
   padding: 0 2.2rem;
@@ -20,16 +20,15 @@ const Body = styled.div`
     justify-content: flex-start;
   }
 `
-const cookies = new Cookies();
 
 const  PrivateRoute: React.FC<{
         component: any;
         path: string;
     }> = (props) => {
 
-    const token =cookies.get('token')
+    const { authenticated, setAuthenticated } = useAuth()!;
 
-    return  token ? (<Route  path={props.path}  exact={true} component={props.component} />) : 
+    return  authenticated ? (<Route  path={props.path}  exact={true} component={props.component} />) : 
         (<Redirect  to="/Login"  />);
 };
 export  default  PrivateRoute;

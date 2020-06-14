@@ -8,6 +8,7 @@ import { Redirect } from "react-router-dom";
 import Cookies from 'universal-cookie';
 import sendRequest from "../utils/sendRequest";
 import Loading from '../Components/Loading';
+import {useAuth} from '../contexts/UserContext'
 
 const cookies = new Cookies();
 
@@ -75,10 +76,11 @@ const Login:React.FunctionComponent=()=>{
     const [passwordError,setPasswordError]=useState(false)
     const [redirect,setRedirect]=useState(false)
     const [loading,setLoading]=useState(false)
+    const { authenticated, setAuthenticated } = useAuth()!;
 
   const token = cookies.get('token')
 
-  if (token){
+  if (authenticated){
     return <Redirect to='/PartnerDetails'/>
   }
 
@@ -94,6 +96,7 @@ const Login:React.FunctionComponent=()=>{
       console.log(response,token)
     if (response.status==200) {
       cookies.set('token',response.data.token)
+      setAuthenticated(true)
       setRedirect(true)
       
     } else {

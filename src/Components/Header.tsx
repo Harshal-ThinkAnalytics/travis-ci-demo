@@ -2,10 +2,9 @@ import * as React from "react";
 import styled from 'styled-components'
 import logo from '../Images/logo-fill.png'
 import sendRequest from '../utils/sendRequest'
-import Cookies from 'universal-cookie';
 import { Redirect } from  "react-router-dom";
+import {useAuth} from '../contexts/UserContext'
 
-const cookies = new Cookies();
 
 const HeaderWrapper = styled.header`
   height: 7.7rem;
@@ -30,19 +29,20 @@ const HeaderWrapper = styled.header`
 `
 
 const Header:React.FunctionComponent=()=>{
-    const[redirect,setRedirect]=React.useState(false)
+    // const[redirect,setRedirect]=React.useState(false)
+    const { authenticated, setAuthenticated } = useAuth()!;
 
     const logout=()=>{
-      cookies.remove('token')
-      setRedirect(true)
+      setAuthenticated(false)
+      // setRedirect(true)
     }
-    if (redirect){
-      return <Redirect to='/Login'/>;
-    }
+    // if (redirect){
+    //   return <Redirect to='/Login'/>;
+    // }
       return (
           <HeaderWrapper>
           <img src={logo} alt="ABFL" />
-          { <button
+          {authenticated && <button
             onClick={()=>logout()}
           >Logout</button>}
           </HeaderWrapper>
