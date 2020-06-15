@@ -11,6 +11,7 @@ const LoadingWrapper = styled.div`
     255,
     255,
     255,
+    1
   );
   display: flex;
   justify-content: center;

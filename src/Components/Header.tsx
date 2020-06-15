@@ -4,6 +4,7 @@ import logo from '../Images/logo-fill.png'
 import sendRequest from '../utils/sendRequest'
 import { Redirect } from  "react-router-dom";
 import {useAuth} from '../contexts/UserContext'
+import Loading from '../Components/Loading';
 
 
 const HeaderWrapper = styled.header`
@@ -31,16 +32,25 @@ const HeaderWrapper = styled.header`
 const Header:React.FunctionComponent=()=>{
     // const[redirect,setRedirect]=React.useState(false)
     const { authenticated, setAuthenticated } = useAuth()!;
+    const [loading,setLoading]=React.useState(false)
 
-    const logout=()=>{
-      setAuthenticated(false)
-      // setRedirect(true)
+    const logout = async()=>{
+      try {
+        setLoading(true)
+        const response  = await sendRequest('/Logout', {},'GET')
+      if (response.status==200) {
+        setAuthenticated(false)
+      } 
     }
-    // if (redirect){
-    //   return <Redirect to='/Login'/>;
-    // }
+      catch(e){
+          console.log("Error")
+        }
+      setLoading(false)
+      }
+
       return (
           <HeaderWrapper>
+            <Loading open={loading}/>
           <img src={logo} alt="ABFL" />
           {authenticated && <button
             onClick={()=>logout()}
