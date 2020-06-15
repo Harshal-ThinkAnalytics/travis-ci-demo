@@ -74,7 +74,7 @@ interface Props{
 class ConfigurePartnerJourney extends React.Component<Props> {
     data=this.props.location.state
     state = {
-        id: this.data['partner_journey_id'],
+        
         partnerIdError: false,
         data:[],
         minAge:'',
@@ -173,8 +173,9 @@ class ConfigurePartnerJourney extends React.Component<Props> {
 
     saveData = async() =>{
         try {
-
-            var response  = await sendRequest('/SaveB2BJourneyConfig', {
+            console.log(this.state.ceApis);
+            var response = await sendRequest('/SaveB2BJourneyConfig', {
+                "partner_journey_id":Number(this.data.partner_journey_id),
                 "active" : true,
 	            "bureau_to_call" : this.state.bureauToCall,
 	            "kyc" : this.state.kyc,
@@ -183,12 +184,22 @@ class ConfigurePartnerJourney extends React.Component<Props> {
 	            "mandate" : this.state.mandate,
 	            "max_age" : this.state.maxAge,
 	            "min_age" : this.state.minAge,
-	            "payment_gateway" : this.state.paymentGateway,
+                "payment_gateway": this.state.paymentGateway,
+                "lms_disbursal":this.state.lmsDisbursal,
+	            "dkyc_version":this.state.dkycVersion,
+	            "mrp_version":this.state.mrpVersion,
+	            "ce_api":this.state.ceApis,
+	            "mrp_key":this.state.mrpKey,
+	            "ce_key":this.state.ceKey,
+	            "dkyc_key":this.state.dkycKey,
 	            "operation" : "save"
             },'POST')
             console.log(response)
             if (response.data.success){
-                this.setState({data:response.data.data})
+                this.setState({
+                    data: response.data.data,
+                    redirect:true})
+                
             }
             else{
                 console.log("Error in saving data.")
@@ -407,38 +418,39 @@ class ConfigurePartnerJourney extends React.Component<Props> {
 
     getData = async() =>{
         try {
+            console.log("id :",this.data.partner_journey_id)
             var response  = await sendRequest('/FetchB2BJourneyConfig', {
-                partner_journey_id:Number(this.state.id)
+                partner_journey_id:Number(this.data.partner_journey_id)
             },'POST')
             console.log("data is",response)
             if (response.data.success){
                 var data =response.data.data[0]
                 console.log("data is",data)
-                this.setCE(data['ce_apis'])
+                this.setCE(data.ce_apis)
                 this.setState({
-                    minAge:data['min_age'],
-                    maxAge:data['max_age'],
-                    lmsScheme:data['lms_scheme'],
-                    lmsSchemeRow:this.getRow(data['lms_scheme']),
-                    lmsProduct:data['lms_product'],
-                    lmsProductRow:this.getRow(data['lms_product']),
-                    kyc:data['kyc'],
-                    kycRow:this.getRow(data['kyc']),
-                    mandate:data['mandate'],
-                    mandateRow:this.getRow(data['mandate']),
-                    bureauToCall:data['bureau_to_call'],
-                    bureauToCallRow:this.getRow(data['bureau_to_call']),
-                    paymentGateway:data['payment_gateway'],
-                    paymentGatewayRow:this.getRow(data['payment_gateway']),
-                    lmsDisbursal:data['lms_disbursal'],
-                    lmsDisbursalRow:this.getRow(data['lms_disbursal']),
-                    dkycVersion:data['dkyc_version'],
-                    dkycVersionRow:this.getRow(data['dkyc_version']),
-                    mrpVersion:data['mrp_version'],
-                    mrpVersionRow:this.getRow(data['mrp_version']),
-                    dkycKey:data['dkyc_x_api_key'],
-                    mrpKey:data['mrp_x_api_key'],
-                    ceKey:data['ce_x_api_key'],
+                    minAge:data.min_age,
+                    maxAge:data.max_age,
+                    lmsScheme:data.lms_scheme,
+                    lmsSchemeRow:this.getRow(data.lms_scheme),
+                    lmsProduct:data.lms_product,
+                    lmsProductRow:this.getRow(data.lms_product),
+                    kyc:data.kyc,
+                    kycRow:this.getRow(data.kyc),
+                    mandate:data.mandate,
+                    mandateRow:this.getRow(data.mandate),
+                    bureauToCall:data.bureau_to_call,
+                    bureauToCallRow:this.getRow(data.bureau_to_call),
+                    paymentGateway:data.payment_gateway,
+                    paymentGatewayRow:this.getRow(data.payment_gateway),
+                    lmsDisbursal:data.lms_disbursal,
+                    lmsDisbursalRow:this.getRow(data.lms_disbursal),
+                    dkycVersion:data.dkyc_version,
+                    dkycVersionRow:this.getRow(data.dkyc_version),
+                    mrpVersion:data.mrp_version,
+                    mrpVersionRow:this.getRow(data.mrp_version),
+                    dkycKey:data.dkyc_key,
+                    mrpKey:data.mrp_key,
+                    ceKey:data.ce_key,
                     
                 })
 
@@ -462,29 +474,54 @@ class ConfigurePartnerJourney extends React.Component<Props> {
 
     }
 
-    validateMinAgeChange = () => {
-        console.log("inside validateAgeChange")
-        if (this.state.minAge.length <= 0) {
+
+    validateAgeChange = () => {
+        console.log("inside validate TenureChange")
+        if ((Number(this.state.minAge) > Number(this.state.maxAge)) ||
+            (Number(this.state.minAge) < 20 && Number(this.state.maxAge) < 25)) {
             this.setState({
+                maxAgeError: true,
                 minAgeError: true
             });
-
         } else {
-            this.setState({
-                minAgeError:false,
-            });
+            
+            if (Number(this.state.minAge) < 20) {
+                this.setState({
+                    minAgeError: true,
+                    maxAgeError: false
+                });
+        
+            } else if (Number(this.state.maxAge) < 25) {
+                this.setState({
+                    minAgeError: false,
+                    maxAgeError: true
+                });
+            } else {
+                this.setState({
+                    minAgeError: false,
+                    maxAgeError: false,
+                });
+                this.setState({
+                    minAgeError: false,
+                    maxAgeError: false,
+                }, () => {
+                    console.log(this.state.minAgeError, this.state.maxAgeError)
+                    this.setState({
+                        isValidScreen: (!this.state.lmsSchemeError && !this.state.lmsProductError &&
+                            !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                            && !this.state.bureauToCallError && !this.state.mandateError &&
+                            !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                            !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError
+                            && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError
+                            && (this.state.startCheck.size == 5)),
+                    });
 
-            this.setState({
-                isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
-                    !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
-                     && !this.state.bureauToCallError && !this.state.mandateError &&
-                     !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
-                    !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
-                    && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
-                    && (this.state.startCheck.size==5)),
-            });
+                });
+            }
         }
     }
+ 
+    
 
     handleMaxAgeChange = (value: string) => {
         const filteredValue = value.replace(/\D+/g, '')
@@ -496,29 +533,7 @@ class ConfigurePartnerJourney extends React.Component<Props> {
 
     }
 
-    validateMaxAgeChange = () => {
-        console.log("inside validateAgeChange")
-        if (this.state.maxAge.length <= 0) {
-            this.setState({
-                maxAgeError: true
-            });
-
-        }else {
-            this.setState({
-                minAgeError:false,
-            });
-
-            this.setState({
-                isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
-                    !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
-                     && !this.state.bureauToCallError && !this.state.mandateError &&
-                     !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
-                    !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
-                    && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
-                    && (this.state.startCheck.size==5)),
-            });
-        }
-    }
+    
 
     handleDKYCKeyChange = (value: string) => {
 
@@ -671,7 +686,7 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                         this.setState({
                             minAgeError: false
                         })}
-                    onBlur={() => { this.validateMinAgeChange() }}
+                    onBlur={() => { this.validateAgeChange() }}
                     value={this.state.minAge}
                     cltype={this.state.minAgeError}
                 />
@@ -692,7 +707,7 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                         this.setState({
                             maxAgeError: false
                         })}
-                    onBlur={() => { this.validateMaxAgeChange() }}
+                    onBlur={() => { this.validateAgeChange() }}
                     value={this.state.maxAge}
                     cltype={this.state.maxAgeError}
                 />

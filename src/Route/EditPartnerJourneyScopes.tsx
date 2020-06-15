@@ -129,6 +129,7 @@ export default class EditPartnerJourneyScopes extends React.Component<Props> {
                 loading:true,
                 dialog:false
             })
+            console.log(this.state.saveScopes)
             var response  = await sendRequest('/SaveJourneyScopes', {
                 partner_journey_id:Number(this.state.id),
                 scopes:this.state.saveScopes
@@ -152,16 +153,16 @@ export default class EditPartnerJourneyScopes extends React.Component<Props> {
     
     getAllScopes = async() =>{
         try {
-            var response  = await sendRequest('/FetchAPIList', {},'GET')
+            var response  = await sendRequest('/FetchActiveAPIList', {},'GET')
             console.log(response)
             if (response.data.success){
                 var data=response.data.data
                 var scopes:string[] = this.state.scopes
                 for (var key in data){
-                    var scope:string = data[key]['scope_no']
+                    var scope:string = data[key].scope_no
                     if(scopes.includes(scope)){
 
-                        data[key]['tableData']= {
+                        data[key].tableData= {
                             checked: true
                         }
                     } 

@@ -39,8 +39,10 @@ export default class JourneyDetails extends React.Component {
         icon: null,
         index: "0",
         data:[],
-        dialog:false,
+        dialog_del:false,
+        dialog_act:false,
         deleteJourneyId:'',
+        activateJourneyId:'',
         loading:true,
         refresh:true
     }
@@ -98,23 +100,35 @@ export default class JourneyDetails extends React.Component {
 
     ]
 
-    setDialog=(rowData:any)=>{
+    setDialogDel=(rowData:any)=>{
         this.setState({
-            dialog:true,
+            dialog_del:true,
             deleteJourneyId:rowData.journey_id
         })
     }
-    hideDialog=()=>{
+    hideDialogDel=()=>{
         this.setState({
-            dialog:false,
-            deleteJourneyId:''
+            dialog_del:false
         })
     }
+
+    setDialogAct=(rowData:any)=>{
+        this.setState({
+            dialog_act:true,
+            activateJourneyId:rowData.journey_id
+        })
+    }
+    hideDialogAct=()=>{
+        this.setState({
+            dialog_act:false
+        })
+    }
+
     deleteRow = async() =>{
         try {
             this.setState({
                 loading:true,
-                dialog:false
+                dialog_del:false
             })
             var response  = await sendRequest('/DeleteB2BJourneyDetails', {
                 journey_id:Number(this.state.deleteJourneyId)
@@ -136,6 +150,32 @@ export default class JourneyDetails extends React.Component {
         })
     }  
 
+
+    activateRow = async() =>{
+        try {
+            this.setState({
+                loading:true,
+                dialog_act:false
+            })
+            var response  = await sendRequest('/EnableB2BJourneyDetails', {
+                journey_id:Number(this.state.activateJourneyId)
+            },'POST')
+            console.log(response)
+            if (response.data.success){
+                console.log("Row deleted Successfully")
+            }
+            else{
+                console.log("Error in deleting data.")
+            }
+          } catch (error) {
+            console.log(error)
+          }
+        this.setState({
+            activateJourneyId:'',
+            loading:false,
+            refresh:true
+        })
+    }
     getData = async() =>{
         try {
             var response  = await sendRequest('/FetchB2BJourneyDetails', {},'GET')
@@ -172,9 +212,13 @@ export default class JourneyDetails extends React.Component {
         return (
             <DetailsWrapper>
                 <Loading open={this.state.loading}/>
-                <DialogShow openFlag={this.state.dialog} onButtonClick={this.deleteRow} onHide={this.hideDialog} 
+                <DialogShow openFlag={this.state.dialog_del} onButtonClick={this.deleteRow} onHide={this.hideDialogDel} 
                     msg={"Are you sure you want to delete?"} buttonText={"Confirm"} heading={'Alert'}
                 />
+
+                <DialogShow openFlag={this.state.dialog_act} onButtonClick={this.activateRow} onHide={this.hideDialogAct} 
+                    msg={"Are you sure you want to activate this Journey?"} buttonText={"Confirm"} heading={'Alert'}
+                />  
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}
                 <button onClick={() => {
@@ -184,7 +228,7 @@ export default class JourneyDetails extends React.Component {
                    }}>+ Add New Journey</button>
             </div>
             <div className="table">
-                <Table data={this.state.data} columns={this.columns} title={"Journey"} setDialog={this.setDialog}/>
+                <Table data={this.state.data} columns={this.columns} title={"Journey"} setDialogAct={this.setDialogAct} setDialogDel={this.setDialogDel}/>
             </div>
             </DetailsWrapper>
 

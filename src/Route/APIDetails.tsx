@@ -41,8 +41,10 @@ export default class APIDetails extends React.Component {
         icon: null,
         index: "0",
         data:[],
-        dialog:false,
+        dialog_del:false,
+        dialog_act:false,
         deleteScopeNo:'',
+        activateScopeNo:'',
         loading:true,
         refresh:false
     }
@@ -76,22 +78,34 @@ export default class APIDetails extends React.Component {
 
     ]
     
-    setDialog=(rowData:any)=>{
+    setDialogDel=(rowData:any)=>{
         this.setState({
-            dialog:true,
+            dialog_del:true,
             deleteScopeNo:rowData.scope_no
         })
     }
-    hideDialog=()=>{
+    hideDialogDel=()=>{
         this.setState({
-            dialog:false
+            dialog_del:false
+        })
+    }
+
+    setDialogAct=(rowData:any)=>{
+        this.setState({
+            dialog_act:true,
+            activateScopeNo:rowData.scope_no
+        })
+    }
+    hideDialogAct=()=>{
+        this.setState({
+            dialog_act:false
         })
     }
     deleteRow = async() =>{
         try {
             this.setState({
                 loading:true,
-                dialog:false
+                dialog_del:false
             })
             var response  = await sendRequest('/DeleteAPI', {
                 scope_no:this.state.deleteScopeNo
@@ -108,6 +122,31 @@ export default class APIDetails extends React.Component {
           }
         this.setState({
             deleteScopeNo:'',
+            refresh:true
+        })
+    }  
+    
+    activateRow = async() =>{
+        try {
+            this.setState({
+                loading:true,
+                dialog_act:false
+            })
+            var response  = await sendRequest('/EnableAPI', {
+                scope_no:this.state.activateScopeNo
+            },'POST')
+            console.log(response)
+            if (response.data.success){
+                console.log("Row deleted Successfully")
+            }
+            else{
+                console.log("Error in deleting data.")
+            }
+          } catch (error) {
+            console.log(error)
+          }
+        this.setState({
+            activateScopeNo:'',
             refresh:true
         })
     }  
@@ -149,10 +188,13 @@ export default class APIDetails extends React.Component {
         return (
             <DetailsWrapper>
                 <Loading open={this.state.loading}/>
-                <DialogShow openFlag={this.state.dialog} onButtonClick={this.deleteRow} onHide={this.hideDialog} 
+                <DialogShow openFlag={this.state.dialog_del} onButtonClick={this.deleteRow} onHide={this.hideDialogDel} 
                     msg={"Are you sure you want to delete?"} buttonText={"Confirm"} heading={'Alert'}
                 />
 
+                <DialogShow openFlag={this.state.dialog_act} onButtonClick={this.activateRow} onHide={this.hideDialogAct} 
+                    msg={"Are you sure you want to activate?"} buttonText={"Confirm"} heading={'Alert'}
+                />
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}
                 <button onClick={() => {
@@ -162,7 +204,7 @@ export default class APIDetails extends React.Component {
                    }}>+ Add New API</button>
             </div>
             <div className="table">
-                <Table data={this.state.data} columns={this.columns} title={"API"} setDialog={this.setDialog}/>
+                <Table data={this.state.data} columns={this.columns} title={"API"} setDialogAct={this.setDialogAct} setDialogDel={this.setDialogDel}/>
             </div>
             </DetailsWrapper>
 
