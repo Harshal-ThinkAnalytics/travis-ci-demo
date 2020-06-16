@@ -245,17 +245,21 @@ class ConfigurePartnerJourney extends React.Component<Props> {
 
     setLmsScheme = (lms_scheme:any) =>{
         this.setState({
-            lmsSchemeRow:lms_scheme,
-            lmsScheme:lms_scheme.value,
-            lmsSchemeError:false,
-            isValidScreen:(!this.state.lmsProductError && 
-                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
-                 && !this.state.bureauToCallError && !this.state.mandateError &&
-                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
-                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
-                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
-                && (this.state.startCheck.size==5)),
-        })
+            lmsSchemeRow: lms_scheme,
+            lmsScheme: lms_scheme.value,
+            lmsSchemeError: false
+        }, () => {
+                this.setState({
+                    isValidScreen: (!this.state.lmsProductError &&
+                        !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                        && !this.state.bureauToCallError && !this.state.mandateError &&
+                        !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                        !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError
+                        && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError
+                        && (this.state.startCheck.size == 5)),
+                });
+            
+        });
     }
 
     getLmsProducts = async() =>{
@@ -286,16 +290,19 @@ class ConfigurePartnerJourney extends React.Component<Props> {
 
     setLmsProduct = (lms_product:any) =>{
         this.setState({
-            lmsProductRow:lms_product,
-            lmsProduct:lms_product.value,
-            lmsProductError:false,
-            isValidScreen:(!this.state.lmsSchemeError && 
-                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
-                 && !this.state.bureauToCallError && !this.state.mandateError &&
-                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
-                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
-                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
-                && (this.state.startCheck.size==5)),
+            lmsProductRow: lms_product,
+            lmsProduct: lms_product.value,
+            lmsProductError: false
+        }, () => {
+                this.setState({
+                    isValidScreen: (!this.state.lmsSchemeError &&
+                        !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                        && !this.state.bureauToCallError && !this.state.mandateError &&
+                        !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                        !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError
+                        && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError
+                        && (this.state.startCheck.size == 5)),
+                });
         })
     }
 
@@ -303,14 +310,17 @@ class ConfigurePartnerJourney extends React.Component<Props> {
         this.setState({
             kycRow:kyc,
             kyc:kyc.value,
-            kycError:false,
-            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
-                !this.state.minAgeError && !this.state.maxAgeError
-                 && !this.state.bureauToCallError && !this.state.mandateError &&
-                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
-                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
-                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
-                && (this.state.startCheck.size==5)),
+            kycError: false
+        }, () => {
+                this.setState({
+                    isValidScreen: (!this.state.lmsSchemeError && !this.state.lmsProductError &&
+                        !this.state.minAgeError && !this.state.maxAgeError
+                        && !this.state.bureauToCallError && !this.state.mandateError &&
+                        !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                        !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError
+                        && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError
+                        && (this.state.startCheck.size == 5)),
+                });
         })
     }
 
@@ -318,14 +328,17 @@ class ConfigurePartnerJourney extends React.Component<Props> {
         this.setState({
             bureauToCallRow:bureau,
             bureauToCall:bureau.value,
-            bureauToCallError:false,
-            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
-                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
-                  && !this.state.mandateError &&
-                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
-                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
-                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
-                && (this.state.startCheck.size==5)),
+            bureauToCallError: false
+        }, () => {
+                this.setState({
+                    isValidScreen: (!this.state.lmsSchemeError && !this.state.lmsProductError &&
+                        !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                        && !this.state.mandateError &&
+                        !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                        !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError
+                        && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError
+                        && (this.state.startCheck.size == 5)),
+                });
         })
     }
 
@@ -333,14 +346,17 @@ class ConfigurePartnerJourney extends React.Component<Props> {
         this.setState({
             mandateRow:mandate,
             mandate:mandate.value,
-            mandateError:false,
-            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
-                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
-                 && !this.state.bureauToCallError && 
-                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
-                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
-                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
-                && (this.state.startCheck.size==5)),
+            mandateError: false
+        }, () => {
+                this.setState({
+                    isValidScreen: (!this.state.lmsSchemeError && !this.state.lmsProductError &&
+                        !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                        && !this.state.bureauToCallError &&
+                        !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                        !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError
+                        && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError
+                        && (this.state.startCheck.size == 5)),
+                });
         })
     }
 
@@ -348,14 +364,17 @@ class ConfigurePartnerJourney extends React.Component<Props> {
         this.setState({
             paymentGatewayRow:pg,
             paymentGateway:pg.value,
-            paymentGatewayError:false,
-            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
-                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
-                 && !this.state.bureauToCallError && !this.state.mandateError &&
-                 !this.state.lmsDisbursalError &&
-                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
-                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
-                && (this.state.startCheck.size==5)),
+            paymentGatewayError: false
+        }, () => {
+                this.setState({
+                    isValidScreen: (!this.state.lmsSchemeError && !this.state.lmsProductError &&
+                        !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                        && !this.state.bureauToCallError && !this.state.mandateError &&
+                        !this.state.lmsDisbursalError &&
+                        !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError
+                        && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError
+                        && (this.state.startCheck.size == 5)),
+                });
         })
     }
 
@@ -363,14 +382,17 @@ class ConfigurePartnerJourney extends React.Component<Props> {
         this.setState({
             lmsDisbursalRow:disbursal,
             lmsDisbursal:disbursal.value,
-            lmsDisbursalError:false,
-            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
-                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
-                 && !this.state.bureauToCallError && !this.state.mandateError &&
-                 !this.state.paymentGatewayError && 
-                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError 
-                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
-                && (this.state.startCheck.size==5)),
+            lmsDisbursalError: false
+        }, () => {
+                this.setState({
+                    isValidScreen: (!this.state.lmsSchemeError && !this.state.lmsProductError &&
+                        !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                        && !this.state.bureauToCallError && !this.state.mandateError &&
+                        !this.state.paymentGatewayError &&
+                        !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError
+                        && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError
+                        && (this.state.startCheck.size == 5)),
+                });
         })
     } 
 
@@ -378,14 +400,17 @@ class ConfigurePartnerJourney extends React.Component<Props> {
         this.setState({
             dkycVersionRow:dkyc,
             dkycVersion:dkyc.value,
-            dkycVersionError:false,
-            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
-                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
-                 && !this.state.bureauToCallError && !this.state.mandateError &&
-                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
-                !this.state.mrpVersionError && !this.state.ceApisError 
-                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
-                && (this.state.startCheck.size==5)),
+            dkycVersionError: false
+        }, () => {
+                this.setState({
+                    isValidScreen: (!this.state.lmsSchemeError && !this.state.lmsProductError &&
+                        !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                        && !this.state.bureauToCallError && !this.state.mandateError &&
+                        !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                        !this.state.mrpVersionError && !this.state.ceApisError
+                        && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError
+                        && (this.state.startCheck.size == 5)),
+                });
         })
     } 
 
@@ -393,14 +418,17 @@ class ConfigurePartnerJourney extends React.Component<Props> {
         this.setState({
             mrpVersionRow:mrp,
             mrpVersion:mrp.value,
-            mrpVersionError:false,
-            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
-                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
-                 && !this.state.bureauToCallError && !this.state.mandateError &&
-                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
-                !this.state.dkycVersionError && !this.state.ceApisError 
-                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
-                && (this.state.startCheck.size==5)),
+            mrpVersionError: false
+        }, () => {
+                this.setState({
+                    isValidScreen: (!this.state.lmsSchemeError && !this.state.lmsProductError &&
+                        !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                        && !this.state.bureauToCallError && !this.state.mandateError &&
+                        !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                        !this.state.dkycVersionError && !this.state.ceApisError
+                        && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError
+                        && (this.state.startCheck.size == 5)),
+                });
         })
     } 
 
@@ -421,14 +449,17 @@ class ConfigurePartnerJourney extends React.Component<Props> {
         this.setState({
             ceApisRow:row,
             ceApis:apis,
-            ceApisError:false,
-            isValidScreen:(!this.state.lmsSchemeError && !this.state.lmsProductError && 
-                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
-                 && !this.state.bureauToCallError && !this.state.mandateError &&
-                 !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
-                !this.state.dkycVersionError && !this.state.mrpVersionError  
-                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError 
-                && (this.state.startCheck.size==5)),
+            ceApisError: false
+        }, () => {
+                this.setState({
+                    isValidScreen: (!this.state.lmsSchemeError && !this.state.lmsProductError &&
+                        !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                        && !this.state.bureauToCallError && !this.state.mandateError &&
+                        !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                        !this.state.dkycVersionError && !this.state.mrpVersionError
+                        && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError
+                        && (this.state.startCheck.size == 5)),
+                });
         })
     } 
 
@@ -444,31 +475,52 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                 console.log("data is",data)
                 this.setCE(data.ce_api,true)
                 this.setState({
-                    minAge:data.min_age,
-                    maxAge:data.max_age,
-                    lmsScheme:data.lms_scheme,
-                    lmsSchemeRow:this.getRow(data.lms_scheme),
-                    lmsProduct:data.lms_product,
-                    lmsProductRow:this.getRow(data.lms_product),
-                    kyc:data.kyc,
-                    kycRow:this.getRow(data.kyc),
-                    mandate:data.mandate,
-                    mandateRow:this.getRow(data.mandate),
-                    bureauToCall:data.bureau_to_call,
-                    bureauToCallRow:this.getRow(data.bureau_to_call),
-                    paymentGateway:data.payment_gateway,
-                    paymentGatewayRow:this.getRow(data.payment_gateway),
-                    lmsDisbursal:data.lms_disbursal,
-                    lmsDisbursalRow:this.getRow(data.lms_disbursal),
-                    dkycVersion:data.dkyc_version,
-                    dkycVersionRow:this.getRow(data.dkyc_version),
-                    mrpVersion:data.mrp_version,
-                    mrpVersionRow:this.getRow(data.mrp_version),
-                    dkycKey:data.dkyc_key,
-                    mrpKey:data.mrp_key,
-                    ceKey:data.ce_key,
+                    minAge: data.min_age,
+                    maxAge: data.max_age,
+                    lmsScheme: data.lms_scheme,
+                    lmsSchemeRow: this.getRow(data.lms_scheme),
+                    lmsProduct: data.lms_product,
+                    lmsProductRow: this.getRow(data.lms_product),
+                    kyc: data.kyc,
+                    kycRow: this.getRow(data.kyc),
+                    mandate: data.mandate,
+                    mandateRow: this.getRow(data.mandate),
+                    bureauToCall: data.bureau_to_call,
+                    bureauToCallRow: this.getRow(data.bureau_to_call),
+                    paymentGateway: data.payment_gateway,
+                    paymentGatewayRow: this.getRow(data.payment_gateway),
+                    lmsDisbursal: data.lms_disbursal,
+                    lmsDisbursalRow: this.getRow(data.lms_disbursal),
+                    dkycVersion: data.dkyc_version,
+                    dkycVersionRow: this.getRow(data.dkyc_version),
+                    mrpVersion: data.mrp_version,
+                    mrpVersionRow: this.getRow(data.mrp_version),
+                    dkycKey: data.dkyc_key,
+                    mrpKey: data.mrp_key,
+                    ceKey: data.ce_key,
                     
-                })
+                    
+                });
+                if (response.data.data.partner_journey_id != "") {
+                    this.setState({
+                        startCheck: this.state.startCheck.add("1").add("2").add("3").add("4").add("5"),
+                        isValidScreen: false,
+                        lmsSchemeError: false,
+                        lmsProductError: false,
+                        bureauToCallError: false,
+                        kycError: false,
+                        mandateError: false,
+                        paymentGatewayError: false,
+                        lmsDisbursalError: false,
+                        dkycVersionError: false,
+                        mrpVersionError: false,
+                        ceApisError: false,
+                        
+                        
+                    
+                    });
+                    
+                } 
 
             }
                 

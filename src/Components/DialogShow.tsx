@@ -15,7 +15,7 @@ const DialogShow:React.FunctionComponent<Props>=(props) => {
     //     console.log("clicked")
     // }
   return (
-    <Popup open={props.openFlag} contentStyle={{width:"auto",padding:"0px"}}>
+    <Popup open={props.openFlag} contentStyle={{width:"42%",padding:"0px"}}>
       <div
         style={{
           border: "1px solid lightgray",
