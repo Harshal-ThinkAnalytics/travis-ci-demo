@@ -149,7 +149,7 @@ class AddJourney extends React.Component {
     }
     getProductIds = async() =>{
         try {
-            var response  = await sendRequest('/FetchB2BProductDetails', {},'GET')
+            var response  = await sendRequest('/FetchActiveProductDetails', {},'GET')
             console.log(response)
             if (response.data.success){
                 var ids=[]

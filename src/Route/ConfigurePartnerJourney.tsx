@@ -224,6 +224,11 @@ class ConfigurePartnerJourney extends React.Component<Props> {
             if (response.data.success){
                 var schemes=[]
                 for(var key in response.data.data){
+                    if(response.data.data[key]['schemeId']==this.state.lmsScheme){
+                        this.setState({
+                            lmsSchemeRow:{label:response.data.data[key]['schemeDesc'],value:response.data.data[key]['schemeId']}
+                        })
+                    }
                     schemes.push({label:response.data.data[key]['schemeDesc'],value:response.data.data[key]['schemeId']})
                 }
                 this.setState({
@@ -260,6 +265,11 @@ class ConfigurePartnerJourney extends React.Component<Props> {
             if (response.data.success){
                 var products=[]
                 for(var key in response.data.data){
+                    if(response.data.data[key]['productId']==this.state.lmsProduct){
+                        this.setState({
+                            lmsProductRow:{label:response.data.data[key]['productDesc'],value:response.data.data[key]['productId']}
+                        })
+                    }
                     products.push({label:response.data.data[key]['productDesc'],value:response.data.data[key]['productId']})
                 }
                 this.setState({
@@ -394,8 +404,14 @@ class ConfigurePartnerJourney extends React.Component<Props> {
         })
     } 
 
-    setCE = (ce:any) =>{
-        console.log(ce)
+    setCE = (ce:any,start?:boolean) =>{
+        if (start==true){
+            var cerows=[]
+            for (var key in ce){
+                cerows.push(this.getRow(ce[key]))
+            }
+            ce=cerows
+        }
         var row = []
         var apis = []
         for (var key in ce){
@@ -426,7 +442,7 @@ class ConfigurePartnerJourney extends React.Component<Props> {
             if (response.data.success){
                 var data =response.data.data[0]
                 console.log("data is",data)
-                this.setCE(data.ce_apis)
+                this.setCE(data.ce_api,true)
                 this.setState({
                     minAge:data.min_age,
                     maxAge:data.max_age,

@@ -121,7 +121,7 @@ class MapPartnerJourney extends React.Component {
     }
     getJourneys = async() =>{
         try {
-            var response  = await sendRequest('/FetchB2BJourneyDetails', {},'GET')
+            var response  = await sendRequest('/FetchActiveJourneyDetails', {},'GET')
             console.log(response)
             if (response.data.success){
                 var journeys=[]
@@ -142,7 +142,7 @@ class MapPartnerJourney extends React.Component {
 
     getPartners = async() =>{
         try {
-            var response  = await sendRequest('/FetchB2BPartnerDetails', {},'GET')
+            var response  = await sendRequest('/FetchActivePartnerDetails', {},'GET')
             console.log(response)
             if (response.data.success){
                 var partners=[]
