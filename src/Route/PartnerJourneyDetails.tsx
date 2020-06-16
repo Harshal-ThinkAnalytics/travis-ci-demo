@@ -41,10 +41,12 @@ export default class PartnerJourneyDetails extends React.Component {
         icon: null,
         index: "0",
         data:[],
-        dialog:false,
+        dialog_act: false,
+        dialog_del: false,
         passDialog:false,
         passId:'',
-        deletePartnerJourneyId:'',
+        deletePartnerJourneyId: '',
+        activatePartnerJourneyId:'',
         loading:true,
         encryptedPass:'loading...',
         refresh:false
@@ -117,22 +119,37 @@ export default class PartnerJourneyDetails extends React.Component {
         })
     }
     
-    setDialog=(rowData:any)=>{
+    setDialogDel=(rowData:any)=>{
         this.setState({
-            dialog:true,
+            dialog_del:true,
             deletePartnerJourneyId:rowData.partner_journey_id
         })
     }
-    hideDialog=()=>{
+    hideDialogDel=()=>{
         this.setState({
-            dialog:false
+            dialog_del:false
         })
     }
+
+    setDialogAct=(rowData:any)=>{
+        this.setState({
+            dialog_act:true,
+            activatePartnerJourneyId:rowData.partner_journey_id
+        })
+    }
+    hideDialogAct=()=>{
+        this.setState({
+            dialog_act:false
+        })
+    }
+
+
+
     deleteRow = async() =>{
         try {
             this.setState({
                 loading:true,
-                dialog:false
+                dialog_del:false
             })
             var response  = await sendRequest('/DeleteB2BPartnerJourneyMapping', {
                 partner_journey_id:Number(this.state.deletePartnerJourneyId)
@@ -148,11 +165,36 @@ export default class PartnerJourneyDetails extends React.Component {
             console.log(error)
           }
         this.setState({
-            deletePartnerId:'',
+            deletePartnerJourneyId:'',
             refresh:true
         })
     }  
     
+    activateRow = async() =>{
+        try {
+            this.setState({
+                loading:true,
+                dialog_act:false
+            })
+            var response  = await sendRequest('/EnableB2BPartnerJourneyMapping', {
+                partner_journey_id:Number(this.state.activatePartnerJourneyId)
+            },'POST')
+            console.log(response)
+            if (response.data.success){
+                console.log("Row activated Successfully")
+            }
+            else{
+                console.log("Error in deleting data.")
+            }
+          } catch (error) {
+            console.log(error)
+          }
+        this.setState({
+            activatePartnerJourneyId:'',
+            refresh:true
+        })
+    }
+
     getData = async() =>{
         try {
             var response  = await sendRequest('/FetchB2BPartnerJourneyMappings', {},'GET')
@@ -189,13 +231,15 @@ export default class PartnerJourneyDetails extends React.Component {
         return (
             <DetailsWrapper>
                 <Loading open={this.state.loading}/>
-                <DialogShow openFlag={this.state.dialog} onButtonClick={this.deleteRow} onHide={this.hideDialog} 
+                <DialogShow openFlag={this.state.dialog_del} onButtonClick={this.deleteRow} onHide={this.hideDialogDel} 
                     msg={"Are you sure you want to delete?"} buttonText={"Confirm"} heading={'Alert'}
                 />
                 <DialogShow openFlag={this.state.passDialog} onButtonClick={this.hidePassDialog} onHide={this.hidePassDialog} 
                     msg={this.state.encryptedPass} buttonText={"OK"} heading={'Password'}
                 />
-
+                <DialogShow openFlag={this.state.dialog_act} onButtonClick={this.activateRow} onHide={this.hideDialogAct} 
+                    msg={"Are you sure you want to activate API?"} buttonText={"Confirm"} heading={'Alert'}
+                />
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}
                 <button onClick={() => {
@@ -205,7 +249,7 @@ export default class PartnerJourneyDetails extends React.Component {
                    }}>+ Map New Partner</button>
             </div>
             <div className="table">
-                <PartnerJourneyTable data={this.state.data} columns={this.columns} title={"PartnerJourney"} setDialog={this.setDialog} setPassDialog={this.setPassDialog}/>
+                <PartnerJourneyTable data={this.state.data} columns={this.columns} title={"PartnerJourney"} setDialogDel={this.setDialogDel} setDialogAct={this.setDialogAct} setPassDialog={this.setPassDialog}/>
             </div>
             </DetailsWrapper>
 

@@ -24,7 +24,8 @@ interface Props {
     data: any;
     columns:any;
     title:string;
-    setDialog:any;
+    setDialogDel: any;
+    setDialogAct:any;
     setPassDialog:any;
 }
 
@@ -93,11 +94,16 @@ const Table:React.FunctionComponent<Props>=(props)=>{
               console.log(rowData)
               changePathToScope(props.title,rowData)
           }
-      },
+        },
+        {
+          icon: () => <Check />,
+          tooltip: 'Activate',
+          onClick: (event, rowData) => { props.setDialogAct(rowData) }
+        },
         {
           icon: () => <DeleteOutline />,
           tooltip: 'Delete',
-          onClick: (event, rowData) => props.setDialog(rowData)
+          onClick: (event, rowData) => props.setDialogDel(rowData)
         }
       ]
     }

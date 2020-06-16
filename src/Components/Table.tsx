@@ -24,7 +24,8 @@ interface Props {
     data: any;
     columns:any;
     title:string;
-    setDialog:any;
+    setDialogAct:any;
+    setDialogDel:any;
 }
 
 
@@ -67,20 +68,28 @@ const Table:React.FunctionComponent<Props>=(props)=>{
            fontSize:"13px"
            // fontFamily: '"Georgia", "Times New Roman", "Times", serif'
        }}
-       actions={[
+            actions={[
+                {
+                    icon: () => <Edit />,
+                    tooltip: 'Edit',
+                    onClick: (event, rowData) => {
+                        console.log(rowData)
+                        changePath(props.title,rowData)
+                    }
+                },
+
         {
-            icon: () => <Edit />,
-            tooltip: 'Edit',
-            onClick: (event, rowData) => {
-                console.log(rowData)
-                changePath(props.title,rowData)
-            }
+            icon: () => <Check />,
+            tooltip: 'Activate',
+            onClick: (event, rowData) => { props.setDialogAct(rowData) }
+                },
+        {
+            icon: () => <DeleteOutline />,
+            tooltip: 'Delete',
+            onClick: (event, rowData) => { props.setDialogDel(rowData) }
         },
-        {
-          icon: () => <DeleteOutline />,
-          tooltip: 'Delete',
-          onClick: (event, rowData) => props.setDialog(rowData)
-        }
+        
+        
       ]
     }
 
