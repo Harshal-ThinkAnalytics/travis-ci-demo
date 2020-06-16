@@ -238,7 +238,7 @@ export default class PartnerJourneyDetails extends React.Component {
                     msg={this.state.encryptedPass} buttonText={"OK"} heading={'Password'}
                 />
                 <DialogShow openFlag={this.state.dialog_act} onButtonClick={this.activateRow} onHide={this.hideDialogAct} 
-                    msg={"Are you sure you want to activate API?"} buttonText={"Confirm"} heading={'Alert'}
+                    msg={"Are you sure you want to activate this Partner Journey Config?"} buttonText={"Confirm"} heading={'Alert'}
                 />
                  <div className="topDiv">
                 {/* <h1>Users</h1> */}
