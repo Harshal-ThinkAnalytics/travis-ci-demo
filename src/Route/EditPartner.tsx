@@ -98,6 +98,7 @@ class EditPartner extends React.Component<Props> {
             var response  = await sendRequest('/SaveB2BPartnerDetails', {
                 partner_id:Number(this.state.partnerId),
                 contact_person_name:this.state.contactPerson,
+                partner_name:this.state.partnerName,
                 active:true,
                 address:this.state.address,
                 email_id:this.state.emailId,

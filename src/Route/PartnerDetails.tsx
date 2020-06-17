@@ -50,6 +50,12 @@ export default class PartnerDetails extends React.Component {
     }
     columns=[
         {
+            title: 'Partner Name', field: 'partner_name',
+            cellStyle: {
+                border: 'solid #f2f3f6 3px',
+            },
+        },
+        {
             title: 'Partner Id', field: 'partner_id',
             cellStyle: {
                 border: 'solid #f2f3f6 3px',
