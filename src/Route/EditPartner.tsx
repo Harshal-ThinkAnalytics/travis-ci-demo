@@ -74,7 +74,7 @@ class EditPartner extends React.Component<Props> {
     state = {
         partnerId: this.data.partner_id,
         partnerIdError: false,
-        partnerName:'',
+        partnerName:this.data.partner_name,
         partnerNameError:false,
         address: this.data.address,
         addressError: false,
@@ -153,7 +153,7 @@ class EditPartner extends React.Component<Props> {
 
     handleNameChange = (value:string) => {
 
-        const filteredValue = value.replace(/[^a-z^A-Z]/g,'')
+        const filteredValue = value.replace(/[^a-z^A-Z^\s]/g,'')
         this.setState({
             partnerName: filteredValue,
             isValidScreen:false,
