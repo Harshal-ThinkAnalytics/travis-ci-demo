@@ -123,7 +123,7 @@ class AddPartner extends React.Component {
 
     handleNameChange = (value:string) => {
 
-        const filteredValue = value.replace(/[^a-z^A-Z]/g,'')
+        const filteredValue = value.replace(/[^a-z^A-Z^\s]/g,'')
         this.setState({
             partnerName: filteredValue,
             isValidScreen:false,
