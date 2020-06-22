@@ -31,6 +31,7 @@ const Dropdown: React.FunctionComponent<Props> = (props) => {
         className="dropdown"
         placeholder={props.placeholder}
         isMulti = {props.isMulti? true:false}
+        closeMenuOnSelect = {props.isMulti?false:true}
         components={{
           IndicatorSeparator: () => null
         }}
