@@ -244,39 +244,55 @@ class AddJourney extends React.Component {
 
     validateLoanAmountChange = () => {
         console.log("inside validate MinTenureChange")
-        if ((Number(this.state.minLoanAmount) > Number(this.state.maxLoanAmount)) || 
-        (this.state.minLoanAmount.length < 2 && this.state.maxLoanAmount.length < 2) ) {
-            this.setState({
-                maxLoanAmountError: true,
-                minLoanAmountError:true
-            });
-        } else {
+        if (this.state.startCheck.has("3") && (this.state.startCheck.has("4"))) {
+
+            if ((Number(this.state.minLoanAmount) > Number(this.state.maxLoanAmount)) ||
+                (this.state.minLoanAmount.length < 2 && this.state.maxLoanAmount.length < 2)) {
+                this.setState({
+                    maxLoanAmountError: true,
+                    minLoanAmountError: true
+                });
+            } else {
             
                 if (this.state.minLoanAmount.length < 2) {
                     this.setState({
                         minLoanAmountError: true,
-                        maxLoanAmountError:false
+                        maxLoanAmountError: false
                     });
         
                 } else if (this.state.maxLoanAmount.length < 2) {
                     this.setState({
                         minLoanAmountError: false,
-                        maxLoanAmountError:true
+                        maxLoanAmountError: true
                     });
                 } else {
                     this.setState({
                         minLoanAmountError: false,
-                        maxLoanAmountError:false
-                    },()=>{
+                        maxLoanAmountError: false
+                    }, () => {
                         this.setState({
                             isValidScreen: (!this.state.productIdError && !this.state.journeyNameError &&
                                 !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
                                 !this.state.minTenureError && !this.state.maxTenureError &&
-                                (this.state.startCheck.size==5))
+                                (this.state.startCheck.size == 5))
                         });
                     });
                     
                 }
+            }
+        } else {
+            if (this.state.minLoanAmount.length < 2 && this.state.startCheck.has("3")) {
+                this.setState({
+                    minLoanAmountError: true,
+                    
+                });
+    
+            }
+            if (this.state.maxLoanAmount.length < 2 && this.state.startCheck.has("4")) {
+                this.setState({
+                    maxLoanAmountError: true
+                });
+            }
         }
     }
 
@@ -306,40 +322,54 @@ class AddJourney extends React.Component {
 
     validateTenureChange = () => {
         console.log("inside validate MinTenureChange")
-        if ((Number(this.state.minTenure) > Number(this.state.maxTenure)) || 
-        (this.state.minTenure.length < 2 && this.state.maxTenure.length < 2) ) {
-            this.setState({
-                maxTenureError: true,
-                minTenureError:true
-            });
-        } else {
+        if (this.state.startCheck.has("5") && (this.state.startCheck.has("6"))) {
+            if ((Number(this.state.minTenure) > Number(this.state.maxTenure)) ||
+                (this.state.minTenure.length < 2 && this.state.maxTenure.length < 2)) {
+                this.setState({
+                    maxTenureError: true,
+                    minTenureError: true
+                });
+            } else {
             
                 if (this.state.minTenure.length < 2) {
                     this.setState({
                         minTenureError: true,
-                        maxTenureError:false
+                        maxTenureError: false
                     });
         
                 } else if (this.state.maxTenure.length < 2) {
                     this.setState({
                         minTenureError: false,
-                        maxTenureError:true
+                        maxTenureError: true
                     });
                 } else {
                     this.setState({
                         minTenureError: false,
-                        maxTenureError:false
-                    },()=>{
+                        maxTenureError: false
+                    }, () => {
                         this.setState({
                             isValidScreen: (!this.state.productIdError && !this.state.journeyNameError &&
                                 !this.state.maxLoanAmountError && !this.state.minLoanAmountError &&
                                 !this.state.minTenureError && !this.state.maxTenureError &&
-                                (this.state.startCheck.size==5))
+                                (this.state.startCheck.size == 5))
                         });
                     });
                     
                 }
-        }
+            }
+            } else {
+                if (this.state.minTenure.length < 2 && this.state.startCheck.has("5")) {
+                    this.setState({
+                        minTenureError: true                    
+                    });
+        
+                }
+                if (this.state.maxTenure.length < 2 && this.state.startCheck.has("6")) {
+                    this.setState({
+                        maxTenureError: true
+                    });
+                }
+            }
     }
 
     handleMaxTenureChange = (value: string) => {

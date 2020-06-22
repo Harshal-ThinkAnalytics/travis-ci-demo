@@ -545,45 +545,59 @@ class ConfigurePartnerJourney extends React.Component<Props> {
 
     validateAgeChange = () => {
         console.log("inside validate TenureChange")
-        if ((Number(this.state.minAge) > Number(this.state.maxAge)) ||
-            (Number(this.state.minAge) < 20 && Number(this.state.maxAge) < 25)) {
-            this.setState({
-                maxAgeError: true,
-                minAgeError: true
-            });
-        } else {
-            
-            if (Number(this.state.minAge) < 20) {
+        if (this.state.startCheck.has("1") && (this.state.startCheck.has("2"))) {
+            if ((Number(this.state.minAge) > Number(this.state.maxAge)) ||
+                (Number(this.state.minAge) < 20 && Number(this.state.maxAge) < 25)) {
                 this.setState({
-                    minAgeError: true,
-                    maxAgeError: false
-                });
-        
-            } else if (Number(this.state.maxAge) < 25) {
-                this.setState({
-                    minAgeError: false,
-                    maxAgeError: true
+                    maxAgeError: true,
+                    minAgeError: true
                 });
             } else {
-                this.setState({
-                    minAgeError: false,
-                    maxAgeError: false,
-                });
-                this.setState({
-                    minAgeError: false,
-                    maxAgeError: false,
-                }, () => {
-                    console.log(this.state.minAgeError, this.state.maxAgeError)
+            
+                if (Number(this.state.minAge) < 20) {
                     this.setState({
-                        isValidScreen: (!this.state.lmsSchemeError && !this.state.lmsProductError &&
-                            !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
-                            && !this.state.bureauToCallError && !this.state.mandateError &&
-                            !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
-                            !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError
-                            && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError
-                            && (this.state.startCheck.size == 5)),
+                        minAgeError: true,
+                        maxAgeError: false
                     });
+        
+                } else if (Number(this.state.maxAge) < 25) {
+                    this.setState({
+                        minAgeError: false,
+                        maxAgeError: true
+                    });
+                } else {
+                    this.setState({
+                        minAgeError: false,
+                        maxAgeError: false,
+                    });
+                    this.setState({
+                        minAgeError: false,
+                        maxAgeError: false,
+                    }, () => {
+                        console.log(this.state.minAgeError, this.state.maxAgeError)
+                        this.setState({
+                            isValidScreen: (!this.state.lmsSchemeError && !this.state.lmsProductError &&
+                                !this.state.minAgeError && !this.state.maxAgeError && !this.state.kycError
+                                && !this.state.bureauToCallError && !this.state.mandateError &&
+                                !this.state.paymentGatewayError && !this.state.lmsDisbursalError &&
+                                !this.state.dkycVersionError && !this.state.mrpVersionError && !this.state.ceApisError
+                                && !this.state.dkycKeyError && !this.state.mrpKeyError && !this.state.ceKeyError
+                                && (this.state.startCheck.size == 5)),
+                        });
 
+                    });
+                }
+            }
+        } else {
+            if (Number(this.state.minAge) < 20 && this.state.startCheck.has("1")) {
+                this.setState({
+                    minAgeError: true
+                });
+    
+            }
+            if (Number(this.state.maxAge) < 25 && this.state.startCheck.has("2")) {
+                this.setState({
+                    maxAgeError: true
                 });
             }
         }
@@ -759,7 +773,7 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                     cltype={this.state.minAgeError}
                 />
                  <ErrorMessage show={this.state.minAgeError} className="error-message">
-                    Please enter minimum age
+                    Enter valid minimum age
                  </ErrorMessage>
                     </Mystyle2>
                 </Mystyle>
@@ -780,7 +794,7 @@ class ConfigurePartnerJourney extends React.Component<Props> {
                     cltype={this.state.maxAgeError}
                 />
                  <ErrorMessage show={this.state.maxAgeError} className="error-message">
-                    Please enter maximum age
+                    Enter valid maximum age
                  </ErrorMessage>
                     </Mystyle2>
                 </Mystyle>
