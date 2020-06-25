@@ -25,7 +25,7 @@ import sendRequest from "./utils/sendRequest";
 import {useAuth} from './contexts/UserContext'
 import Loading from './Components/Loading';
 
-function App() 
+function App() {
   const { authenticated, setAuthenticated } = useAuth()!;
   const [loading,setLoading]=useState(false)
   useEffect(()=>{
