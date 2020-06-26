@@ -13,7 +13,7 @@ install:
 script:
   - npm run build
   
-deploy:
+after_script:
   - docker login -u harshal.marathe@thinkanalytics.in -p Ichigo@2020
   - docker build build/. -t harshalthink/jenk-frontend-demo
   - docker push harshalthink/jenk-frontend-demo
