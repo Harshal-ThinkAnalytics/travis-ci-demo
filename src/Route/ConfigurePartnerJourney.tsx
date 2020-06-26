@@ -591,7 +591,7 @@ class ConfigurePartnerJourney extends React.Component<Props> {
         } else {
             if (Number(this.state.minAge) < 20 && this.state.startCheck.has("1")) {
                 this.setState({
-                    minAgeError: tru
+                    minAgeError: true
                 });
     
             }
