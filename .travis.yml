@@ -5,8 +5,8 @@ node_js:
 services:
   - docker
 
-CI:
-  - set to false
+env:
+  - CI=false
 install:
   - npm install
   
