@@ -14,6 +14,6 @@ script:
   - npm run build
   
 after_script:
-  - docker login -u harshal.marathe@thinkanalytics.in -p Ichigo@2020
-  - docker build build/. -t harshalthink/jenk-frontend-demo
+  - docker login -u harshal.marathe@thinkanalytics.in -p Ichigo@2020 registry.docker.com
+  - docker build . -t harshalthink/jenk-frontend-demo
   - docker push harshalthink/jenk-frontend-demo
