@@ -4,7 +4,9 @@ node_js:
   
 services:
   - docker
-  
+
+CI:
+  - set to false
 install:
   - npm install
   
